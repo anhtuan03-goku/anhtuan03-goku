@@ -889,141 +889,138 @@ body.modal-open .org-card:hover{
 
 
 
-/* ===== Secretary as independent monitoring lane ===== */
-.post-ceo-layout{
-  display:grid;
-  grid-template-columns:190px minmax(0,1fr);
-  gap:18px;
-  align-items:stretch;
-  width:100%;
-  max-width:100%;
-  margin-top:16px;
-}
-
-.hierarchy-main{
-  min-width:0;
-  width:100%;
-  max-width:100%;
-}
-
-.secretary-monitor{
+/* ===== Simple secretary marker ===== */
+.org-chart{
   position:relative;
-  min-width:0;
-  padding-right:14px;
-  border-right:1px solid #e5e7eb;
 }
 
-.secretary-monitor-label{
-  margin:0 0 10px;
-  font-size:10px;
+.secretary-simple{
+  position:absolute;
+  z-index:20;
+  left:6px;
+  top:118px;
+  width:158px;
+  pointer-events:auto;
+}
+
+.secretary-simple-label{
+  margin:0 0 5px 2px;
+  font-size:9px;
+  line-height:1;
   font-weight:850;
   letter-spacing:.08em;
   text-transform:uppercase;
   color:var(--c-secretary);
 }
 
-.secretary-monitor .support-card{
-  position:relative;
-  z-index:2;
+.secretary-simple .support-card{
   width:100%;
-  min-height:116px;
-  margin:0;
-  border-style:solid;
-  border-color:color-mix(in srgb,var(--c-secretary) 34%,#d9d9d9);
+  min-height:auto;
+  padding:10px 10px 9px;
+  border:1.5px dashed var(--c-secretary);
+  border-radius:12px;
+  background:#fff;
+  box-shadow:0 4px 14px rgba(0,0,0,.04);
   --manager-color:var(--c-ceo);
   --self-color:var(--c-secretary);
 }
 
-.secretary-monitor .support-card .org-role{
-  font-size:14px;
+.secretary-simple .support-card::before{
+  background:var(--c-secretary);
+  height:3px;
 }
 
-.secretary-monitor .support-card .org-summary{
-  font-size:11px;
+.secretary-simple .support-card::after{
+  display:none;
+}
+
+.secretary-simple .org-role{
+  margin:0 0 3px;
+  font-size:12px;
+  line-height:1.2;
+}
+
+.secretary-simple .org-summary{
+  margin:0;
+  font-size:9.5px;
   line-height:1.35;
+  color:#666;
 }
 
-.secretary-rail{
-  position:relative;
-  height:calc(100% - 144px);
-  min-height:540px;
-  margin-top:12px;
-  margin-left:20px;
-  border-left:3px dashed var(--c-secretary);
-  opacity:.92;
+.secretary-simple .card-source-column{
+  margin-top:7px;
+  padding-top:6px;
+  border-top:1px dashed color-mix(in srgb,var(--c-secretary) 30%,#ddd);
 }
 
-.secretary-rail::before{
+.secretary-simple .card-source-link{
+  width:24px;
+  height:24px;
+  flex-basis:24px;
+  font-size:9.5px;
+}
+
+/* One subtle dashed line suggests monitoring coverage without occupying layout space. */
+.secretary-simple::after{
   content:"";
   position:absolute;
-  left:-7px;
-  top:-5px;
-  width:11px;
-  height:11px;
-  border-radius:50%;
-  background:var(--c-secretary);
-  box-shadow:0 0 0 4px #fff;
+  left:18px;
+  top:100%;
+  width:1px;
+  height:520px;
+  border-left:2px dashed color-mix(in srgb,var(--c-secretary) 55%,transparent);
+  opacity:.7;
+  pointer-events:none;
 }
 
-.secretary-checkpoint{
+.secretary-simple::before{
+  content:"";
   position:absolute;
-  left:-7px;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  color:var(--c-secretary);
-  white-space:nowrap;
-}
-
-.secretary-checkpoint:nth-child(1){top:12%}
-.secretary-checkpoint:nth-child(2){top:48%}
-.secretary-checkpoint:nth-child(3){top:84%}
-
-.secretary-dot{
-  width:11px;
-  height:11px;
-  flex:0 0 11px;
+  left:15px;
+  top:calc(100% + 514px);
+  width:8px;
+  height:8px;
   border-radius:50%;
   background:var(--c-secretary);
-  box-shadow:0 0 0 4px #fff;
+  opacity:.75;
+  pointer-events:none;
 }
 
-.secretary-checkpoint-label{
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:.02em;
-}
-
-.post-ceo-layout .direct-connector,
-.post-ceo-layout .level-block{
-  width:100%;
-  max-width:100%;
-}
-
-/* Old centered secretary connector is intentionally disabled. */
+/* The old centered secretary row is intentionally removed. */
 .support-row,
 .support-line{
   display:none !important;
 }
 
 @media(max-width:1100px){
-  .post-ceo-layout{
-    grid-template-columns:160px minmax(0,1fr);
-    gap:14px;
+  .secretary-simple{
+    left:4px;
+    top:116px;
+    width:142px;
   }
-  .secretary-monitor{padding-right:10px}
-  .secretary-checkpoint-label{font-size:9px}
+
+  .secretary-simple::after{
+    height:480px;
+  }
+
+  .secretary-simple::before{
+    top:calc(100% + 474px);
+  }
 }
 
-@media(max-width:760px){
-  .post-ceo-layout{
-    grid-template-columns:130px minmax(0,1fr);
-    gap:10px;
+@media(max-width:820px){
+  .secretary-simple{
+    position:relative;
+    left:auto;
+    top:auto;
+    width:150px;
+    margin:0 0 12px 0;
   }
-  .secretary-monitor .support-card{padding:10px}
-  .secretary-monitor .support-card .org-role{font-size:12px}
-  .secretary-monitor .support-card .org-summary{font-size:10px}
-  .secretary-checkpoint-label{display:none}
+
+  .secretary-simple::after,
+  .secretary-simple::before{
+    display:none;
+  }
 }
 </style>
 </head>
@@ -1040,7 +1037,10 @@ body.modal-open .org-card:hover{
 <section class="section">
 <h2 class="section-title">1. Sơ đồ tổ chức</h2>
 <div class="panel org-shell">
-<div class="org-chart">
+<div class="org-chart"><div class="secretary-simple"><div class="secretary-simple-label">Executive support</div><div class="org-card support-card mgr-ceo-support" data-desc="Hỗ trợ CEO và giám sát toàn diện hoạt động của các cấp bên dưới." data-manager="CEO" data-role="Thư ký CEO" data-sources="6"><div class="card-main">
+<div class="org-role">Thư ký CEO</div>
+<div class="org-summary">Hỗ trợ CEO · giám sát toàn diện</div>
+</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/langfuse/langfuse" rel="noopener noreferrer" target="_blank" title="Source 6">6</a></div></div></div>
 <div class="level-block">
 <div class="level-label">Cấp quản trị</div>
 <div class="level-row one">
@@ -1054,19 +1054,19 @@ body.modal-open .org-card:hover{
 <div class="level-block">
 <div class="level-label">Cấp điều hành cao nhất</div>
 <div class="level-row one">
-<div class="org-card top-card ceo-card mgr-bod self-ceo" data-desc="Điều hành tổng thể; quản lý CCO, COO, Finance và Pháp chế. Thư ký CEO hỗ trợ CEO và giám sát toàn diện các cấp bên dưới." data-manager="BOD" data-role="CEO" data-sources="1,2,3,8"><div class="card-main">
+<div class="org-card top-card ceo-card mgr-bod self-ceo" data-desc="Điều hành tổng thể; quản lý CCO, COO, Finance và Pháp chế. Thư ký CEO hỗ trợ và giám sát toàn diện." data-manager="BOD" data-role="CEO" data-sources="1,2,3,8"><div class="card-main">
 <div class="org-role">CEO</div>
 <div class="org-summary">Điều hành tổng thể</div>
 </div><div class="card-source-column"><a class="card-source-link" href="https://github.com/OpenBMB/ChatDev" rel="noopener noreferrer" target="_blank" title="Source 1">1</a><a class="card-source-link" href="https://github.com/BerriAI/self-improving-agent" rel="noopener noreferrer" target="_blank" title="Source 2">2</a><a class="card-source-link" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank" title="Source 3">3</a><a class="card-source-link" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank" title="Source 8">8</a></div></div>
 </div>
-</div><div class="post-ceo-layout"><aside class="secretary-monitor"><div class="secretary-monitor-label">Giám sát toàn diện</div><div class="org-card support-card mgr-ceo-support" data-desc="Hỗ trợ CEO và giám sát xuyên suốt Cấp điều hành, Cấp Lead và Cấp thực thi." data-manager="CEO" data-role="Thư ký CEO" data-sources="6"><div class="card-main">
-<div class="org-role">Thư ký CEO</div>
-<div class="org-summary">Giám sát toàn diện dưới CEO</div>
-</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/langfuse/langfuse" rel="noopener noreferrer" target="_blank" title="Source 6">6</a></div></div><div aria-hidden="true" class="secretary-rail"><div class="secretary-checkpoint"><span class="secretary-dot"></span><span class="secretary-checkpoint-label">Điều hành</span></div><div class="secretary-checkpoint"><span class="secretary-dot"></span><span class="secretary-checkpoint-label">Lead</span></div><div class="secretary-checkpoint"><span class="secretary-dot"></span><span class="secretary-checkpoint-label">Thực thi</span></div></div></aside><div class="hierarchy-main"><div aria-hidden="true" class="direct-connector exec-direct">
+</div>
+
+<div aria-hidden="true" class="direct-connector exec-direct">
 <svg preserveaspectratio="none" viewbox="0 0 1000 70">
 <path class="rel-ceo" d="M500 0 V22 H180 V70 M500 22 H520 V70 M500 22 H760 V70 M500 22 H920 V70"></path>
 </svg>
-</div><div class="level-block level-exec">
+</div>
+<div class="level-block level-exec">
 <div class="level-label">Cấp điều hành</div>
 <div class="level-row exec">
 <div class="org-card peer-exec mgr-ceo self-cco" data-desc="Quản lý Lead MKT, Lead Sale và Lead Customer." data-manager="CEO" data-role="CCO" data-sources="1,3,5,8,11"><div class="card-main">
@@ -1091,14 +1091,16 @@ body.modal-open .org-card:hover{
 </div><div class="card-source-column"><a class="card-source-link" href="https://github.com/open-policy-agent/opa" rel="noopener noreferrer" target="_blank" title="Source 7">7</a></div></div>
 </div>
 <div class="peer-note">CCO và COO là hai khối điều hành chính; Finance và Pháp chế là các chức năng trực thuộc CEO.</div>
-</div><div aria-hidden="true" class="direct-connector lead-direct">
+</div>
+<div aria-hidden="true" class="direct-connector lead-direct">
 <svg preserveaspectratio="none" viewbox="0 0 1000 86">
 <!-- CCO -> Lead MKT / Lead Sale / Lead Customer -->
 <path class="rel-cco" d="M180 0 V26 H625 M125 26 V86 M375 26 V86 M625 26 V86"></path>
 <!-- COO -> Lead Kế hoạch / Vận hành (separate lane to avoid crossing) -->
 <path class="rel-coo" d="M520 0 V12 H875 V86"></path>
 </svg>
-</div><div class="level-block level-leads">
+</div>
+<div class="level-block level-leads">
 <div class="level-label">Cấp Lead</div>
 <div class="level-row leads">
 <div class="org-card peer-lead mgr-cco self-lead-mkt" data-desc="Quản lý MKT 1, MKT 2, MKT 3. Source 4 được dự kiến mở rộng sau." data-manager="CCO" data-role="Lead MKT" data-sources="3,5,8,11,4"><div class="card-main">
@@ -1123,7 +1125,8 @@ body.modal-open .org-card:hover{
 </div><div class="card-source-column"><span class="card-source-empty" title="Chưa chỉ định source">—</span></div></div>
 </div>
 <div class="peer-note">Lead MKT · Lead Sale · Lead Customer · Lead Kế hoạch/Vận hành.</div>
-</div><div aria-hidden="true" class="direct-connector agent-direct">
+</div>
+<div aria-hidden="true" class="direct-connector agent-direct">
 <svg preserveaspectratio="none" viewbox="0 0 1000 94">
 <!-- Lead MKT -> MKT 1 / 2 / 3 -->
 <path class="rel-lead-mkt" d="M125 0 V24 H62.5 V94 M125 24 H187.5 V94 M125 24 H312.5 V94"></path>
@@ -1134,7 +1137,8 @@ body.modal-open .org-card:hover{
 <!-- Lead KH/VH -> Onboard / Support / Incident -->
 <path class="rel-lead-ops" d="M875 0 V24 H687.5 V94 M875 24 H812.5 V94 M875 24 H937.5 V94"></path>
 </svg>
-</div><div class="level-block level-agents">
+</div>
+<div class="level-block level-agents">
 <div class="level-label">Cấp thực thi</div>
 <div class="level-row agents">
 <div class="org-card peer-agent mgr-lead-mkt" data-desc="Agent thực thi thuộc nhóm Marketing." data-manager="Lead MKT" data-role="MKT 1" data-sources="3,5,11"><div class="card-main">
@@ -1179,14 +1183,7 @@ body.modal-open .org-card:hover{
 </div><div class="card-source-column"><span class="card-source-empty" title="Chưa chỉ định source">—</span></div></div>
 </div>
 <div class="peer-note">Các agent thực thi; chip bên dưới cho biết agent thuộc Lead nào.</div>
-</div></div></div>
-
-
-
-
-
-
-
+</div>
 <div class="peer-note">
           Mỗi màu thể hiện quan hệ với cấp trên trực tiếp. Card con dùng cùng màu với đường nối từ manager trực tiếp của nó.
         </div>
