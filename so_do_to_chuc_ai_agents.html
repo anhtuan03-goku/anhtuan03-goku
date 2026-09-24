@@ -1092,38 +1092,173 @@ body.modal-open .org-card:hover{
   }
 }
 
-/* ===== Extended CEO connector to lower levels ===== */
+/* ===== Unified CEO axis ===== */
+/*
+  One continuous vertical axis runs from below CEO to the executive branch point.
+  The SVG below only draws the horizontal fan-out and child drops.
+*/
 .secretary-safe-row{
   position:relative;
+  --hierarchy-gutter-left:26px;
+  --hierarchy-center-x:calc(
+    var(--hierarchy-gutter-left) +
+    (100% - var(--hierarchy-gutter-left)) / 2
+  );
 }
 
+/* Single CEO axis through the secretary spacing */
 .secretary-safe-row::before{
   content:"";
   position:absolute;
-  left:50%;
+  left:var(--hierarchy-center-x);
   top:-6px;
-  bottom:-4px;
-  width:4px;
+  height:calc(100% + 30px);
+  width:5px;
   border-radius:999px;
   background:var(--c-ceo);
   transform:translateX(-50%);
-  z-index:0;
+  z-index:2;
   pointer-events:none;
 }
 
-/* Keep the small secretary elbow on the left, but ensure the main CEO stem stays visible */
+/*
+  Continue THE SAME axis inside the first connector area until the exact
+  horizontal branch point (22px). This visually behaves as one shaft:
+  no second SVG vertical line exists anymore.
+*/
+.hierarchy-after-secretary .exec-direct{
+  position:relative;
+  margin-top:-8px;
+}
+
+.hierarchy-after-secretary .exec-direct::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:0;
+  height:24px;
+  width:5px;
+  border-radius:999px;
+  background:var(--c-ceo);
+  transform:translateX(-50%);
+  z-index:3;
+  pointer-events:none;
+}
+
+/* SVG only handles branching from the unified axis */
+.hierarchy-after-secretary .exec-direct .rel-ceo{
+  stroke-width:5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* Hide any decorative layer over the joint so it stays visually clean */
+.hierarchy-after-secretary .exec-direct::after{
+  z-index:0;
+}
+
+/* Keep secretary's own small monitoring elbow separate on the left */
 .secretary-safe-row::after{
   z-index:1;
 }
 
-/* Make the first executive connector visually continue from the CEO stem */
+@media(max-width:900px){
+  .secretary-safe-row{
+    --hierarchy-gutter-left:20px;
+  }
+}
+
+@media(max-width:560px){
+  .secretary-safe-row{
+    --hierarchy-gutter-left:16px;
+  }
+}
+
+
+
+/* ===== Compact CEO -> executive spacing ===== */
+.direct-connector.exec-direct{
+  height:56px;
+}
+
+/* Secretary row is intentionally compact so it does not stretch the CEO axis. */
+.secretary-safe-row{
+  min-height:62px;
+  height:62px;
+  margin:6px 0 0;
+  align-items:flex-start;
+}
+
+.secretary-simple{
+  width:158px;
+  min-width:158px;
+}
+
+.secretary-simple .support-card{
+  padding:7px 9px 7px;
+  min-height:58px;
+  gap:5px;
+}
+
+.secretary-simple .org-role{
+  margin:0 0 2px;
+  font-size:11.5px;
+}
+
+.secretary-simple .org-summary{
+  font-size:9px;
+  line-height:1.2;
+}
+
+.secretary-simple .card-source-column{
+  margin-top:4px;
+  padding-top:4px;
+  gap:4px;
+}
+
+.secretary-simple .card-source-link{
+  width:21px;
+  height:21px;
+  flex-basis:21px;
+  font-size:9px;
+}
+
+/* Short single CEO shaft. */
+.secretary-safe-row::before{
+  top:-4px;
+  height:calc(100% + 8px);
+  width:4px;
+}
+
+/* Bring the branch point close to the secretary row. */
 .hierarchy-after-secretary .exec-direct{
   margin-top:-2px;
 }
-.hierarchy-after-secretary .exec-direct .rel-ceo{
-  stroke-width:5;
+
+.hierarchy-after-secretary .exec-direct::before{
+  top:0;
+  height:18px;
+  width:4px;
 }
 
+/* Ensure the horizontal branch starts at the same 16px junction. */
+.hierarchy-after-secretary .exec-direct .rel-ceo{
+  stroke-width:4;
+}
+
+@media(max-width:900px){
+  .secretary-safe-row{
+    min-height:60px;
+    height:60px;
+  }
+}
+
+@media(max-width:560px){
+  .secretary-safe-row{
+    min-height:58px;
+    height:58px;
+  }
+}
 </style>
 </head>
 <body>
@@ -1158,12 +1293,12 @@ body.modal-open .org-card:hover{
 <div class="org-summary">Điều hành tổng thể</div>
 </div><div class="card-source-column"><a class="card-source-link" href="https://github.com/OpenBMB/ChatDev" rel="noopener noreferrer" target="_blank" title="Source 1">1</a><a class="card-source-link" href="https://github.com/BerriAI/self-improving-agent" rel="noopener noreferrer" target="_blank" title="Source 2">2</a><a class="card-source-link" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank" title="Source 3">3</a><a class="card-source-link" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank" title="Source 8">8</a></div></div>
 </div>
-</div><div class="secretary-safe-row"><div class="secretary-simple"><div class="secretary-simple-label">Executive support</div><div class="org-card support-card mgr-ceo-support" data-desc="Hỗ trợ CEO và giám sát toàn diện hoạt động của các cấp bên dưới." data-manager="CEO" data-role="Thư ký CEO" data-sources="6"><div class="card-main">
+</div><div class="secretary-safe-row"><div class="secretary-simple"><div class="org-card support-card mgr-ceo-support" data-desc="Hỗ trợ CEO và giám sát toàn diện hoạt động của các cấp bên dưới." data-manager="CEO" data-role="Thư ký CEO" data-sources="6"><div class="card-main">
 <div class="org-role">Thư ký CEO</div>
 <div class="org-summary">Hỗ trợ CEO · giám sát toàn diện</div>
 </div><div class="card-source-column"><a class="card-source-link" href="https://github.com/langfuse/langfuse" rel="noopener noreferrer" target="_blank" title="Source 6">6</a></div></div></div></div><div class="hierarchy-after-secretary"><div aria-hidden="true" class="direct-connector exec-direct">
-<svg preserveaspectratio="none" viewbox="0 0 1000 70">
-<path class="rel-ceo" d="M500 0 V22 H180 V70 M500 22 H520 V70 M500 22 H760 V70 M500 22 H920 V70"></path>
+<svg preserveaspectratio="none" viewBox="0 0 1000 56" viewbox="0 0 1000 56">
+<path class="rel-ceo" d="M500 16 H180 V56 M500 16 H520 V56 M500 16 H760 V56 M500 16 H920 V56"></path>
 </svg>
 </div><div class="level-block level-exec">
 <div class="level-label">Cấp điều hành</div>
@@ -1290,14 +1425,6 @@ body.modal-open .org-card:hover{
 <div class="legend-item ops"><i></i><span>Lead Kế hoạch / Vận hành → Onboard / Support / Incident</span></div>
 <div class="legend-item secretary"><i></i><span>CEO ↔ Thư ký: hỗ trợ / giám sát</span></div>
 </div></div>
-
-
-
-
-
-
-
-
 </div>
 </div>
 </section>
