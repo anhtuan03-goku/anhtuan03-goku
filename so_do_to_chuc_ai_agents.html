@@ -550,6 +550,57 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
 }
 
 
+
+/* Popup visual state is static after opening: no hover-driven color changes */
+.detail-backdrop,
+.detail-backdrop:hover,
+.detail-backdrop.open,
+.detail-backdrop.open:hover{
+  background:rgba(15,23,42,.22);
+}
+
+.detail-popup,
+.detail-popup:hover,
+.detail-popup.open,
+.detail-popup.open:hover{
+  border-color:#cfcfcf;
+  background:rgba(255,255,255,.99);
+  box-shadow:0 24px 60px rgba(0,0,0,.22);
+  color:var(--text);
+}
+
+.detail-popup.open:hover::before,
+.detail-popup:hover::before{
+  background:var(--popup-accent,#111);
+}
+
+/* Interactive elements remain clickable but do not recolor on hover */
+.detail-popup .detail-close,
+.detail-popup .detail-close:hover,
+.detail-popup .detail-close:focus-visible{
+  border-color:#d7d7d7;
+  background:#fff;
+  color:#555;
+  box-shadow:none;
+  outline:none;
+}
+
+.detail-popup .source-badge,
+.detail-popup .source-badge:hover,
+.detail-popup .source-badge:focus-visible{
+  border-color:#cfcfcf;
+  background:#f7f7f7;
+  color:#111;
+  transform:none;
+  box-shadow:none;
+  outline:none;
+}
+
+
+body.modal-open .org-card:hover{
+  transform:none;
+}
+
 @media(max-width:1180px){
   .level-row.exec{
     grid-template-columns:minmax(0,1.5fr) minmax(0,1.5fr) minmax(120px,.75fr) minmax(120px,.75fr);
@@ -1049,6 +1100,7 @@ function showPopup(card) {
     });
   }
 
+  document.body.classList.add('modal-open');
   backdrop.classList.add('open');
   backdrop.setAttribute('aria-hidden', 'false');
   popup.classList.add('open');
@@ -1056,6 +1108,7 @@ function showPopup(card) {
 }
 
 function hidePopup() {
+  document.body.classList.remove('modal-open');
   backdrop.classList.remove('open');
   backdrop.setAttribute('aria-hidden', 'true');
   popup.classList.remove('open');
