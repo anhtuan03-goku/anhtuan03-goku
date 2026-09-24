@@ -1,1038 +1,742 @@
 <!DOCTYPE html>
-
 <html lang="vi">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Sơ đồ tổ chức &amp; nguồn Agent</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sơ đồ tổ chức & nguồn Agent</title>
 <style>
-    :root{
-      --bg:#ffffff;
-      --text:#111111;
-      --muted:#666666;
-      --line:#222222;
-      --soft:#f6f6f6;
-      --soft-2:#fafafa;
-      --border:#d9d9d9;
-      --panel-border:#d8d8d8;
-      --panel-radius:14px;
-      --panel-bg:#ffffff;
-      --panel-shadow:0 6px 20px rgba(0,0,0,.045);
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      line-height:1.5;
-    }
-    a{color:inherit}
-    .page{
-      width:min(1500px, calc(100% - 40px));
-      margin:0 auto;
-      padding:40px 0 72px;
-    }
-    .header{
-      border-bottom:2px solid var(--text);
-      padding-bottom:20px;
-      margin-bottom:32px;
-    }
-    .eyebrow{
-      font-size:12px;
-      font-weight:700;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:var(--muted);
-      margin-bottom:8px;
-    }
-    h1{
-      margin:0;
-      font-size:clamp(28px, 4vw, 46px);
-      line-height:1.15;
-      letter-spacing:-.03em;
-    }
-    .subtitle{
-      margin:12px 0 0;
-      color:var(--muted);
-      max-width:980px;
-      font-size:15px;
-    }
+:root {
+  --text:#111;
+  --muted:#6b6b6b;
+  --border:#d9d9d9;
+  --panel:#fff;
+  --soft:#f7f7f7;
+  --radius:14px;
+  --shadow:0 6px 20px rgba(0,0,0,.045);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  color:var(--text);
+  background:#fff;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  line-height:1.5;
+}
+a{color:inherit}
+.page{width:min(1540px,calc(100% - 40px));margin:auto;padding:38px 0 72px}
+.header{border-bottom:2px solid #111;padding-bottom:18px;margin-bottom:30px}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
+.subtitle{max-width:980px;margin:12px 0 0;color:var(--muted);font-size:14px}
+.section{margin-top:34px}
+.section-title{margin:0 0 14px;font-size:21px}
 
-    .section{
-      margin-top:34px;
-    }
-    .section-title{
-      display:flex;
-      align-items:baseline;
-      gap:10px;
-      margin:0 0 16px;
-      font-size:22px;
-      letter-spacing:-.02em;
-    }
-    .section-title small{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:500;
-    }
+.panel{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--panel);
+  box-shadow:var(--shadow);
+}
 
-    .org{
-      border:1px solid var(--panel-border);
-      border-radius:var(--panel-radius);
-      background:#fafafa;
-      padding:28px;
-      overflow-x:auto;
-      overflow-y:visible;
-      box-shadow:var(--panel-shadow);
-    }
+.org-shell{padding:22px;overflow-x:auto}
+.org-chart{min-width:1180px}
+.level-block{margin:0}
+.level-label{
+  display:flex;align-items:center;gap:10px;
+  margin:0 0 10px;font-size:11px;font-weight:850;
+  letter-spacing:.09em;text-transform:uppercase;color:#555;
+}
+.level-label::after{content:"";height:1px;background:#e4e4e4;flex:1}
+.level-row{display:grid;gap:14px;align-items:stretch}
+.level-row.one{grid-template-columns:minmax(260px,360px);justify-content:center}
+.level-row.exec{grid-template-columns:repeat(4,minmax(0,1fr))}
+.level-row.leads{grid-template-columns:repeat(4,minmax(0,1fr))}
+.level-row.agents{grid-template-columns:repeat(8,minmax(0,1fr))}
 
-    .level{
-      display:flex;
-      justify-content:center;
-      gap:18px;
-      flex-wrap:wrap;
-      position:relative;
-    }
-    .connector{
-      height:34px;
-      width:1px;
-      background:linear-gradient(180deg,#111 0%,#bdbdbd 100%);
-      margin:0 auto;
-      position:relative;
-    }
-    .connector::after{
-      content:"";
-      position:absolute;
-      left:50%;
-      bottom:-1px;
-      width:7px;
-      height:7px;
-      border-radius:50%;
-      background:#111;
-      transform:translateX(-50%);
-    }
+.org-card{
+  appearance:none;
+  width:100%;
+  min-width:0;
+  min-height:92px;
+  padding:15px 14px;
+  text-align:left;
+  color:var(--text);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  font:inherit;
+  cursor:pointer;
+  transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease;
+}
+.org-card:hover,.org-card:focus-visible,.org-card.active{
+  border-color:#111;
+  box-shadow:0 9px 24px rgba(0,0,0,.08);
+  outline:none;
+}
+.org-card:hover{transform:translateY(-1px)}
+.org-role{font-size:15px;font-weight:850;line-height:1.25;margin-bottom:5px}
+.org-summary{font-size:12px;color:#6d6d6d;line-height:1.35}
+.parent-chip{
+  display:inline-block;
+  margin-top:9px;
+  padding:3px 7px;
+  border:1px solid #dedede;
+  border-radius:999px;
+  background:#fafafa;
+  color:#6a6a6a;
+  font-size:10px;
+  font-weight:750;
+}
+.top-card{border-color:#bcbcbc}
+.ceo-card{border-color:#111}
+.connector{
+  width:1px;height:24px;background:#bdbdbd;margin:8px auto;
+}
+.support-row{
+  display:grid;
+  grid-template-columns:1fr minmax(260px,360px) 1fr;
+  align-items:center;
+  gap:14px;
+  margin:10px 0 16px;
+}
+.support-line{height:1px;background:#d8d8d8}
+.support-card{border-style:dashed;min-height:78px}
+.peer-note{
+  margin:10px 0 0;
+  padding:9px 11px;
+  border-left:3px solid #111;
+  background:#fafafa;
+  color:#666;
+  font-size:12px;
+}
 
-    .card{
-      width:100%;
-      min-width:0;
-      background:var(--panel-bg);
-      border:1px solid var(--panel-border);
-      border-radius:var(--panel-radius);
-      padding:16px;
-      position:relative;
-      box-shadow:var(--panel-shadow);
-      overflow:hidden;
-    }
-    .card::before{
-      content:"";
-      position:absolute;
-      left:0;
-      top:0;
-      width:100%;
-      height:3px;
-      background:#111;
-    }
-    .card:hover{
-      border-color:#b8b8b8;
-    }
-    .card.wide{
-      width:min(100%, 360px);
-      padding:18px;
-    }
-    .card .role{
-      font-weight:800;
-      font-size:16px;
-      line-height:1.3;
-      letter-spacing:-.01em;
-      margin:2px 0 6px;
-    }
-    .card.wide .role{
-      font-size:18px;
-    }
-    .card .desc{
-      font-size:12px;
-      line-height:1.45;
-      color:#666;
-      margin-bottom:12px;
-      min-height:18px;
-    }
-    .badges{
-      display:flex;
-      flex-wrap:wrap;
-      gap:7px;
-      align-items:center;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:30px;
-      height:28px;
-      padding:0 9px;
-      border:1px solid #d0d0d0;
-      border-radius:8px;
-      background:#f7f7f7;
-      color:#222;
-      font-size:12px;
-      font-weight:800;
-      text-decoration:none;
-      transition:
-        background .16s ease,
-        color .16s ease,
-        border-color .16s ease,
-        transform .16s ease;
-    }
-    a.badge:hover{
-      border-color:#111;
-      background:#111;
-      color:#fff;
-      transform:translateY(-1px);
-    }
-    .badge.future{
-      border-style:dashed;
-      background:#fff;
-      color:#555;
-    }
+.detail-panel{
+  margin-top:18px;
+  padding:16px 18px;
+  min-height:104px;
+}
+.detail-kicker{font-size:10px;font-weight:850;letter-spacing:.09em;text-transform:uppercase;color:#777}
+.detail-title{font-size:18px;font-weight:850;margin-top:3px}
+.detail-desc{font-size:13px;color:#555;margin-top:4px}
+.detail-sources{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.source-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:30px;height:28px;padding:0 9px;
+  border:1px solid #cfcfcf;border-radius:8px;
+  background:#f7f7f7;text-decoration:none;
+  font-size:12px;font-weight:850;
+}
+.source-badge:hover{background:#111;color:#fff;border-color:#111}
+.no-source{font-size:12px;color:#888}
+
+.flow{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap}
+.flow-step{flex:1 1 185px;padding:15px;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+.flow-step .num{font-size:10px;font-weight:800;color:#777;text-transform:uppercase;letter-spacing:.08em}
+.flow-step .name{font-size:16px;font-weight:850;margin:4px 0}
+.flow-step p{margin:0;color:#666;font-size:12px}
+.flow-arrow{align-self:center;font-size:22px;font-weight:900}
+
+.matrix{
+  width:100%;border-collapse:separate;border-spacing:0;
+  border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow);font-size:13px;
+}
+.matrix th,.matrix td{padding:10px 12px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+.matrix th{background:#f5f5f5;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+.matrix tr:last-child td{border-bottom:0}
+.matrix th:last-child,.matrix td:last-child{border-right:0}
+.matrix td:first-child{font-weight:800;width:210px}
+.source-links{display:flex;gap:6px;flex-wrap:wrap}
+
+.sources{display:grid;gap:9px}
+.source-row{
+  display:grid;grid-template-columns:48px minmax(0,1fr) auto;
+  gap:12px;align-items:center;padding:11px 12px;
+  border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);background:#fff;
+}
+.source-id{width:34px;height:34px;display:grid;place-items:center;border:1px solid #111;border-radius:8px;font-weight:900}
+.source-name{font-weight:800}
+.source-url{font-size:11px;color:#777;overflow-wrap:anywhere}
+.open{padding:7px 10px;border:1px solid #111;border-radius:8px;text-decoration:none;font-size:11px;font-weight:800}
+.open:hover{background:#111;color:#fff}
 
 
-    .top-card{
-      border-color:#bfc0c2;
-    }
-    .ceo-card{
-      border-color:#111;
-    }
-    .secretary-card{
-      border-style:dashed;
-      background:var(--panel-bg);
-      box-shadow:var(--panel-shadow);
-    }
-    .secretary-card::before{
-      background:#111;
-      opacity:.55;
-    }
-    .executive-grid{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      gap:18px;
-      align-items:start;
-      margin-top:0;
-      width:100%;
-    }
-    .executive-grid-4{
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      align-items:start;
-    }
-    .executive-grid-4 > .branch{
-      min-width:0;
-    }
-    .branch{
-      min-width:0;
-      width:100%;
-      border:1px solid var(--panel-border);
-      border-radius:var(--panel-radius);
-      padding:16px;
-      background:var(--panel-bg);
-      box-shadow:var(--panel-shadow);
-      overflow:hidden;
-    }
-    .branch-title{
-      display:block;
-      width:100%;
-      padding:0 0 10px;
-      margin:0 0 14px;
-      border:0;
-      border-bottom:1px solid var(--panel-border);
-      border-radius:0;
-      background:transparent;
-      text-align:left;
-      font-size:11px;
-      font-weight:800;
-      color:#555;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-    }
-    .stack{
-      display:grid;
-      grid-template-columns:minmax(0,1fr);
-      gap:12px;
-      width:100%;
-      min-width:0;
-    }
-    .subgrid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
-      gap:12px;
-      width:100%;
-      min-width:0;
-    }
-    .subgrid.two{
-      grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
-    }
-    .subgrid > *,
-    .subgrid .card{
-      min-width:0;
-      width:100%;
-    }
+/* Hierarchy connectors */
+.hierarchy-link{
+  position:relative;
+  height:46px;
+  margin:0;
+}
 
-    .mini-arrow{
-      text-align:center;
-      font-weight:800;
-      font-size:18px;
-      line-height:1;
-      color:#7b7b7b;
-      margin:1px 0;
-    }
+.hierarchy-stem{
+  position:absolute;
+  top:0;
+  left:50%;
+  width:1px;
+  height:18px;
+  background:#9f9f9f;
+  transform:translateX(-50%);
+}
 
-    .support{
-      margin-top:22px;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-    }
-    .support-note{
-      border:1px solid var(--panel-border);
-      border-radius:var(--panel-radius);
-      padding:14px;
-      background:var(--panel-bg);
-      box-shadow:var(--panel-shadow);
-    }
-    .support-note strong{display:block;margin-bottom:4px}
-    .support-note span{font-size:12px;color:var(--muted)}
+.hierarchy-bar{
+  position:absolute;
+  top:18px;
+  left:12.5%;
+  right:12.5%;
+  height:1px;
+  background:#c3c3c3;
+}
 
-    .flow{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:stretch;
-    }
-    .flow-step{
-      flex:1 1 190px;
-      min-width:0;
-      border:1px solid var(--panel-border);
-      border-radius:var(--panel-radius);
-      padding:16px;
-      background:var(--panel-bg);
-      box-shadow:var(--panel-shadow);
-      min-height:108px;
-    }
-    .flow-step .num{
-      font-size:11px;
-      font-weight:800;
-      color:var(--muted);
-      text-transform:uppercase;
-      letter-spacing:.08em;
-    }
-    .flow-step .name{
-      font-size:18px;
-      font-weight:800;
-      margin:6px 0;
-    }
-    .flow-step p{
-      margin:0;
-      font-size:13px;
-      color:var(--muted);
-    }
-    .flow-arrow{
-      align-self:center;
-      font-size:24px;
-      font-weight:900;
-    }
+.hierarchy-drops{
+  position:absolute;
+  top:18px;
+  left:0;
+  right:0;
+  height:28px;
+  display:grid;
+  pointer-events:none;
+}
 
-    .matrix{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      font-size:14px;
-      background:var(--panel-bg);
-      border:1px solid var(--panel-border);
-      border-radius:var(--panel-radius);
-      box-shadow:var(--panel-shadow);
-      overflow:hidden;
-    }
-    .matrix th,
-    .matrix td{
-      border-right:1px solid var(--panel-border);
-      border-bottom:1px solid var(--panel-border);
-      padding:10px 12px;
-      text-align:left;
-      vertical-align:top;
-    }
-    .matrix th{
-      background:#f2f2f2;
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.05em;
-    }
-    .matrix td:first-child{
-      font-weight:800;
-      width:220px;
-    }
-    .source-links{
-      display:flex;
-      flex-wrap:wrap;
-      gap:6px;
-    }
+.hierarchy-drops.four{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
 
-    .sources{
-      display:grid;
-      gap:10px;
-    }
-    .source-row{
-      display:grid;
-      grid-template-columns:52px minmax(0,1fr) auto;
-      gap:12px;
-      align-items:center;
-      border:1px solid var(--panel-border);
-      border-radius:var(--panel-radius);
-      padding:12px;
-      background:var(--panel-bg);
-      box-shadow:var(--panel-shadow);
-      min-width:0;
-    }
-    .source-id{
-      width:36px;
-      height:36px;
-      display:grid;
-      place-items:center;
-      border:1.5px solid #111;
-      font-weight:900;
-    }
-    .source-name{
-      font-weight:700;
-      overflow-wrap:anywhere;
-    }
-    .source-url{
-      font-size:12px;
-      color:var(--muted);
-      overflow-wrap:anywhere;
-      margin-top:2px;
-    }
-    .open{
-      border:1px solid #111;
-      padding:7px 10px;
-      text-decoration:none;
-      font-size:12px;
-      font-weight:700;
-      white-space:nowrap;
-    }
-    .open:hover{background:#111;color:#fff}
+.hierarchy-drops.eight{
+  grid-template-columns:repeat(8,minmax(0,1fr));
+}
 
-    .legend{
-      border:1px solid var(--panel-border);
-      border-radius:var(--panel-radius);
-      padding:14px 16px;
-      color:var(--muted);
-      background:var(--panel-bg);
-      box-shadow:var(--panel-shadow);
-      font-size:12px;
-      margin-top:16px;
-    }
+.hierarchy-drops span{
+  position:relative;
+  display:block;
+}
+
+.hierarchy-drops span::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:50%;
+  width:1px;
+  height:18px;
+  background:#c3c3c3;
+  transform:translateX(-50%);
+}
+
+.hierarchy-drops span::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:17px;
+  width:7px;
+  height:7px;
+  border-right:1px solid #8f8f8f;
+  border-bottom:1px solid #8f8f8f;
+  transform:translateX(-50%) rotate(45deg);
+  background:#fff;
+}
+
+/* Align horizontal bars with card centers */
+.single-to-multi .hierarchy-bar,
+.multi-to-multi .hierarchy-bar{
+  left:12.5%;
+  right:12.5%;
+}
+
+.agents-link .hierarchy-bar{
+  left:6.25%;
+  right:6.25%;
+}
+
+/* subtle top connection into each peer row */
+.level-exec .level-row,
+.level-leads .level-row,
+.level-agents .level-row{
+  position:relative;
+}
+
+.level-exec .org-card,
+.level-leads .org-card,
+.level-agents .org-card{
+  position:relative;
+}
+
+.level-exec .org-card::before,
+.level-leads .org-card::before,
+.level-agents .org-card::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-15px;
+  width:1px;
+  height:14px;
+  background:#c3c3c3;
+  transform:translateX(-50%);
+}
+
+.level-exec .org-card::after,
+.level-leads .org-card::after,
+.level-agents .org-card::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-4px;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#111;
+  transform:translateX(-50%);
+}
+
+/* Keep the label from visually colliding with connector drops */
+.level-exec .level-label,
+.level-leads .level-label,
+.level-agents .level-label{
+  margin-top:4px;
+}
 
 
-    .matrix tr:last-child td{border-bottom:0}
-    .matrix th:last-child,.matrix td:last-child{border-right:0}
-    .matrix thead tr:first-child th:first-child{border-top-left-radius:var(--panel-radius)}
-    .matrix thead tr:first-child th:last-child{border-top-right-radius:var(--panel-radius)}
-
-    .level,
-    .executive-grid,
-    .branch,
-    .stack,
-    .subgrid,
-    .card{
-      max-width:100%;
-    }
-
-    .role,
-    .desc,
-    .source-name,
-    .source-url{
-      overflow-wrap:anywhere;
-      word-break:normal;
-    }
-
-    @media (max-width:1380px){
-      .executive-grid,
-      .executive-grid-4{
-        grid-template-columns:repeat(2, minmax(0,1fr));
-      }
-    }
-
-    @media (max-width:1200px){
-      .executive-grid,.executive-grid-4{
-        grid-template-columns:repeat(2, minmax(0,1fr));
-      }
-    }
-    @media (max-width:760px){
-      .page{width:min(100% - 20px, 1500px);padding-top:20px}
-      .org{padding:16px 10px}
-      .executive-grid,.executive-grid-4{grid-template-columns:1fr}
-      .subgrid,.subgrid.two{grid-template-columns:1fr}
-      .card,.card.wide{width:100%}
-      .support{grid-template-columns:1fr}
-      .source-row{grid-template-columns:42px 1fr}
-      .source-row .open{grid-column:2}
-      .flow-arrow{display:none}
-    }
-
-    @media print{
-      body{font-size:11px}
-      .page{width:100%;padding:0}
-      .org{overflow:visible}
-      .open{display:none}
-      a{text-decoration:none}
-      .section{break-inside:avoid}
-    }
-  
-    /* ===== Compact org-card mode ===== */
-    .org .card{
-      min-height:88px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      gap:4px;
-      cursor:default;
-      overflow:hidden;
-      transition:
-        border-color .18s ease,
-        box-shadow .18s ease,
-        background .18s ease;
-    }
-
-    .org .card .role{
-      margin:0;
-      font-size:15px;
-      line-height:1.25;
-      font-weight:800;
-      color:#111;
-    }
-
-    .org .card.wide .role{
-      font-size:17px;
-    }
-
-    .org .card-summary{
-      font-size:12px;
-      line-height:1.35;
-      color:#777;
-      min-height:16px;
-    }
-
-    /*
-      Detail stays inside normal document flow.
-      No absolute positioning => no clipping / z-index / overlap bugs.
-    */
-    .org .card-detail{
-      width:100%;
-      max-height:0;
-      margin-top:0;
-      padding:0 10px;
-      border:0 solid var(--panel-border);
-      border-radius:10px;
-      background:#fafafa;
-      opacity:0;
-      overflow:hidden;
-      visibility:hidden;
-      transform:translateY(-4px);
-      transition:
-        max-height .24s ease,
-        opacity .18s ease,
-        transform .18s ease,
-        margin-top .18s ease,
-        padding .18s ease,
-        border-width .18s ease,
-        visibility 0s linear .24s;
-    }
-
-    .org .card:hover,
-    .org .card:focus,
-    .org .card:focus-within{
-      border-color:#999;
-      box-shadow:0 8px 24px rgba(0,0,0,.07);
-      outline:none;
-    }
-
-    .org .card:hover .card-detail,
-    .org .card:focus .card-detail,
-    .org .card:focus-within .card-detail{
-      max-height:220px;
-      margin-top:10px;
-      padding:10px;
-      border-width:1px;
-      opacity:1;
-      visibility:visible;
-      transform:translateY(0);
-      transition:
-        max-height .28s ease,
-        opacity .18s ease,
-        transform .18s ease,
-        margin-top .18s ease,
-        padding .18s ease,
-        border-width .18s ease,
-        visibility 0s;
-    }
-
-    .org .card-detail .desc{
-      display:block;
-      margin:0 0 9px;
-      min-height:0;
-      font-size:12px;
-      line-height:1.45;
-      color:#555;
-    }
-
-    .org .card-detail .badges{
-      display:flex;
-      flex-wrap:wrap;
-      gap:6px;
-      margin:0;
-    }
-
-    /* Executive peers: same baseline and same visual treatment */
-    .executive-grid-4{
-      gap:16px;
-      padding-top:8px;
-      border-top:1px solid #cfcfcf;
-      align-items:start;
-    }
-
-    .executive-grid-4 > .branch{
-      position:relative;
-      min-width:0;
-      align-self:start;
-    }
-
-    .executive-grid-4 > .branch::before{
-      content:"";
-      position:absolute;
-      top:-9px;
-      left:50%;
-      width:1px;
-      height:9px;
-      background:#cfcfcf;
-    }
-
-    .executive-grid-4 > .branch > .stack > .card:first-child{
-      min-height:88px;
-    }
-
-    .org .top-card,
-    .org .secretary-card{
-      min-height:88px;
-    }
-
-    /* Prevent parent containers from clipping an expanded card. */
-    .org,
-    .branch,
-    .stack,
-    .subgrid,
-    .executive-grid,
-    .executive-grid-4{
-      overflow:visible;
-    }
-
-    /*
-      Keep horizontal scrolling only on a wrapper-sized viewport.
-      Cards themselves never float over adjacent cards.
-    */
-    .org{
-      overflow-x:auto;
-      overflow-y:visible;
-    }
-
-    @media (hover:none), (pointer:coarse){
-      .org .card{
-        cursor:pointer;
-      }
-
-      .org .card-detail{
-        transition:none;
-      }
-
-      .org .card:focus .card-detail,
-      .org .card:focus-within .card-detail{
-        max-height:260px;
-        margin-top:10px;
-        padding:10px;
-        border-width:1px;
-        opacity:1;
-        visibility:visible;
-        transform:none;
-      }
-    }
-
-    @media (max-width:760px){
-      .org .card{
-        min-height:82px;
-      }
-
-      .org .card-detail{
-        max-height:0;
-      }
-
-      .org .card:focus .card-detail,
-      .org .card:focus-within .card-detail{
-        max-height:320px;
-      }
-    }
-
+@media(max-width:900px){
+  .page{width:min(100% - 20px,1540px)}
+  .org-shell{padding:14px}
+  .flow-arrow{display:none}
+}
 </style>
 </head>
 <body>
 <main class="page">
-<header class="header">
-<div class="eyebrow">AI Organization Architecture</div>
-<h1>Sơ đồ tổ chức &amp; nguồn Agent</h1>
-<p class="subtitle">
-        Bố cục thể hiện quan hệ quản lý, nhóm agent thực thi, các source dùng cho từng vị trí,
-        cùng luồng chính từ BOD → CEO → CCO / COO / Finance → Agent thực thi.
-      </p>
-</header>
-<section class="section">
-<h2 class="section-title">1. Sơ đồ tổ chức <small>Organization diagram</small></h2>
-<div class="org">
-<div class="level">
-<div class="card wide top-card" tabindex="0">
-<div class="role">BOD</div><div class="card-summary">Định hướng &amp; governance</div><div class="card-detail"><div class="desc">Quản lý CEO</div><div class="badges">
-<a class="badge" href="https://github.com/microsoft/agent-framework" rel="noopener noreferrer" target="_blank">12</a>
-<a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a>
-<a class="badge" href="https://github.com/langfuse/langfuse" rel="noopener noreferrer" target="_blank">6</a>
-<a class="badge" href="https://github.com/open-policy-agent/opa" rel="noopener noreferrer" target="_blank">7</a>
-<a class="badge" href="https://github.com/mlflow/mlflow" rel="noopener noreferrer" target="_blank">9</a>
-</div></div>
-</div>
-</div>
-<div class="connector"></div>
-<div class="level">
-<div class="card wide top-card ceo-card" tabindex="0">
-<div class="role">CEO</div><div class="card-summary">Điều hành tổng thể</div><div class="card-detail"><div class="desc">Quản lý: CCO, COO, Finance, Pháp chế · Thư ký hỗ trợ giám sát toàn diện</div><div class="badges">
-<a class="badge" href="https://github.com/OpenBMB/ChatDev" rel="noopener noreferrer" target="_blank">1</a>
-<a class="badge" href="https://github.com/BerriAI/self-improving-agent" rel="noopener noreferrer" target="_blank">2</a>
-<a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a>
-<a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a>
-</div></div>
-</div>
-</div>
-<div class="connector"></div>
-<div class="level" style="margin-bottom:18px">
-<div class="card wide secretary-card" tabindex="0">
-<div class="role">Thư ký CEO</div><div class="card-summary">Hỗ trợ &amp; giám sát toàn diện</div><div class="card-detail"><div class="desc">Hỗ trợ CEO · giám sát toàn diện xuyên suốt các khối</div><div class="badges">
-<a class="badge" href="https://github.com/langfuse/langfuse" rel="noopener noreferrer" target="_blank">6</a>
-</div></div>
-</div>
-</div>
-<div class="connector"></div>
-<div class="executive-grid executive-grid-4">
-<div class="branch">
-<div class="branch-title">Commercial — CCO</div>
-<div class="stack">
-<div class="card" tabindex="0">
-<div class="role">CCO</div><div class="card-summary">Khối thương mại</div><div class="card-detail"><div class="desc">Quản lý: Lead MKT, Lead Sale, Lead Customer</div><div class="badges">
-<a class="badge" href="https://github.com/OpenBMB/ChatDev" rel="noopener noreferrer" target="_blank">1</a>
-<a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a>
-<a class="badge" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">5</a>
-<a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a>
-<a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a>
-</div></div>
-</div>
-<div class="mini-arrow">↓</div>
-<div class="subgrid">
-<div class="stack">
-<div class="card" tabindex="0">
-<div class="role">Lead MKT</div><div class="card-summary">Marketing</div><div class="card-detail"><div class="desc">Quản lý: MKT 1, 2, 3</div><div class="badges">
-<a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a>
-<a class="badge" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">5</a>
-<a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a>
-<a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a>
-<a class="badge future" href="https://github.com/unslothai/unsloth" rel="noopener noreferrer" target="_blank" title="Mở rộng sau này">4+</a>
-</div></div>
-</div>
-<div class="mini-arrow">↓</div>
-<div class="card" tabindex="0">
-<div class="role">MKT 1</div><div class="card-summary">Agent marketing</div><div class="card-detail"><div class="desc">Agent thực thi</div><div class="badges">
-<a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a>
-<a class="badge" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">5</a>
-<a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a>
-</div></div>
-</div>
-<div class="card" tabindex="0">
-<div class="role">MKT 2</div><div class="card-summary">Agent marketing</div><div class="card-detail"><div class="desc">Agent thực thi</div><div class="badges">
-<a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a>
-<a class="badge" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">5</a>
-<a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a>
-<a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a>
-</div></div>
-</div>
-<div class="card" tabindex="0">
-<div class="role">MKT 3</div><div class="card-summary">Agent marketing</div><div class="card-detail"><div class="desc">Agent thực thi</div><div class="badges">
-<a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a>
-<a class="badge" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">5</a>
-<a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a>
-</div></div>
-</div>
-</div>
-<div class="stack">
-<div class="card" tabindex="0">
-<div class="role">Lead Sale</div><div class="card-summary">Sales</div><div class="card-detail"><div class="desc">Quản lý: Sale</div><div class="badges">
-<a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a>
-<a class="badge" href="https://github.com/unslothai/unsloth" rel="noopener noreferrer" target="_blank">4</a>
-<a class="badge" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">5</a>
-<a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a>
-<a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a>
-</div></div>
-</div>
-<div class="mini-arrow">↓</div>
-<div class="card" tabindex="0">
-<div class="role">Sale</div><div class="card-summary">Agent sales</div><div class="card-detail"><div class="desc">Agent thực thi</div><div class="badges">
-<span class="badge" title="Chưa chỉ định source riêng">—</span>
-</div></div>
-</div>
-</div>
-<div class="stack">
-<div class="card" tabindex="0">
-<div class="role">Lead Customer</div><div class="card-summary">Customer</div><div class="card-detail"><div class="desc">Quản lý: Customer</div><div class="badges">
-<span class="badge" title="Dùng cấu hình Customer hiện có">→</span>
-</div></div>
-</div>
-<div class="mini-arrow">↓</div>
-<div class="card" tabindex="0">
-<div class="role">Customer</div><div class="card-summary">Agent customer</div><div class="card-detail"><div class="desc">Agent thực thi / chăm sóc khách hàng</div><div class="badges">
-<a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a>
-<a class="badge" href="https://github.com/unslothai/unsloth" rel="noopener noreferrer" target="_blank">4</a>
-<a class="badge" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">5</a>
-<a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a>
-<a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a>
-</div></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="branch">
-<div class="branch-title">Operations — COO</div>
-<div class="stack">
-<div class="card" tabindex="0">
-<div class="role">COO</div><div class="card-summary">Khối vận hành</div><div class="card-detail"><div class="desc">Quản lý: Lead Kế hoạch / Vận hành</div><div class="badges">
-<a class="badge" href="https://github.com/OpenBMB/ChatDev" rel="noopener noreferrer" target="_blank">1</a>
-<a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a>
-<a class="badge" href="https://github.com/open-policy-agent/opa" rel="noopener noreferrer" target="_blank">7</a>
-<a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a>
-</div></div>
-</div>
-<div class="mini-arrow">↓</div>
-<div class="card" tabindex="0">
-<div class="role">Lead Kế hoạch / Vận hành</div><div class="card-summary">Kế hoạch &amp; vận hành</div><div class="card-detail"><div class="desc">Quản lý: Onboard, Support, Incident</div><div class="badges">
-<span class="badge" title="Chưa chỉ định source riêng">—</span>
-</div></div>
-</div>
-<div class="mini-arrow">↓</div>
-<div class="subgrid">
-<div class="card" tabindex="0">
-<div class="role">Onboard</div><div class="card-summary">Agent onboard</div><div class="card-detail"><div class="desc">Agent thực thi</div><div class="badges"><span class="badge">—</span></div></div>
-</div>
-<div class="card" tabindex="0">
-<div class="role">Support</div><div class="card-summary">Agent support</div><div class="card-detail"><div class="desc">Agent thực thi</div><div class="badges">
-<a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a>
-<a class="badge" href="https://github.com/unslothai/unsloth" rel="noopener noreferrer" target="_blank">4</a>
-<a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a>
-<a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a>
-</div></div>
-</div>
-<div class="card" tabindex="0">
-<div class="role">Incident</div><div class="card-summary">Agent incident</div><div class="card-detail"><div class="desc">Agent thực thi</div><div class="badges"><span class="badge">—</span></div></div>
-</div>
-</div>
-</div>
-</div>
-<div class="branch">
-<div class="branch-title">Finance</div>
-<div class="stack">
-<div class="card" tabindex="0">
-<div class="role">Finance</div><div class="card-summary">Tài chính</div><div class="card-detail"><div class="desc">Ngang hàng CCO / COO / Pháp chế dưới CEO</div><div class="badges">
-<a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a>
-<a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a>
-</div></div>
-</div>
-</div>
-</div>
-<div class="branch">
-<div class="branch-title">Legal / Compliance</div>
-<div class="stack">
-<div class="card" tabindex="0">
-<div class="role">Pháp chế</div><div class="card-summary">Pháp chế &amp; chính sách</div><div class="card-detail"><div class="desc">Ngang hàng CCO / COO / Finance dưới CEO</div><div class="badges">
-<a class="badge" href="https://github.com/open-policy-agent/opa" rel="noopener noreferrer" target="_blank">7</a>
-</div></div>
-</div>
-</div>
-</div>
-</div>
-<div class="legend">
-<strong>Ghi chú:</strong> CCO, COO, Finance và Pháp chế được đặt ngang hàng trực tiếp dưới CEO. Thư ký CEO là vai trò hỗ trợ CEO và giám sát toàn diện xuyên suốt các khối, không phải một khối điều hành ngang hàng. Các vị trí “Sale”, “Lead Customer”, “Lead Kế hoạch/Vận hành”, “Onboard” và “Incident” chưa có source riêng trong dữ liệu đầu vào nên vẫn giữ trạng thái chưa gán.
+  <header class="header">
+    <div class="eyebrow">AI Organization Architecture</div>
+    <h1>Sơ đồ tổ chức & nguồn Agent</h1>
+    <p class="subtitle">
+      Layout được cố định theo cấp bậc để các chức danh  luôn nằm cùng một hàng.
+      Hover hoặc focus vào card để xem chi tiết và source, không làm thay đổi kích thước sơ đồ.
+    </p>
+  </header>
+
+  <section class="section">
+    <h2 class="section-title">1. Sơ đồ tổ chức</h2>
+    <div class="panel org-shell">
+      <div class="org-chart">
+
+        <div class="level-block">
+          <div class="level-label">Cấp quản trị</div>
+          <div class="level-row one">
+            <button class="org-card top-card" type="button"
+              data-role="BOD"
+              data-desc="Quản lý CEO; định hướng, governance và policy cấp cao."
+              data-sources="12,3,6,7,9">
+              <div class="org-role">BOD</div>
+              <div class="org-summary">Định hướng & governance</div>
+            </button>
+          </div>
         </div>
-</div>
-</section>
-<section class="section">
-<h2 class="section-title">2. Luồng điều phối chính <small>BOD → CEO → Khối quản lý → Agent</small></h2>
-<div class="flow">
-<div class="flow-step">
-<div class="num">Bước 01</div>
-<div class="name">BOD</div>
-<p>Thiết lập định hướng, policy cấp cao, governance và mục tiêu.</p>
-</div>
-<div class="flow-arrow">→</div>
-<div class="flow-step">
-<div class="num">Bước 02</div>
-<div class="name">CEO</div>
-<p>Phân rã định hướng thành quyết định, ưu tiên và nhiệm vụ điều hành.</p>
-</div>
-<div class="flow-arrow">→</div>
-<div class="flow-step">
-<div class="num">Bước 03</div>
-<div class="name">CCO / COO / Finance / Pháp chế</div>
-<p>Các khối ngang hàng dưới CEO, điều phối theo miền nghiệp vụ.</p>
-</div>
-<div class="flow-arrow">→</div>
-<div class="flow-step">
-<div class="num">Bước 04</div>
-<div class="name">Agent thực thi</div>
-<p>Thực hiện nhiệm vụ bằng gateway LLM / model routing.</p>
-<div class="badges" style="margin-top:10px">
-<a class="badge" href="https://github.com/BerriAI/litellm" rel="noopener noreferrer" target="_blank">10</a>
-</div>
-</div>
-</div>
-</section>
-<section class="section">
-<h2 class="section-title">3. Ma trận vị trí → Source</h2>
-<table class="matrix">
-<thead>
-<tr>
-<th>Vị trí</th>
-<th>Source</th>
-<th>Ghi chú</th>
-</tr>
-</thead>
-<tbody>
-<tr><td>BOD</td><td><div class="source-links"><a class="badge" href="https://github.com/microsoft/agent-framework" rel="noopener noreferrer" target="_blank">12</a><a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a><a class="badge" href="https://github.com/langfuse/langfuse" rel="noopener noreferrer" target="_blank">6</a><a class="badge" href="https://github.com/open-policy-agent/opa" rel="noopener noreferrer" target="_blank">7</a><a class="badge" href="https://github.com/mlflow/mlflow" rel="noopener noreferrer" target="_blank">9</a></div></td><td>Framework + memory + observability + policy + AI engineering.</td></tr>
-<tr><td>CEO</td><td><div class="source-links"><a class="badge" href="https://github.com/OpenBMB/ChatDev" rel="noopener noreferrer" target="_blank">1</a><a class="badge" href="https://github.com/BerriAI/self-improving-agent" rel="noopener noreferrer" target="_blank">2</a><a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a><a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a></div></td><td>Multi-agent collaboration, self-improvement, memory, durable workflow.</td></tr>
-<tr><td>CCO</td><td><div class="source-links"><a class="badge" href="https://github.com/OpenBMB/ChatDev" rel="noopener noreferrer" target="_blank">1</a><a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a><a class="badge" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">5</a><a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a><a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a></div></td><td>Coordination + memory + agent training + workflow + vector retrieval.</td></tr>
-<tr><td>COO</td><td><div class="source-links"><a class="badge" href="https://github.com/OpenBMB/ChatDev" rel="noopener noreferrer" target="_blank">1</a><a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a><a class="badge" href="https://github.com/open-policy-agent/opa" rel="noopener noreferrer" target="_blank">7</a><a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a></div></td><td>Coordination, memory, policy, workflow.</td></tr>
-<tr><td>Lead MKT</td><td><div class="source-links"><a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a><a class="badge" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">5</a><a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a><a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a><a class="badge future" href="https://github.com/unslothai/unsloth" rel="noopener noreferrer" target="_blank">4+</a></div></td><td>Source 4 đánh dấu là mở rộng sau.</td></tr>
-<tr><td>Lead Sale</td><td><div class="source-links"><a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a><a class="badge" href="https://github.com/unslothai/unsloth" rel="noopener noreferrer" target="_blank">4</a><a class="badge" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">5</a><a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a><a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a></div></td><td>Memory + local model/training + workflow + vector DB.</td></tr>
-<tr><td>MKT 1</td><td><div class="source-links"><a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a><a class="badge" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">5</a><a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a></div></td><td>Agent thực thi.</td></tr>
-<tr><td>MKT 2</td><td><div class="source-links"><a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a><a class="badge" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">5</a><a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a><a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a></div></td><td>Agent thực thi có workflow bền vững.</td></tr>
-<tr><td>MKT 3</td><td><div class="source-links"><a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a><a class="badge" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">5</a><a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a></div></td><td>Agent thực thi.</td></tr>
-<tr><td>Customer</td><td><div class="source-links"><a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a><a class="badge" href="https://github.com/unslothai/unsloth" rel="noopener noreferrer" target="_blank">4</a><a class="badge" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">5</a><a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a><a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a></div></td><td>Memory + model/training + workflow + retrieval.</td></tr>
-<tr><td>Support</td><td><div class="source-links"><a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a><a class="badge" href="https://github.com/unslothai/unsloth" rel="noopener noreferrer" target="_blank">4</a><a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a><a class="badge" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">11</a></div></td><td>Support workflow và knowledge retrieval.</td></tr>
-<tr><td>Finance</td><td><div class="source-links"><a class="badge" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">3</a><a class="badge" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">8</a></div></td><td>Memory + durable workflow.</td></tr>
-<tr><td>Pháp chế</td><td><div class="source-links"><a class="badge" href="https://github.com/open-policy-agent/opa" rel="noopener noreferrer" target="_blank">7</a></div></td><td>Policy engine.</td></tr>
-<tr><td>Thư ký CEO</td><td><div class="source-links"><a class="badge" href="https://github.com/langfuse/langfuse" rel="noopener noreferrer" target="_blank">6</a></div></td><td>Quan sát, trace, đánh giá, theo dõi toàn diện.</td></tr>
-<tr><td>Luồng Agent thực thi</td><td><div class="source-links"><a class="badge" href="https://github.com/BerriAI/litellm" rel="noopener noreferrer" target="_blank">10</a></div></td><td>LLM gateway / model routing cho tầng thực thi.</td></tr>
-</tbody>
-</table>
-</section>
-<section class="section">
-<h2 class="section-title">4. Danh sách Source <small>GitHub repositories</small></h2>
-<div class="sources">
-<div class="source-row" id="src-1">
-<div class="source-id">1</div>
-<div>
-<div class="source-name">OpenBMB / ChatDev</div>
-<div class="source-url">LLM-powered multi-agent collaboration</div>
-</div>
-<a class="open" href="https://github.com/OpenBMB/ChatDev" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
-</div>
-<div class="source-row" id="src-2">
-<div class="source-id">2</div>
-<div>
-<div class="source-name">BerriAI / self-improving-agent</div>
-<div class="source-url">Self-improvement loop for AI agents</div>
-</div>
-<a class="open" href="https://github.com/BerriAI/self-improving-agent" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
-</div>
-<div class="source-row" id="src-3">
-<div class="source-id">3</div>
-<div>
-<div class="source-name">mem0ai / mem0</div>
-<div class="source-url">Memory layer for AI agents</div>
-</div>
-<a class="open" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
-</div>
-<div class="source-row" id="src-4">
-<div class="source-id">4</div>
-<div>
-<div class="source-name">unslothai / unsloth</div>
-<div class="source-url">Local UI and tooling for running / training LLMs and diffusion models</div>
-</div>
-<a class="open" href="https://github.com/unslothai/unsloth" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
-</div>
-<div class="source-row" id="src-5">
-<div class="source-id">5</div>
-<div>
-<div class="source-name">OpenPipe / ART</div>
-<div class="source-url">Agent Reinforcement Trainer</div>
-</div>
-<a class="open" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
-</div>
-<div class="source-row" id="src-6">
-<div class="source-id">6</div>
-<div>
-<div class="source-name">langfuse / langfuse</div>
-<div class="source-url">Open-source agent evals &amp; observability</div>
-</div>
-<a class="open" href="https://github.com/langfuse/langfuse" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
-</div>
-<div class="source-row" id="src-7">
-<div class="source-id">7</div>
-<div>
-<div class="source-name">open-policy-agent / opa</div>
-<div class="source-url">General-purpose policy engine</div>
-</div>
-<a class="open" href="https://github.com/open-policy-agent/opa" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
-</div>
-<div class="source-row" id="src-8">
-<div class="source-id">8</div>
-<div>
-<div class="source-name">temporalio / temporal</div>
-<div class="source-url">Durable workflow / orchestration service</div>
-</div>
-<a class="open" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
-</div>
-<div class="source-row" id="src-9">
-<div class="source-id">9</div>
-<div>
-<div class="source-name">mlflow / mlflow</div>
-<div class="source-url">Open-source AI engineering platform</div>
-</div>
-<a class="open" href="https://github.com/mlflow/mlflow" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
-</div>
-<div class="source-row" id="src-10">
-<div class="source-id">10</div>
-<div>
-<div class="source-name">BerriAI / litellm</div>
-<div class="source-url">LLM gateway / routing layer for 100+ providers</div>
-</div>
-<a class="open" href="https://github.com/BerriAI/litellm" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
-</div>
-<div class="source-row" id="src-11">
-<div class="source-id">11</div>
-<div>
-<div class="source-name">qdrant / qdrant</div>
-<div class="source-url">Vector database &amp; vector search engine</div>
-</div>
-<a class="open" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
-</div>
-<div class="source-row" id="src-12">
-<div class="source-id">12</div>
-<div>
-<div class="source-name">microsoft / agent-framework</div>
-<div class="source-url">Framework for building, orchestrating and deploying AI agents</div>
-</div>
-<a class="open" href="https://github.com/microsoft/agent-framework" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
-</div>
-</div>
-</section>
+
+        <div class="connector"></div>
+
+        <div class="level-block">
+          <div class="level-label">Cấp điều hành cao nhất</div>
+          <div class="level-row one">
+            <button class="org-card top-card ceo-card" type="button"
+              data-role="CEO"
+              data-desc="Điều hành tổng thể; quản lý CCO, COO, Finance và Pháp chế. Thư ký CEO hỗ trợ giám sát toàn diện."
+              data-sources="1,2,3,8">
+              <div class="org-role">CEO</div>
+              <div class="org-summary">Điều hành tổng thể</div>
+            </button>
+          </div>
+        </div>
+
+        <div class="support-row">
+          <div class="support-line"></div>
+          <button class="org-card support-card" type="button"
+            data-role="Thư ký CEO"
+            data-desc="Hỗ trợ CEO và giám sát toàn diện xuyên suốt các khối."
+            data-sources="6">
+            <div class="org-role">Thư ký CEO</div>
+            <div class="org-summary">Hỗ trợ & giám sát toàn diện</div>
+          </button>
+          <div class="support-line"></div>
+        </div>
+
+        <div class="hierarchy-link single-to-multi">
+          <div class="hierarchy-stem"></div>
+          <div class="hierarchy-bar"></div>
+          <div class="hierarchy-drops four">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="level-block level-exec">
+          <div class="level-label">Cấp điều hành</div>
+          <div class="level-row exec">
+            
+          <button class="org-card peer-exec" type="button" data-role="CCO" data-desc="Quản lý Lead MKT, Lead Sale và Lead Customer." data-sources="1,3,5,8,11">
+            <div class="org-role">CCO</div>
+            <div class="org-summary">Khối thương mại</div>
+            <div class="parent-chip">Báo cáo CEO</div>
+          </button>
+        
+
+          <button class="org-card peer-exec" type="button" data-role="COO" data-desc="Quản lý Lead Kế hoạch / Vận hành." data-sources="1,3,7,8">
+            <div class="org-role">COO</div>
+            <div class="org-summary">Khối vận hành</div>
+            <div class="parent-chip">Báo cáo CEO</div>
+          </button>
+        
+
+          <button class="org-card peer-exec" type="button" data-role="Finance" data-desc="Khối tài chính báo cáo CEO." data-sources="3,8">
+            <div class="org-role">Finance</div>
+            <div class="org-summary">Tài chính</div>
+            <div class="parent-chip">Báo cáo CEO</div>
+          </button>
+        
+
+          <button class="org-card peer-exec" type="button" data-role="Pháp chế" data-desc="Khối pháp chế báo cáo CEO." data-sources="7">
+            <div class="org-role">Pháp chế</div>
+            <div class="org-summary">Policy & compliance</div>
+            <div class="parent-chip">Báo cáo CEO</div>
+          </button>
+        
+          </div>
+          <div class="peer-note">CCO · COO · Finance · Pháp chế cùng báo cáo CEO.</div>
+        </div>
+
+        <div class="hierarchy-link multi-to-multi">
+          <div class="hierarchy-stem"></div>
+          <div class="hierarchy-bar"></div>
+          <div class="hierarchy-drops four">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="level-block level-leads">
+          <div class="level-label">Cấp Lead</div>
+          <div class="level-row leads">
+            
+          <button class="org-card peer-lead" type="button" data-role="Lead MKT" data-desc="Quản lý MKT 1, MKT 2, MKT 3. Source 4 được dự kiến mở rộng sau." data-sources="3,5,8,11,4">
+            <div class="org-role">Lead MKT</div>
+            <div class="org-summary">Điều phối Marketing</div>
+            <div class="parent-chip">Thuộc CCO</div>
+          </button>
+        
+
+          <button class="org-card peer-lead" type="button" data-role="Lead Sale" data-desc="Quản lý agent Sale." data-sources="3,4,5,8,11">
+            <div class="org-role">Lead Sale</div>
+            <div class="org-summary">Điều phối Sales</div>
+            <div class="parent-chip">Thuộc CCO</div>
+          </button>
+        
+
+          <button class="org-card peer-lead" type="button" data-role="Lead Customer" data-desc="Quản lý agent Customer. Chưa có source riêng được chỉ định cho chính Lead Customer." data-sources="">
+            <div class="org-role">Lead Customer</div>
+            <div class="org-summary">Điều phối Customer</div>
+            <div class="parent-chip">Thuộc CCO</div>
+          </button>
+        
+
+          <button class="org-card peer-lead" type="button" data-role="Lead Kế hoạch / Vận hành" data-desc="Quản lý Onboard, Support và Incident. Chưa có source riêng được chỉ định cho chính Lead." data-sources="">
+            <div class="org-role">Lead Kế hoạch / Vận hành</div>
+            <div class="org-summary">Điều phối Operations</div>
+            <div class="parent-chip">Thuộc COO</div>
+          </button>
+        
+          </div>
+          <div class="peer-note">Lead MKT · Lead Sale · Lead Customer · Lead Kế hoạch/Vận hành.</div>
+        </div>
+
+        <div class="hierarchy-link multi-to-multi agents-link">
+          <div class="hierarchy-stem"></div>
+          <div class="hierarchy-bar"></div>
+          <div class="hierarchy-drops eight">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="level-block level-agents">
+          <div class="level-label">Cấp thực thi</div>
+          <div class="level-row agents">
+            
+          <button class="org-card peer-agent" type="button" data-role="MKT 1" data-desc="Agent thực thi thuộc nhóm Marketing." data-sources="3,5,11">
+            <div class="org-role">MKT 1</div>
+            <div class="org-summary">Marketing agent</div>
+            <div class="parent-chip">Lead MKT</div>
+          </button>
+        
+
+          <button class="org-card peer-agent" type="button" data-role="MKT 2" data-desc="Agent thực thi thuộc nhóm Marketing, có workflow Temporal." data-sources="3,5,8,11">
+            <div class="org-role">MKT 2</div>
+            <div class="org-summary">Marketing agent</div>
+            <div class="parent-chip">Lead MKT</div>
+          </button>
+        
+
+          <button class="org-card peer-agent" type="button" data-role="MKT 3" data-desc="Agent thực thi thuộc nhóm Marketing." data-sources="3,5,11">
+            <div class="org-role">MKT 3</div>
+            <div class="org-summary">Marketing agent</div>
+            <div class="parent-chip">Lead MKT</div>
+          </button>
+        
+
+          <button class="org-card peer-agent" type="button" data-role="Sale" data-desc="Agent thực thi Sales. Chưa có source riêng được chỉ định." data-sources="">
+            <div class="org-role">Sale</div>
+            <div class="org-summary">Sales agent</div>
+            <div class="parent-chip">Lead Sale</div>
+          </button>
+        
+
+          <button class="org-card peer-agent" type="button" data-role="Customer" data-desc="Agent thực thi / chăm sóc khách hàng." data-sources="3,4,5,8,11">
+            <div class="org-role">Customer</div>
+            <div class="org-summary">Customer agent</div>
+            <div class="parent-chip">Lead Customer</div>
+          </button>
+        
+
+          <button class="org-card peer-agent" type="button" data-role="Onboard" data-desc="Agent thực thi Onboard. Chưa có source riêng được chỉ định." data-sources="">
+            <div class="org-role">Onboard</div>
+            <div class="org-summary">Onboarding agent</div>
+            <div class="parent-chip">Lead KH/VH</div>
+          </button>
+        
+
+          <button class="org-card peer-agent" type="button" data-role="Support" data-desc="Agent hỗ trợ vận hành." data-sources="3,4,8,11">
+            <div class="org-role">Support</div>
+            <div class="org-summary">Support agent</div>
+            <div class="parent-chip">Lead KH/VH</div>
+          </button>
+        
+
+          <button class="org-card peer-agent" type="button" data-role="Incident" data-desc="Agent xử lý incident. Chưa có source riêng được chỉ định." data-sources="">
+            <div class="org-role">Incident</div>
+            <div class="org-summary">Incident agent</div>
+            <div class="parent-chip">Lead KH/VH</div>
+          </button>
+        
+          </div>
+          <div class="peer-note">Các agent thực thi; chip bên dưới cho biết agent thuộc Lead nào.</div>
+        </div>
+
+
+        <div class="peer-note">
+          Đường dọc thể hiện quan hệ cấp trên → cấp dưới; đường ngang thể hiện các chức danh trong cùng một tầng tổ chức.
+        </div>
+
+        <div class="panel detail-panel" id="detailPanel">
+          <div class="detail-kicker">Chi tiết khi hover / focus</div>
+          <div class="detail-title" id="detailTitle">Di chuột vào một chức danh</div>
+          <div class="detail-desc" id="detailDesc">Thông tin quản lý và source sẽ hiển thị tại đây mà không làm card thay đổi kích thước.</div>
+          <div class="detail-sources" id="detailSources"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">2. Luồng điều phối chính</h2>
+    <div class="flow">
+      <div class="flow-step"><div class="num">Bước 01</div><div class="name">BOD</div><p>Định hướng và governance.</p></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="num">Bước 02</div><div class="name">CEO</div><p>Điều hành và phân rã mục tiêu.</p></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="num">Bước 03</div><div class="name">CCO / COO / Finance / Pháp chế</div><p>Các khối trực thuộc CEO.</p></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="num">Bước 04</div><div class="name">Lead → Agent</div><p>Điều phối và thực thi qua tầng agent / LLM gateway.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">3. Ma trận vị trí → Source</h2>
+    <table class="matrix">
+      <thead><tr><th>Vị trí</th><th>Source</th><th>Ghi chú</th></tr></thead>
+      <tbody>
+        <tr><td>BOD</td><td class="source-links"><a class="source-badge" href="https://github.com/microsoft/agent-framework" target="_blank">12</a><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/langfuse/langfuse" target="_blank">6</a><a class="source-badge" href="https://github.com/open-policy-agent/opa" target="_blank">7</a><a class="source-badge" href="https://github.com/mlflow/mlflow" target="_blank">9</a></td><td>Governance / memory / observability / policy / AI engineering.</td></tr>
+        <tr><td>CEO</td><td class="source-links"><a class="source-badge" href="https://github.com/OpenBMB/ChatDev" target="_blank">1</a><a class="source-badge" href="https://github.com/BerriAI/self-improving-agent" target="_blank">2</a><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a></td><td>Multi-agent, self-improvement, memory, durable workflow.</td></tr>
+        <tr><td>CCO</td><td class="source-links"><a class="source-badge" href="https://github.com/OpenBMB/ChatDev" target="_blank">1</a><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/OpenPipe/ART" target="_blank">5</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a><a class="source-badge" href="https://github.com/qdrant/qdrant" target="_blank">11</a></td><td>Khối thương mại.</td></tr>
+        <tr><td>COO</td><td class="source-links"><a class="source-badge" href="https://github.com/OpenBMB/ChatDev" target="_blank">1</a><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/open-policy-agent/opa" target="_blank">7</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a></td><td>Khối vận hành.</td></tr>
+        <tr><td>Finance</td><td class="source-links"><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a></td><td>Báo cáo CEO.</td></tr>
+        <tr><td>Pháp chế</td><td class="source-links"><a class="source-badge" href="https://github.com/open-policy-agent/opa" target="_blank">7</a></td><td>Báo cáo CEO.</td></tr>
+        <tr><td>Lead MKT</td><td class="source-links"><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/OpenPipe/ART" target="_blank">5</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a><a class="source-badge" href="https://github.com/qdrant/qdrant" target="_blank">11</a><a class="source-badge" href="https://github.com/unslothai/unsloth" target="_blank">4</a></td><td>Source 4 mở rộng sau.</td></tr>
+        <tr><td>Lead Sale</td><td class="source-links"><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/unslothai/unsloth" target="_blank">4</a><a class="source-badge" href="https://github.com/OpenPipe/ART" target="_blank">5</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a><a class="source-badge" href="https://github.com/qdrant/qdrant" target="_blank">11</a></td><td>Cấp Lead.</td></tr>
+        <tr><td>Customer</td><td class="source-links"><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/unslothai/unsloth" target="_blank">4</a><a class="source-badge" href="https://github.com/OpenPipe/ART" target="_blank">5</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a><a class="source-badge" href="https://github.com/qdrant/qdrant" target="_blank">11</a></td><td>Agent thực thi.</td></tr>
+        <tr><td>Support</td><td class="source-links"><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/unslothai/unsloth" target="_blank">4</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a><a class="source-badge" href="https://github.com/qdrant/qdrant" target="_blank">11</a></td><td>Agent thực thi.</td></tr>
+        <tr><td>Thư ký CEO</td><td class="source-links"><a class="source-badge" href="https://github.com/langfuse/langfuse" target="_blank">6</a></td><td>Hỗ trợ và giám sát toàn diện.</td></tr>
+        <tr><td>LLM Gateway</td><td class="source-links"><a class="source-badge" href="https://github.com/BerriAI/litellm" target="_blank">10</a></td><td>Tầng model routing cho agent thực thi.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">4. Danh sách Source</h2>
+    <div class="sources">
+      <div class="source-row" id="src-1">
+        <div class="source-id">1</div>
+        <div>
+          <div class="source-name">OpenBMB / ChatDev</div>
+          <div class="source-url">https://github.com/OpenBMB/ChatDev</div>
+        </div>
+        <a class="open" href="https://github.com/OpenBMB/ChatDev" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
+      </div>
+    
+
+      <div class="source-row" id="src-2">
+        <div class="source-id">2</div>
+        <div>
+          <div class="source-name">BerriAI / self-improving-agent</div>
+          <div class="source-url">https://github.com/BerriAI/self-improving-agent</div>
+        </div>
+        <a class="open" href="https://github.com/BerriAI/self-improving-agent" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
+      </div>
+    
+
+      <div class="source-row" id="src-3">
+        <div class="source-id">3</div>
+        <div>
+          <div class="source-name">mem0ai / mem0</div>
+          <div class="source-url">https://github.com/mem0ai/mem0</div>
+        </div>
+        <a class="open" href="https://github.com/mem0ai/mem0" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
+      </div>
+    
+
+      <div class="source-row" id="src-4">
+        <div class="source-id">4</div>
+        <div>
+          <div class="source-name">unslothai / unsloth</div>
+          <div class="source-url">https://github.com/unslothai/unsloth</div>
+        </div>
+        <a class="open" href="https://github.com/unslothai/unsloth" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
+      </div>
+    
+
+      <div class="source-row" id="src-5">
+        <div class="source-id">5</div>
+        <div>
+          <div class="source-name">OpenPipe / ART</div>
+          <div class="source-url">https://github.com/OpenPipe/ART</div>
+        </div>
+        <a class="open" href="https://github.com/OpenPipe/ART" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
+      </div>
+    
+
+      <div class="source-row" id="src-6">
+        <div class="source-id">6</div>
+        <div>
+          <div class="source-name">langfuse / langfuse</div>
+          <div class="source-url">https://github.com/langfuse/langfuse</div>
+        </div>
+        <a class="open" href="https://github.com/langfuse/langfuse" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
+      </div>
+    
+
+      <div class="source-row" id="src-7">
+        <div class="source-id">7</div>
+        <div>
+          <div class="source-name">open-policy-agent / opa</div>
+          <div class="source-url">https://github.com/open-policy-agent/opa</div>
+        </div>
+        <a class="open" href="https://github.com/open-policy-agent/opa" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
+      </div>
+    
+
+      <div class="source-row" id="src-8">
+        <div class="source-id">8</div>
+        <div>
+          <div class="source-name">temporalio / temporal</div>
+          <div class="source-url">https://github.com/temporalio/temporal</div>
+        </div>
+        <a class="open" href="https://github.com/temporalio/temporal" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
+      </div>
+    
+
+      <div class="source-row" id="src-9">
+        <div class="source-id">9</div>
+        <div>
+          <div class="source-name">mlflow / mlflow</div>
+          <div class="source-url">https://github.com/mlflow/mlflow</div>
+        </div>
+        <a class="open" href="https://github.com/mlflow/mlflow" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
+      </div>
+    
+
+      <div class="source-row" id="src-10">
+        <div class="source-id">10</div>
+        <div>
+          <div class="source-name">BerriAI / litellm</div>
+          <div class="source-url">https://github.com/BerriAI/litellm</div>
+        </div>
+        <a class="open" href="https://github.com/BerriAI/litellm" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
+      </div>
+    
+
+      <div class="source-row" id="src-11">
+        <div class="source-id">11</div>
+        <div>
+          <div class="source-name">qdrant / qdrant</div>
+          <div class="source-url">https://github.com/qdrant/qdrant</div>
+        </div>
+        <a class="open" href="https://github.com/qdrant/qdrant" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
+      </div>
+    
+
+      <div class="source-row" id="src-12">
+        <div class="source-id">12</div>
+        <div>
+          <div class="source-name">microsoft / agent-framework</div>
+          <div class="source-url">https://github.com/microsoft/agent-framework</div>
+        </div>
+        <a class="open" href="https://github.com/microsoft/agent-framework" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
+      </div>
+    </div>
+  </section>
 </main>
+
+<script>
+const sourceLinks = {1:"https://github.com/OpenBMB/ChatDev",2:"https://github.com/BerriAI/self-improving-agent",3:"https://github.com/mem0ai/mem0",4:"https://github.com/unslothai/unsloth",5:"https://github.com/OpenPipe/ART",6:"https://github.com/langfuse/langfuse",7:"https://github.com/open-policy-agent/opa",8:"https://github.com/temporalio/temporal",9:"https://github.com/mlflow/mlflow",10:"https://github.com/BerriAI/litellm",11:"https://github.com/qdrant/qdrant",12:"https://github.com/microsoft/agent-framework"};
+const cards = document.querySelectorAll('.org-card[data-role]');
+const detailTitle = document.getElementById('detailTitle');
+const detailDesc = document.getElementById('detailDesc');
+const detailSources = document.getElementById('detailSources');
+
+function showDetail(card) {
+  cards.forEach(c => c.classList.remove('active'));
+  card.classList.add('active');
+
+  detailTitle.textContent = card.dataset.role || '';
+  detailDesc.textContent = card.dataset.desc || '';
+
+  const nums = (card.dataset.sources || '')
+    .split(',')
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  detailSources.innerHTML = '';
+
+  if (!nums.length) {
+    const span = document.createElement('span');
+    span.className = 'no-source';
+    span.textContent = 'Chưa chỉ định source riêng.';
+    detailSources.appendChild(span);
+    return;
+  }
+
+  nums.forEach(num => {
+    const a = document.createElement('a');
+    a.className = 'source-badge';
+    a.textContent = num;
+    a.href = sourceLinks[num];
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    detailSources.appendChild(a);
+  });
+}
+
+cards.forEach(card => {
+  card.addEventListener('mouseenter', () => showDetail(card));
+  card.addEventListener('focus', () => showDetail(card));
+  card.addEventListener('click', () => showDetail(card));
+});
+</script>
 </body>
 </html>
