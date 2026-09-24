@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sơ đồ tổ chức & nguồn Agent</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sơ đồ tổ chức &amp; nguồn Agent</title>
 <style>
 :root {
   --text:#111;
@@ -82,7 +83,7 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
   cursor:pointer;
   transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease;
 }
-.org-card:hover,.org-card:focus-visible,.org-card.active{
+.org-card:hover,.org-card:focus-visible{
   border-color:#111;
   box-shadow:0 9px 24px rgba(0,0,0,.08);
   outline:none;
@@ -141,99 +142,6 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
   font-size:12px;
 }
 
-.detail-backdrop{
-  position:fixed;
-  inset:0;
-  z-index:1190;
-  background:rgba(15,23,42,.22);
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-  transition:opacity .18s ease, visibility .18s ease;
-}
-.detail-backdrop.open{
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
-}
-.detail-popup{
-  position:fixed;
-  top:50%;
-  left:50%;
-  z-index:1200;
-  width:min(420px, calc(100vw - 32px));
-  max-height:min(78vh, 680px);
-  overflow:auto;
-  padding:16px 18px;
-  border:1px solid #cfcfcf;
-  border-radius:16px;
-  background:rgba(255,255,255,.99);
-  box-shadow:0 24px 60px rgba(0,0,0,.22);
-  backdrop-filter:blur(8px);
-  opacity:0;
-  visibility:hidden;
-  transform:translate(-50%,-48%) scale(.985);
-  pointer-events:none;
-  transition:opacity .16s ease, transform .16s ease, visibility .16s ease;
-}
-.detail-popup.open{
-  opacity:1;
-  visibility:visible;
-  transform:translate(-50%,-50%) scale(1);
-  pointer-events:auto;
-}
-.detail-popup::before{
-  content:"";
-  position:absolute;
-  left:0;
-  top:0;
-  width:100%;
-  height:4px;
-  border-radius:16px 16px 0 0;
-  background:var(--popup-accent,#111);
-}
-.detail-kicker{
-  font-size:10px;
-  font-weight:850;
-  letter-spacing:.09em;
-  text-transform:uppercase;
-  color:#777;
-}
-.detail-title{
-  font-size:18px;
-  font-weight:850;
-  margin-top:4px;
-  padding-right:28px;
-}
-.detail-desc{
-  font-size:13px;
-  color:#555;
-  margin-top:5px;
-  line-height:1.5;
-}
-.detail-sources{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-top:12px;
-}
-.detail-close{
-  position:absolute;
-  top:10px;
-  right:10px;
-  width:28px;
-  height:28px;
-  display:grid;
-  place-items:center;
-  border:1px solid #d7d7d7;
-  border-radius:8px;
-  background:#fff;
-  color:#555;
-  font-size:16px;
-  line-height:1;
-  cursor:pointer;
-}
-.detail-close:hover{border-color:#111;color:#111}
 .source-badge{
   display:inline-flex;align-items:center;justify-content:center;
   min-width:30px;height:28px;padding:0 9px;
@@ -453,10 +361,6 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
 }
 
 /* Popup accent uses the selected card's direct manager color */
-.detail-popup{
-  --popup-accent:#111;
-}
-
 /* Relationship legend */
 .manager-color-legend{
   display:grid;
@@ -493,28 +397,6 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
   background:repeating-linear-gradient(
     90deg,var(--c-secretary) 0 6px,transparent 6px 10px
   );
-}
-
-
-.detail-manager{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  margin-top:7px;
-  padding:4px 8px;
-  border:1px solid color-mix(in srgb,var(--popup-accent) 40%,white);
-  border-radius:999px;
-  background:color-mix(in srgb,var(--popup-accent) 7%,white);
-  color:var(--popup-accent);
-  font-size:11px;
-  font-weight:800;
-}
-.detail-manager::before{
-  content:"";
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--popup-accent);
 }
 
 
@@ -608,10 +490,6 @@ body.modal-open .org-card:hover{
 }
 
 @media(max-width:900px){
-  .detail-popup{
-    width:min(92vw, 420px);
-    max-height:min(84vh, 720px);
-  }
   .level-row.exec{
     grid-template-columns:repeat(2,minmax(0,1fr));
   }
@@ -626,520 +504,422 @@ body.modal-open .org-card:hover{
   .org-shell{padding:14px}
   .flow-arrow{display:none}
 }
+
+
+/* ===== Org cards: content left, source numbers right ===== */
+.org-card{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:stretch;
+  gap:12px;
+  cursor:default;
+  overflow:hidden;
+}
+
+.card-main{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding-right:2px;
+}
+
+.card-source-column{
+  min-width:44px;
+  max-width:86px;
+  padding-left:11px;
+  border-left:1px solid #e4e4e4;
+  display:flex;
+  flex-wrap:wrap;
+  align-content:center;
+  justify-content:flex-end;
+  gap:6px;
+}
+
+.card-source-link,
+.card-source-empty{
+  width:28px;
+  height:28px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 28px;
+  border:1px solid #d2d2d2;
+  border-radius:8px;
+  background:#f8f8f8;
+  color:#222;
+  font-size:11px;
+  font-weight:850;
+  text-decoration:none;
+}
+
+.card-source-link:hover{
+  border-color:#111;
+  background:#111;
+  color:#fff;
+}
+
+.card-source-empty{
+  color:#999;
+  background:#fafafa;
+}
+
+/* Manager color remains visible on card edge; source column stays neutral */
+.org-card .card-source-column{
+  color:var(--text);
+}
+
+/* Compact executive support cards still keep enough room for source column */
+.level-row.exec .self-finance,
+.level-row.exec .self-legal{
+  grid-template-columns:minmax(0,1fr) auto;
+}
+
+.level-row.exec .self-finance .card-source-column,
+.level-row.exec .self-legal .card-source-column{
+  min-width:38px;
+  max-width:72px;
+  padding-left:8px;
+  gap:4px;
+}
+
+.level-row.exec .self-finance .card-source-link,
+.level-row.exec .self-legal .card-source-link{
+  width:26px;
+  height:26px;
+  flex-basis:26px;
+  font-size:10px;
+}
+
+/* No card-level hover motion; only source links are interactive now */
+.org-card:hover{
+  transform:none;
+}
+
+@media(max-width:900px){
+  .card-source-column{
+    min-width:42px;
+    max-width:82px;
+  }
+}
 </style>
 </head>
 <body>
 <main class="page">
-  <header class="header">
-    <div class="eyebrow">AI Organization Architecture</div>
-    <h1>Sơ đồ tổ chức & nguồn Agent</h1>
-    <p class="subtitle">
+<header class="header">
+<div class="eyebrow">AI Organization Architecture</div>
+<h1>Sơ đồ tổ chức &amp; nguồn Agent</h1>
+<p class="subtitle">
       Layout được cố định theo cấp bậc để các chức danh  luôn nằm cùng một hàng.
       Click vào card để xem chi tiết và source trong popup nội bộ, không làm thay đổi kích thước sơ đồ.
     </p>
-  </header>
-
-  <section class="section">
-    <h2 class="section-title">1. Sơ đồ tổ chức</h2>
-    <div class="panel org-shell">
-      <div class="org-chart">
-
-        <div class="level-block">
-          <div class="level-label">Cấp quản trị</div>
-          <div class="level-row one">
-            <button class="org-card top-card" type="button"
-              data-role="BOD"
-              data-desc="Quản lý CEO; định hướng, governance và policy cấp cao."
-              data-sources="12,3,6,7,9">
-              <div class="org-role">BOD</div>
-              <div class="org-summary">Định hướng & governance</div>
-            </button>
-          </div>
-        </div>
-
-        <div class="connector"></div>
-
-        <div class="level-block">
-          <div class="level-label">Cấp điều hành cao nhất</div>
-          <div class="level-row one">
-            <button class="org-card top-card ceo-card mgr-bod self-ceo" type="button"
-              data-role="CEO"
-              data-desc="Điều hành tổng thể; quản lý CCO, COO, Finance và Pháp chế. Thư ký CEO hỗ trợ giám sát toàn diện."
-              data-sources="1,2,3,8" data-manager="BOD">
-              <div class="org-role">CEO</div>
-              <div class="org-summary">Điều hành tổng thể</div>
-            </button>
-          </div>
-        </div>
-
-        <div class="support-row">
-          <div class="support-line"></div>
-          <button class="org-card support-card mgr-ceo-support" type="button"
-            data-role="Thư ký CEO"
-            data-desc="Hỗ trợ CEO và giám sát toàn diện xuyên suốt các khối."
-            data-sources="6" data-manager="CEO">
-            <div class="org-role">Thư ký CEO</div>
-            <div class="org-summary">Hỗ trợ & giám sát toàn diện</div>
-          </button>
-          <div class="support-line"></div>
-        </div>
-
-        <div class="direct-connector exec-direct" aria-hidden="true">
-          <svg viewBox="0 0 1000 70" preserveAspectRatio="none">
-            <path class="rel-ceo" d="M500 0 V22 H180 V70 M500 22 H520 V70 M500 22 H760 V70 M500 22 H920 V70"/>
-          </svg>
-        </div>
-
-        <div class="level-block level-exec">
-          <div class="level-label">Cấp điều hành</div>
-          <div class="level-row exec">
-            
-          <button class="org-card peer-exec mgr-ceo self-cco" type="button" data-role="CCO" data-desc="Quản lý Lead MKT, Lead Sale và Lead Customer." data-sources="1,3,5,8,11" data-manager="CEO">
-            <div class="org-role">CCO</div>
-            <div class="org-summary">Khối thương mại</div>
-            <div class="parent-chip">Báo cáo CEO</div>
-          </button>
-        
-
-          <button class="org-card peer-exec mgr-ceo self-coo" type="button" data-role="COO" data-desc="Quản lý Lead Kế hoạch / Vận hành." data-sources="1,3,7,8" data-manager="CEO">
-            <div class="org-role">COO</div>
-            <div class="org-summary">Khối vận hành</div>
-            <div class="parent-chip">Báo cáo CEO</div>
-          </button>
-        
-
-          <button class="org-card peer-exec mgr-ceo self-finance" type="button" data-role="Finance" data-desc="Khối tài chính báo cáo CEO." data-sources="3,8" data-manager="CEO">
-            <div class="org-role">Finance</div>
-            <div class="org-summary">Tài chính</div>
-            <div class="parent-chip">Báo cáo CEO</div>
-          </button>
-        
-
-          <button class="org-card peer-exec mgr-ceo self-legal" type="button" data-role="Pháp chế" data-desc="Khối pháp chế báo cáo CEO." data-sources="7" data-manager="CEO">
-            <div class="org-role">Pháp chế</div>
-            <div class="org-summary">Policy & compliance</div>
-            <div class="parent-chip">Báo cáo CEO</div>
-          </button>
-        
-          </div>
-          <div class="peer-note">CCO và COO là hai khối điều hành chính; Finance và Pháp chế là các chức năng trực thuộc CEO.</div>
-        </div>
-
-        <div class="direct-connector lead-direct" aria-hidden="true">
-          <svg viewBox="0 0 1000 86" preserveAspectRatio="none">
-            <!-- CCO -> Lead MKT / Lead Sale / Lead Customer -->
-            <path class="rel-cco" d="M180 0 V26 H625 M125 26 V86 M375 26 V86 M625 26 V86"/>
-            <!-- COO -> Lead Kế hoạch / Vận hành (separate lane to avoid crossing) -->
-            <path class="rel-coo" d="M520 0 V12 H875 V86"/>
-          </svg>
-        </div>
-
-        <div class="level-block level-leads">
-          <div class="level-label">Cấp Lead</div>
-          <div class="level-row leads">
-            
-          <button class="org-card peer-lead mgr-cco self-lead-mkt" type="button" data-role="Lead MKT" data-desc="Quản lý MKT 1, MKT 2, MKT 3. Source 4 được dự kiến mở rộng sau." data-sources="3,5,8,11,4" data-manager="CCO">
-            <div class="org-role">Lead MKT</div>
-            <div class="org-summary">Điều phối Marketing</div>
-            <div class="parent-chip">Thuộc CCO</div>
-          </button>
-        
-
-          <button class="org-card peer-lead mgr-cco self-lead-sale" type="button" data-role="Lead Sale" data-desc="Quản lý agent Sale." data-sources="3,4,5,8,11" data-manager="CCO">
-            <div class="org-role">Lead Sale</div>
-            <div class="org-summary">Điều phối Sales</div>
-            <div class="parent-chip">Thuộc CCO</div>
-          </button>
-        
-
-          <button class="org-card peer-lead mgr-cco self-lead-customer" type="button" data-role="Lead Customer" data-desc="Quản lý agent Customer. Chưa có source riêng được chỉ định cho chính Lead Customer." data-sources="" data-manager="CCO">
-            <div class="org-role">Lead Customer</div>
-            <div class="org-summary">Điều phối Customer</div>
-            <div class="parent-chip">Thuộc CCO</div>
-          </button>
-        
-
-          <button class="org-card peer-lead mgr-coo self-lead-ops" type="button" data-role="Lead Kế hoạch / Vận hành" data-desc="Quản lý Onboard, Support và Incident. Chưa có source riêng được chỉ định cho chính Lead." data-sources="" data-manager="COO">
-            <div class="org-role">Lead Kế hoạch / Vận hành</div>
-            <div class="org-summary">Điều phối Operations</div>
-            <div class="parent-chip">Thuộc COO</div>
-          </button>
-        
-          </div>
-          <div class="peer-note">Lead MKT · Lead Sale · Lead Customer · Lead Kế hoạch/Vận hành.</div>
-        </div>
-
-        <div class="direct-connector agent-direct" aria-hidden="true">
-          <svg viewBox="0 0 1000 94" preserveAspectRatio="none">
-            <!-- Lead MKT -> MKT 1 / 2 / 3 -->
-            <path class="rel-lead-mkt" d="M125 0 V24 H62.5 V94 M125 24 H187.5 V94 M125 24 H312.5 V94"/>
-            <!-- Lead Sale -> Sale -->
-            <path class="rel-lead-sale" d="M375 0 V48 H437.5 V94"/>
-            <!-- Lead Customer -> Customer -->
-            <path class="rel-lead-customer" d="M625 0 V48 H562.5 V94"/>
-            <!-- Lead KH/VH -> Onboard / Support / Incident -->
-            <path class="rel-lead-ops" d="M875 0 V24 H687.5 V94 M875 24 H812.5 V94 M875 24 H937.5 V94"/>
-          </svg>
-        </div>
-
-        <div class="level-block level-agents">
-          <div class="level-label">Cấp thực thi</div>
-          <div class="level-row agents">
-            
-          <button class="org-card peer-agent mgr-lead-mkt" type="button" data-role="MKT 1" data-desc="Agent thực thi thuộc nhóm Marketing." data-sources="3,5,11" data-manager="Lead MKT">
-            <div class="org-role">MKT 1</div>
-            <div class="org-summary">Marketing agent</div>
-            <div class="parent-chip">Lead MKT</div>
-          </button>
-        
-
-          <button class="org-card peer-agent mgr-lead-mkt" type="button" data-role="MKT 2" data-desc="Agent thực thi thuộc nhóm Marketing, có workflow Temporal." data-sources="3,5,8,11" data-manager="Lead MKT">
-            <div class="org-role">MKT 2</div>
-            <div class="org-summary">Marketing agent</div>
-            <div class="parent-chip">Lead MKT</div>
-          </button>
-        
-
-          <button class="org-card peer-agent mgr-lead-mkt" type="button" data-role="MKT 3" data-desc="Agent thực thi thuộc nhóm Marketing." data-sources="3,5,11" data-manager="Lead MKT">
-            <div class="org-role">MKT 3</div>
-            <div class="org-summary">Marketing agent</div>
-            <div class="parent-chip">Lead MKT</div>
-          </button>
-        
-
-          <button class="org-card peer-agent mgr-lead-sale" type="button" data-role="Sale" data-desc="Agent thực thi Sales. Chưa có source riêng được chỉ định." data-sources="" data-manager="Lead Sale">
-            <div class="org-role">Sale</div>
-            <div class="org-summary">Sales agent</div>
-            <div class="parent-chip">Lead Sale</div>
-          </button>
-        
-
-          <button class="org-card peer-agent mgr-lead-customer" type="button" data-role="Customer" data-desc="Agent thực thi / chăm sóc khách hàng." data-sources="3,4,5,8,11" data-manager="Lead Customer">
-            <div class="org-role">Customer</div>
-            <div class="org-summary">Customer agent</div>
-            <div class="parent-chip">Lead Customer</div>
-          </button>
-        
-
-          <button class="org-card peer-agent mgr-lead-ops" type="button" data-role="Onboard" data-desc="Agent thực thi Onboard. Chưa có source riêng được chỉ định." data-sources="" data-manager="Lead Kế hoạch / Vận hành">
-            <div class="org-role">Onboard</div>
-            <div class="org-summary">Onboarding agent</div>
-            <div class="parent-chip">Lead KH/VH</div>
-          </button>
-        
-
-          <button class="org-card peer-agent mgr-lead-ops" type="button" data-role="Support" data-desc="Agent hỗ trợ vận hành." data-sources="3,4,8,11" data-manager="Lead Kế hoạch / Vận hành">
-            <div class="org-role">Support</div>
-            <div class="org-summary">Support agent</div>
-            <div class="parent-chip">Lead KH/VH</div>
-          </button>
-        
-
-          <button class="org-card peer-agent mgr-lead-ops" type="button" data-role="Incident" data-desc="Agent xử lý incident. Chưa có source riêng được chỉ định." data-sources="" data-manager="Lead Kế hoạch / Vận hành">
-            <div class="org-role">Incident</div>
-            <div class="org-summary">Incident agent</div>
-            <div class="parent-chip">Lead KH/VH</div>
-          </button>
-        
-          </div>
-          <div class="peer-note">Các agent thực thi; chip bên dưới cho biết agent thuộc Lead nào.</div>
-        </div>
-
-
-        <div class="peer-note">
+</header>
+<section class="section">
+<h2 class="section-title">1. Sơ đồ tổ chức</h2>
+<div class="panel org-shell">
+<div class="org-chart">
+<div class="level-block">
+<div class="level-label">Cấp quản trị</div>
+<div class="level-row one">
+<div class="org-card top-card" data-desc="Quản lý CEO; định hướng, governance và policy cấp cao." data-role="BOD" data-sources="12,3,6,7,9"><div class="card-main">
+<div class="org-role">BOD</div>
+<div class="org-summary">Định hướng &amp; governance</div>
+</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/microsoft/agent-framework" rel="noopener noreferrer" target="_blank" title="Source 12">12</a><a class="card-source-link" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank" title="Source 3">3</a><a class="card-source-link" href="https://github.com/langfuse/langfuse" rel="noopener noreferrer" target="_blank" title="Source 6">6</a><a class="card-source-link" href="https://github.com/open-policy-agent/opa" rel="noopener noreferrer" target="_blank" title="Source 7">7</a><a class="card-source-link" href="https://github.com/mlflow/mlflow" rel="noopener noreferrer" target="_blank" title="Source 9">9</a></div></div>
+</div>
+</div>
+<div class="connector"></div>
+<div class="level-block">
+<div class="level-label">Cấp điều hành cao nhất</div>
+<div class="level-row one">
+<div class="org-card top-card ceo-card mgr-bod self-ceo" data-desc="Điều hành tổng thể; quản lý CCO, COO, Finance và Pháp chế. Thư ký CEO hỗ trợ giám sát toàn diện." data-manager="BOD" data-role="CEO" data-sources="1,2,3,8"><div class="card-main">
+<div class="org-role">CEO</div>
+<div class="org-summary">Điều hành tổng thể</div>
+</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/OpenBMB/ChatDev" rel="noopener noreferrer" target="_blank" title="Source 1">1</a><a class="card-source-link" href="https://github.com/BerriAI/self-improving-agent" rel="noopener noreferrer" target="_blank" title="Source 2">2</a><a class="card-source-link" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank" title="Source 3">3</a><a class="card-source-link" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank" title="Source 8">8</a></div></div>
+</div>
+</div>
+<div class="support-row">
+<div class="support-line"></div>
+<div class="org-card support-card mgr-ceo-support" data-desc="Hỗ trợ CEO và giám sát toàn diện xuyên suốt các khối." data-manager="CEO" data-role="Thư ký CEO" data-sources="6"><div class="card-main">
+<div class="org-role">Thư ký CEO</div>
+<div class="org-summary">Hỗ trợ &amp; giám sát toàn diện</div>
+</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/langfuse/langfuse" rel="noopener noreferrer" target="_blank" title="Source 6">6</a></div></div>
+<div class="support-line"></div>
+</div>
+<div aria-hidden="true" class="direct-connector exec-direct">
+<svg preserveaspectratio="none" viewbox="0 0 1000 70">
+<path class="rel-ceo" d="M500 0 V22 H180 V70 M500 22 H520 V70 M500 22 H760 V70 M500 22 H920 V70"></path>
+</svg>
+</div>
+<div class="level-block level-exec">
+<div class="level-label">Cấp điều hành</div>
+<div class="level-row exec">
+<div class="org-card peer-exec mgr-ceo self-cco" data-desc="Quản lý Lead MKT, Lead Sale và Lead Customer." data-manager="CEO" data-role="CCO" data-sources="1,3,5,8,11"><div class="card-main">
+<div class="org-role">CCO</div>
+<div class="org-summary">Khối thương mại</div>
+<div class="parent-chip">Báo cáo CEO</div>
+</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/OpenBMB/ChatDev" rel="noopener noreferrer" target="_blank" title="Source 1">1</a><a class="card-source-link" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank" title="Source 3">3</a><a class="card-source-link" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank" title="Source 5">5</a><a class="card-source-link" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank" title="Source 8">8</a><a class="card-source-link" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank" title="Source 11">11</a></div></div>
+<div class="org-card peer-exec mgr-ceo self-coo" data-desc="Quản lý Lead Kế hoạch / Vận hành." data-manager="CEO" data-role="COO" data-sources="1,3,7,8"><div class="card-main">
+<div class="org-role">COO</div>
+<div class="org-summary">Khối vận hành</div>
+<div class="parent-chip">Báo cáo CEO</div>
+</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/OpenBMB/ChatDev" rel="noopener noreferrer" target="_blank" title="Source 1">1</a><a class="card-source-link" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank" title="Source 3">3</a><a class="card-source-link" href="https://github.com/open-policy-agent/opa" rel="noopener noreferrer" target="_blank" title="Source 7">7</a><a class="card-source-link" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank" title="Source 8">8</a></div></div>
+<div class="org-card peer-exec mgr-ceo self-finance" data-desc="Khối tài chính báo cáo CEO." data-manager="CEO" data-role="Finance" data-sources="3,8"><div class="card-main">
+<div class="org-role">Finance</div>
+<div class="org-summary">Tài chính</div>
+<div class="parent-chip">Báo cáo CEO</div>
+</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank" title="Source 3">3</a><a class="card-source-link" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank" title="Source 8">8</a></div></div>
+<div class="org-card peer-exec mgr-ceo self-legal" data-desc="Khối pháp chế báo cáo CEO." data-manager="CEO" data-role="Pháp chế" data-sources="7"><div class="card-main">
+<div class="org-role">Pháp chế</div>
+<div class="org-summary">Policy &amp; compliance</div>
+<div class="parent-chip">Báo cáo CEO</div>
+</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/open-policy-agent/opa" rel="noopener noreferrer" target="_blank" title="Source 7">7</a></div></div>
+</div>
+<div class="peer-note">CCO và COO là hai khối điều hành chính; Finance và Pháp chế là các chức năng trực thuộc CEO.</div>
+</div>
+<div aria-hidden="true" class="direct-connector lead-direct">
+<svg preserveaspectratio="none" viewbox="0 0 1000 86">
+<!-- CCO -> Lead MKT / Lead Sale / Lead Customer -->
+<path class="rel-cco" d="M180 0 V26 H625 M125 26 V86 M375 26 V86 M625 26 V86"></path>
+<!-- COO -> Lead Kế hoạch / Vận hành (separate lane to avoid crossing) -->
+<path class="rel-coo" d="M520 0 V12 H875 V86"></path>
+</svg>
+</div>
+<div class="level-block level-leads">
+<div class="level-label">Cấp Lead</div>
+<div class="level-row leads">
+<div class="org-card peer-lead mgr-cco self-lead-mkt" data-desc="Quản lý MKT 1, MKT 2, MKT 3. Source 4 được dự kiến mở rộng sau." data-manager="CCO" data-role="Lead MKT" data-sources="3,5,8,11,4"><div class="card-main">
+<div class="org-role">Lead MKT</div>
+<div class="org-summary">Điều phối Marketing</div>
+<div class="parent-chip">Thuộc CCO</div>
+</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank" title="Source 3">3</a><a class="card-source-link" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank" title="Source 5">5</a><a class="card-source-link" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank" title="Source 8">8</a><a class="card-source-link" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank" title="Source 11">11</a><a class="card-source-link" href="https://github.com/unslothai/unsloth" rel="noopener noreferrer" target="_blank" title="Source 4">4</a></div></div>
+<div class="org-card peer-lead mgr-cco self-lead-sale" data-desc="Quản lý agent Sale." data-manager="CCO" data-role="Lead Sale" data-sources="3,4,5,8,11"><div class="card-main">
+<div class="org-role">Lead Sale</div>
+<div class="org-summary">Điều phối Sales</div>
+<div class="parent-chip">Thuộc CCO</div>
+</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank" title="Source 3">3</a><a class="card-source-link" href="https://github.com/unslothai/unsloth" rel="noopener noreferrer" target="_blank" title="Source 4">4</a><a class="card-source-link" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank" title="Source 5">5</a><a class="card-source-link" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank" title="Source 8">8</a><a class="card-source-link" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank" title="Source 11">11</a></div></div>
+<div class="org-card peer-lead mgr-cco self-lead-customer" data-desc="Quản lý agent Customer. Chưa có source riêng được chỉ định cho chính Lead Customer." data-manager="CCO" data-role="Lead Customer" data-sources=""><div class="card-main">
+<div class="org-role">Lead Customer</div>
+<div class="org-summary">Điều phối Customer</div>
+<div class="parent-chip">Thuộc CCO</div>
+</div><div class="card-source-column"><span class="card-source-empty" title="Chưa chỉ định source">—</span></div></div>
+<div class="org-card peer-lead mgr-coo self-lead-ops" data-desc="Quản lý Onboard, Support và Incident. Chưa có source riêng được chỉ định cho chính Lead." data-manager="COO" data-role="Lead Kế hoạch / Vận hành" data-sources=""><div class="card-main">
+<div class="org-role">Lead Kế hoạch / Vận hành</div>
+<div class="org-summary">Điều phối Operations</div>
+<div class="parent-chip">Thuộc COO</div>
+</div><div class="card-source-column"><span class="card-source-empty" title="Chưa chỉ định source">—</span></div></div>
+</div>
+<div class="peer-note">Lead MKT · Lead Sale · Lead Customer · Lead Kế hoạch/Vận hành.</div>
+</div>
+<div aria-hidden="true" class="direct-connector agent-direct">
+<svg preserveaspectratio="none" viewbox="0 0 1000 94">
+<!-- Lead MKT -> MKT 1 / 2 / 3 -->
+<path class="rel-lead-mkt" d="M125 0 V24 H62.5 V94 M125 24 H187.5 V94 M125 24 H312.5 V94"></path>
+<!-- Lead Sale -> Sale -->
+<path class="rel-lead-sale" d="M375 0 V48 H437.5 V94"></path>
+<!-- Lead Customer -> Customer -->
+<path class="rel-lead-customer" d="M625 0 V48 H562.5 V94"></path>
+<!-- Lead KH/VH -> Onboard / Support / Incident -->
+<path class="rel-lead-ops" d="M875 0 V24 H687.5 V94 M875 24 H812.5 V94 M875 24 H937.5 V94"></path>
+</svg>
+</div>
+<div class="level-block level-agents">
+<div class="level-label">Cấp thực thi</div>
+<div class="level-row agents">
+<div class="org-card peer-agent mgr-lead-mkt" data-desc="Agent thực thi thuộc nhóm Marketing." data-manager="Lead MKT" data-role="MKT 1" data-sources="3,5,11"><div class="card-main">
+<div class="org-role">MKT 1</div>
+<div class="org-summary">Marketing agent</div>
+<div class="parent-chip">Lead MKT</div>
+</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank" title="Source 3">3</a><a class="card-source-link" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank" title="Source 5">5</a><a class="card-source-link" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank" title="Source 11">11</a></div></div>
+<div class="org-card peer-agent mgr-lead-mkt" data-desc="Agent thực thi thuộc nhóm Marketing, có workflow Temporal." data-manager="Lead MKT" data-role="MKT 2" data-sources="3,5,8,11"><div class="card-main">
+<div class="org-role">MKT 2</div>
+<div class="org-summary">Marketing agent</div>
+<div class="parent-chip">Lead MKT</div>
+</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank" title="Source 3">3</a><a class="card-source-link" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank" title="Source 5">5</a><a class="card-source-link" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank" title="Source 8">8</a><a class="card-source-link" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank" title="Source 11">11</a></div></div>
+<div class="org-card peer-agent mgr-lead-mkt" data-desc="Agent thực thi thuộc nhóm Marketing." data-manager="Lead MKT" data-role="MKT 3" data-sources="3,5,11"><div class="card-main">
+<div class="org-role">MKT 3</div>
+<div class="org-summary">Marketing agent</div>
+<div class="parent-chip">Lead MKT</div>
+</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank" title="Source 3">3</a><a class="card-source-link" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank" title="Source 5">5</a><a class="card-source-link" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank" title="Source 11">11</a></div></div>
+<div class="org-card peer-agent mgr-lead-sale" data-desc="Agent thực thi Sales. Chưa có source riêng được chỉ định." data-manager="Lead Sale" data-role="Sale" data-sources=""><div class="card-main">
+<div class="org-role">Sale</div>
+<div class="org-summary">Sales agent</div>
+<div class="parent-chip">Lead Sale</div>
+</div><div class="card-source-column"><span class="card-source-empty" title="Chưa chỉ định source">—</span></div></div>
+<div class="org-card peer-agent mgr-lead-customer" data-desc="Agent thực thi / chăm sóc khách hàng." data-manager="Lead Customer" data-role="Customer" data-sources="3,4,5,8,11"><div class="card-main">
+<div class="org-role">Customer</div>
+<div class="org-summary">Customer agent</div>
+<div class="parent-chip">Lead Customer</div>
+</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank" title="Source 3">3</a><a class="card-source-link" href="https://github.com/unslothai/unsloth" rel="noopener noreferrer" target="_blank" title="Source 4">4</a><a class="card-source-link" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank" title="Source 5">5</a><a class="card-source-link" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank" title="Source 8">8</a><a class="card-source-link" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank" title="Source 11">11</a></div></div>
+<div class="org-card peer-agent mgr-lead-ops" data-desc="Agent thực thi Onboard. Chưa có source riêng được chỉ định." data-manager="Lead Kế hoạch / Vận hành" data-role="Onboard" data-sources=""><div class="card-main">
+<div class="org-role">Onboard</div>
+<div class="org-summary">Onboarding agent</div>
+<div class="parent-chip">Lead KH/VH</div>
+</div><div class="card-source-column"><span class="card-source-empty" title="Chưa chỉ định source">—</span></div></div>
+<div class="org-card peer-agent mgr-lead-ops" data-desc="Agent hỗ trợ vận hành." data-manager="Lead Kế hoạch / Vận hành" data-role="Support" data-sources="3,4,8,11"><div class="card-main">
+<div class="org-role">Support</div>
+<div class="org-summary">Support agent</div>
+<div class="parent-chip">Lead KH/VH</div>
+</div><div class="card-source-column"><a class="card-source-link" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank" title="Source 3">3</a><a class="card-source-link" href="https://github.com/unslothai/unsloth" rel="noopener noreferrer" target="_blank" title="Source 4">4</a><a class="card-source-link" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank" title="Source 8">8</a><a class="card-source-link" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank" title="Source 11">11</a></div></div>
+<div class="org-card peer-agent mgr-lead-ops" data-desc="Agent xử lý incident. Chưa có source riêng được chỉ định." data-manager="Lead Kế hoạch / Vận hành" data-role="Incident" data-sources=""><div class="card-main">
+<div class="org-role">Incident</div>
+<div class="org-summary">Incident agent</div>
+<div class="parent-chip">Lead KH/VH</div>
+</div><div class="card-source-column"><span class="card-source-empty" title="Chưa chỉ định source">—</span></div></div>
+</div>
+<div class="peer-note">Các agent thực thi; chip bên dưới cho biết agent thuộc Lead nào.</div>
+</div>
+<div class="peer-note">
           Mỗi màu thể hiện quan hệ với cấp trên trực tiếp. Card con dùng cùng màu với đường nối từ manager trực tiếp của nó.
         </div>
-        <div class="manager-color-legend">
-          <div class="legend-item ceo"><i></i><span>CEO → CCO / COO / Finance / Pháp chế</span></div>
-          <div class="legend-item cco"><i></i><span>CCO → Lead MKT / Sale / Customer</span></div>
-          <div class="legend-item coo"><i></i><span>COO → Lead Kế hoạch / Vận hành</span></div>
-          <div class="legend-item mkt"><i></i><span>Lead MKT → MKT 1 / 2 / 3</span></div>
-          <div class="legend-item sale"><i></i><span>Lead Sale → Sale</span></div>
-          <div class="legend-item customer"><i></i><span>Lead Customer → Customer</span></div>
-          <div class="legend-item ops"><i></i><span>Lead Kế hoạch / Vận hành → Onboard / Support / Incident</span></div>
-          <div class="legend-item secretary"><i></i><span>CEO ↔ Thư ký: hỗ trợ / giám sát</span></div>
-        </div>
+<div class="manager-color-legend">
+<div class="legend-item ceo"><i></i><span>CEO → CCO / COO / Finance / Pháp chế</span></div>
+<div class="legend-item cco"><i></i><span>CCO → Lead MKT / Sale / Customer</span></div>
+<div class="legend-item coo"><i></i><span>COO → Lead Kế hoạch / Vận hành</span></div>
+<div class="legend-item mkt"><i></i><span>Lead MKT → MKT 1 / 2 / 3</span></div>
+<div class="legend-item sale"><i></i><span>Lead Sale → Sale</span></div>
+<div class="legend-item customer"><i></i><span>Lead Customer → Customer</span></div>
+<div class="legend-item ops"><i></i><span>Lead Kế hoạch / Vận hành → Onboard / Support / Incident</span></div>
+<div class="legend-item secretary"><i></i><span>CEO ↔ Thư ký: hỗ trợ / giám sát</span></div>
+</div>
 
-        <div class="detail-backdrop" id="detailBackdrop" aria-hidden="true"></div>
-        <div class="detail-popup" id="detailPopup" role="dialog" aria-live="polite" aria-hidden="true">
-          <button class="detail-close" id="detailClose" type="button" aria-label="Đóng">×</button>
-          <div class="detail-kicker">Chi tiết chức danh</div>
-          <div class="detail-title" id="detailTitle"></div>
-          <div class="detail-manager" id="detailManager"></div>
-          <div class="detail-desc" id="detailDesc"></div>
-          <div class="detail-sources" id="detailSources"></div>
-        </div>
 
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2 class="section-title">2. Luồng điều phối chính</h2>
-    <div class="flow">
-      <div class="flow-step"><div class="num">Bước 01</div><div class="name">BOD</div><p>Định hướng và governance.</p></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="num">Bước 02</div><div class="name">CEO</div><p>Điều hành và phân rã mục tiêu.</p></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="num">Bước 03</div><div class="name">CCO / COO / Finance / Pháp chế</div><p>Các khối trực thuộc CEO.</p></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="num">Bước 04</div><div class="name">Lead → Agent</div><p>Điều phối và thực thi qua tầng agent / LLM gateway.</p></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2 class="section-title">3. Ma trận vị trí → Source</h2>
-    <table class="matrix">
-      <thead><tr><th>Vị trí</th><th>Source</th><th>Ghi chú</th></tr></thead>
-      <tbody>
-        <tr><td>BOD</td><td class="source-links"><a class="source-badge" href="https://github.com/microsoft/agent-framework" target="_blank">12</a><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/langfuse/langfuse" target="_blank">6</a><a class="source-badge" href="https://github.com/open-policy-agent/opa" target="_blank">7</a><a class="source-badge" href="https://github.com/mlflow/mlflow" target="_blank">9</a></td><td>Governance / memory / observability / policy / AI engineering.</td></tr>
-        <tr><td>CEO</td><td class="source-links"><a class="source-badge" href="https://github.com/OpenBMB/ChatDev" target="_blank">1</a><a class="source-badge" href="https://github.com/BerriAI/self-improving-agent" target="_blank">2</a><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a></td><td>Multi-agent, self-improvement, memory, durable workflow.</td></tr>
-        <tr><td>CCO</td><td class="source-links"><a class="source-badge" href="https://github.com/OpenBMB/ChatDev" target="_blank">1</a><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/OpenPipe/ART" target="_blank">5</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a><a class="source-badge" href="https://github.com/qdrant/qdrant" target="_blank">11</a></td><td>Khối thương mại.</td></tr>
-        <tr><td>COO</td><td class="source-links"><a class="source-badge" href="https://github.com/OpenBMB/ChatDev" target="_blank">1</a><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/open-policy-agent/opa" target="_blank">7</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a></td><td>Khối vận hành.</td></tr>
-        <tr><td>Finance</td><td class="source-links"><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a></td><td>Báo cáo CEO.</td></tr>
-        <tr><td>Pháp chế</td><td class="source-links"><a class="source-badge" href="https://github.com/open-policy-agent/opa" target="_blank">7</a></td><td>Báo cáo CEO.</td></tr>
-        <tr><td>Lead MKT</td><td class="source-links"><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/OpenPipe/ART" target="_blank">5</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a><a class="source-badge" href="https://github.com/qdrant/qdrant" target="_blank">11</a><a class="source-badge" href="https://github.com/unslothai/unsloth" target="_blank">4</a></td><td>Source 4 mở rộng sau.</td></tr>
-        <tr><td>Lead Sale</td><td class="source-links"><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/unslothai/unsloth" target="_blank">4</a><a class="source-badge" href="https://github.com/OpenPipe/ART" target="_blank">5</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a><a class="source-badge" href="https://github.com/qdrant/qdrant" target="_blank">11</a></td><td>Cấp Lead.</td></tr>
-        <tr><td>Customer</td><td class="source-links"><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/unslothai/unsloth" target="_blank">4</a><a class="source-badge" href="https://github.com/OpenPipe/ART" target="_blank">5</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a><a class="source-badge" href="https://github.com/qdrant/qdrant" target="_blank">11</a></td><td>Agent thực thi.</td></tr>
-        <tr><td>Support</td><td class="source-links"><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/unslothai/unsloth" target="_blank">4</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a><a class="source-badge" href="https://github.com/qdrant/qdrant" target="_blank">11</a></td><td>Agent thực thi.</td></tr>
-        <tr><td>Thư ký CEO</td><td class="source-links"><a class="source-badge" href="https://github.com/langfuse/langfuse" target="_blank">6</a></td><td>Hỗ trợ và giám sát toàn diện.</td></tr>
-        <tr><td>LLM Gateway</td><td class="source-links"><a class="source-badge" href="https://github.com/BerriAI/litellm" target="_blank">10</a></td><td>Tầng model routing cho agent thực thi.</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section class="section">
-    <h2 class="section-title">4. Danh sách Source</h2>
-    <div class="sources">
-      <div class="source-row" id="src-1">
-        <div class="source-id">1</div>
-        <div>
-          <div class="source-name">OpenBMB / ChatDev</div>
-          <div class="source-url">https://github.com/OpenBMB/ChatDev</div>
-        </div>
-        <a class="open" href="https://github.com/OpenBMB/ChatDev" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
-      </div>
-    
-
-      <div class="source-row" id="src-2">
-        <div class="source-id">2</div>
-        <div>
-          <div class="source-name">BerriAI / self-improving-agent</div>
-          <div class="source-url">https://github.com/BerriAI/self-improving-agent</div>
-        </div>
-        <a class="open" href="https://github.com/BerriAI/self-improving-agent" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
-      </div>
-    
-
-      <div class="source-row" id="src-3">
-        <div class="source-id">3</div>
-        <div>
-          <div class="source-name">mem0ai / mem0</div>
-          <div class="source-url">https://github.com/mem0ai/mem0</div>
-        </div>
-        <a class="open" href="https://github.com/mem0ai/mem0" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
-      </div>
-    
-
-      <div class="source-row" id="src-4">
-        <div class="source-id">4</div>
-        <div>
-          <div class="source-name">unslothai / unsloth</div>
-          <div class="source-url">https://github.com/unslothai/unsloth</div>
-        </div>
-        <a class="open" href="https://github.com/unslothai/unsloth" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
-      </div>
-    
-
-      <div class="source-row" id="src-5">
-        <div class="source-id">5</div>
-        <div>
-          <div class="source-name">OpenPipe / ART</div>
-          <div class="source-url">https://github.com/OpenPipe/ART</div>
-        </div>
-        <a class="open" href="https://github.com/OpenPipe/ART" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
-      </div>
-    
-
-      <div class="source-row" id="src-6">
-        <div class="source-id">6</div>
-        <div>
-          <div class="source-name">langfuse / langfuse</div>
-          <div class="source-url">https://github.com/langfuse/langfuse</div>
-        </div>
-        <a class="open" href="https://github.com/langfuse/langfuse" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
-      </div>
-    
-
-      <div class="source-row" id="src-7">
-        <div class="source-id">7</div>
-        <div>
-          <div class="source-name">open-policy-agent / opa</div>
-          <div class="source-url">https://github.com/open-policy-agent/opa</div>
-        </div>
-        <a class="open" href="https://github.com/open-policy-agent/opa" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
-      </div>
-    
-
-      <div class="source-row" id="src-8">
-        <div class="source-id">8</div>
-        <div>
-          <div class="source-name">temporalio / temporal</div>
-          <div class="source-url">https://github.com/temporalio/temporal</div>
-        </div>
-        <a class="open" href="https://github.com/temporalio/temporal" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
-      </div>
-    
-
-      <div class="source-row" id="src-9">
-        <div class="source-id">9</div>
-        <div>
-          <div class="source-name">mlflow / mlflow</div>
-          <div class="source-url">https://github.com/mlflow/mlflow</div>
-        </div>
-        <a class="open" href="https://github.com/mlflow/mlflow" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
-      </div>
-    
-
-      <div class="source-row" id="src-10">
-        <div class="source-id">10</div>
-        <div>
-          <div class="source-name">BerriAI / litellm</div>
-          <div class="source-url">https://github.com/BerriAI/litellm</div>
-        </div>
-        <a class="open" href="https://github.com/BerriAI/litellm" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
-      </div>
-    
-
-      <div class="source-row" id="src-11">
-        <div class="source-id">11</div>
-        <div>
-          <div class="source-name">qdrant / qdrant</div>
-          <div class="source-url">https://github.com/qdrant/qdrant</div>
-        </div>
-        <a class="open" href="https://github.com/qdrant/qdrant" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
-      </div>
-    
-
-      <div class="source-row" id="src-12">
-        <div class="source-id">12</div>
-        <div>
-          <div class="source-name">microsoft / agent-framework</div>
-          <div class="source-url">https://github.com/microsoft/agent-framework</div>
-        </div>
-        <a class="open" href="https://github.com/microsoft/agent-framework" target="_blank" rel="noopener noreferrer">Mở GitHub ↗</a>
-      </div>
-    </div>
-  </section>
+</div>
+</div>
+</section>
+<section class="section">
+<h2 class="section-title">2. Luồng điều phối chính</h2>
+<div class="flow">
+<div class="flow-step"><div class="num">Bước 01</div><div class="name">BOD</div><p>Định hướng và governance.</p></div>
+<div class="flow-arrow">→</div>
+<div class="flow-step"><div class="num">Bước 02</div><div class="name">CEO</div><p>Điều hành và phân rã mục tiêu.</p></div>
+<div class="flow-arrow">→</div>
+<div class="flow-step"><div class="num">Bước 03</div><div class="name">CCO / COO / Finance / Pháp chế</div><p>Các khối trực thuộc CEO.</p></div>
+<div class="flow-arrow">→</div>
+<div class="flow-step"><div class="num">Bước 04</div><div class="name">Lead → Agent</div><p>Điều phối và thực thi qua tầng agent / LLM gateway.</p></div>
+</div>
+</section>
+<section class="section">
+<h2 class="section-title">3. Ma trận vị trí → Source</h2>
+<table class="matrix">
+<thead><tr><th>Vị trí</th><th>Source</th><th>Ghi chú</th></tr></thead>
+<tbody>
+<tr><td>BOD</td><td class="source-links"><a class="source-badge" href="https://github.com/microsoft/agent-framework" target="_blank">12</a><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/langfuse/langfuse" target="_blank">6</a><a class="source-badge" href="https://github.com/open-policy-agent/opa" target="_blank">7</a><a class="source-badge" href="https://github.com/mlflow/mlflow" target="_blank">9</a></td><td>Governance / memory / observability / policy / AI engineering.</td></tr>
+<tr><td>CEO</td><td class="source-links"><a class="source-badge" href="https://github.com/OpenBMB/ChatDev" target="_blank">1</a><a class="source-badge" href="https://github.com/BerriAI/self-improving-agent" target="_blank">2</a><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a></td><td>Multi-agent, self-improvement, memory, durable workflow.</td></tr>
+<tr><td>CCO</td><td class="source-links"><a class="source-badge" href="https://github.com/OpenBMB/ChatDev" target="_blank">1</a><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/OpenPipe/ART" target="_blank">5</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a><a class="source-badge" href="https://github.com/qdrant/qdrant" target="_blank">11</a></td><td>Khối thương mại.</td></tr>
+<tr><td>COO</td><td class="source-links"><a class="source-badge" href="https://github.com/OpenBMB/ChatDev" target="_blank">1</a><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/open-policy-agent/opa" target="_blank">7</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a></td><td>Khối vận hành.</td></tr>
+<tr><td>Finance</td><td class="source-links"><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a></td><td>Báo cáo CEO.</td></tr>
+<tr><td>Pháp chế</td><td class="source-links"><a class="source-badge" href="https://github.com/open-policy-agent/opa" target="_blank">7</a></td><td>Báo cáo CEO.</td></tr>
+<tr><td>Lead MKT</td><td class="source-links"><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/OpenPipe/ART" target="_blank">5</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a><a class="source-badge" href="https://github.com/qdrant/qdrant" target="_blank">11</a><a class="source-badge" href="https://github.com/unslothai/unsloth" target="_blank">4</a></td><td>Source 4 mở rộng sau.</td></tr>
+<tr><td>Lead Sale</td><td class="source-links"><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/unslothai/unsloth" target="_blank">4</a><a class="source-badge" href="https://github.com/OpenPipe/ART" target="_blank">5</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a><a class="source-badge" href="https://github.com/qdrant/qdrant" target="_blank">11</a></td><td>Cấp Lead.</td></tr>
+<tr><td>Customer</td><td class="source-links"><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/unslothai/unsloth" target="_blank">4</a><a class="source-badge" href="https://github.com/OpenPipe/ART" target="_blank">5</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a><a class="source-badge" href="https://github.com/qdrant/qdrant" target="_blank">11</a></td><td>Agent thực thi.</td></tr>
+<tr><td>Support</td><td class="source-links"><a class="source-badge" href="https://github.com/mem0ai/mem0" target="_blank">3</a><a class="source-badge" href="https://github.com/unslothai/unsloth" target="_blank">4</a><a class="source-badge" href="https://github.com/temporalio/temporal" target="_blank">8</a><a class="source-badge" href="https://github.com/qdrant/qdrant" target="_blank">11</a></td><td>Agent thực thi.</td></tr>
+<tr><td>Thư ký CEO</td><td class="source-links"><a class="source-badge" href="https://github.com/langfuse/langfuse" target="_blank">6</a></td><td>Hỗ trợ và giám sát toàn diện.</td></tr>
+<tr><td>LLM Gateway</td><td class="source-links"><a class="source-badge" href="https://github.com/BerriAI/litellm" target="_blank">10</a></td><td>Tầng model routing cho agent thực thi.</td></tr>
+</tbody>
+</table>
+</section>
+<section class="section">
+<h2 class="section-title">4. Danh sách Source</h2>
+<div class="sources">
+<div class="source-row" id="src-1">
+<div class="source-id">1</div>
+<div>
+<div class="source-name">OpenBMB / ChatDev</div>
+<div class="source-url">https://github.com/OpenBMB/ChatDev</div>
+</div>
+<a class="open" href="https://github.com/OpenBMB/ChatDev" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
+</div>
+<div class="source-row" id="src-2">
+<div class="source-id">2</div>
+<div>
+<div class="source-name">BerriAI / self-improving-agent</div>
+<div class="source-url">https://github.com/BerriAI/self-improving-agent</div>
+</div>
+<a class="open" href="https://github.com/BerriAI/self-improving-agent" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
+</div>
+<div class="source-row" id="src-3">
+<div class="source-id">3</div>
+<div>
+<div class="source-name">mem0ai / mem0</div>
+<div class="source-url">https://github.com/mem0ai/mem0</div>
+</div>
+<a class="open" href="https://github.com/mem0ai/mem0" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
+</div>
+<div class="source-row" id="src-4">
+<div class="source-id">4</div>
+<div>
+<div class="source-name">unslothai / unsloth</div>
+<div class="source-url">https://github.com/unslothai/unsloth</div>
+</div>
+<a class="open" href="https://github.com/unslothai/unsloth" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
+</div>
+<div class="source-row" id="src-5">
+<div class="source-id">5</div>
+<div>
+<div class="source-name">OpenPipe / ART</div>
+<div class="source-url">https://github.com/OpenPipe/ART</div>
+</div>
+<a class="open" href="https://github.com/OpenPipe/ART" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
+</div>
+<div class="source-row" id="src-6">
+<div class="source-id">6</div>
+<div>
+<div class="source-name">langfuse / langfuse</div>
+<div class="source-url">https://github.com/langfuse/langfuse</div>
+</div>
+<a class="open" href="https://github.com/langfuse/langfuse" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
+</div>
+<div class="source-row" id="src-7">
+<div class="source-id">7</div>
+<div>
+<div class="source-name">open-policy-agent / opa</div>
+<div class="source-url">https://github.com/open-policy-agent/opa</div>
+</div>
+<a class="open" href="https://github.com/open-policy-agent/opa" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
+</div>
+<div class="source-row" id="src-8">
+<div class="source-id">8</div>
+<div>
+<div class="source-name">temporalio / temporal</div>
+<div class="source-url">https://github.com/temporalio/temporal</div>
+</div>
+<a class="open" href="https://github.com/temporalio/temporal" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
+</div>
+<div class="source-row" id="src-9">
+<div class="source-id">9</div>
+<div>
+<div class="source-name">mlflow / mlflow</div>
+<div class="source-url">https://github.com/mlflow/mlflow</div>
+</div>
+<a class="open" href="https://github.com/mlflow/mlflow" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
+</div>
+<div class="source-row" id="src-10">
+<div class="source-id">10</div>
+<div>
+<div class="source-name">BerriAI / litellm</div>
+<div class="source-url">https://github.com/BerriAI/litellm</div>
+</div>
+<a class="open" href="https://github.com/BerriAI/litellm" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
+</div>
+<div class="source-row" id="src-11">
+<div class="source-id">11</div>
+<div>
+<div class="source-name">qdrant / qdrant</div>
+<div class="source-url">https://github.com/qdrant/qdrant</div>
+</div>
+<a class="open" href="https://github.com/qdrant/qdrant" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
+</div>
+<div class="source-row" id="src-12">
+<div class="source-id">12</div>
+<div>
+<div class="source-name">microsoft / agent-framework</div>
+<div class="source-url">https://github.com/microsoft/agent-framework</div>
+</div>
+<a class="open" href="https://github.com/microsoft/agent-framework" rel="noopener noreferrer" target="_blank">Mở GitHub ↗</a>
+</div>
+</div>
+</section>
 </main>
 
-<script>
-const sourceLinks = {"1":"https://github.com/OpenBMB/ChatDev","2":"https://github.com/BerriAI/self-improving-agent","3":"https://github.com/mem0ai/mem0","4":"https://github.com/unslothai/unsloth","5":"https://github.com/OpenPipe/ART","6":"https://github.com/langfuse/langfuse","7":"https://github.com/open-policy-agent/opa","8":"https://github.com/temporalio/temporal","9":"https://github.com/mlflow/mlflow","10":"https://github.com/BerriAI/litellm","11":"https://github.com/qdrant/qdrant","12":"https://github.com/microsoft/agent-framework"};
-
-const cards = document.querySelectorAll('.org-card[data-role]');
-const popup = document.getElementById('detailPopup');
-const backdrop = document.getElementById('detailBackdrop');
-const detailTitle = document.getElementById('detailTitle');
-const detailManager = document.getElementById('detailManager');
-const detailDesc = document.getElementById('detailDesc');
-const detailSources = document.getElementById('detailSources');
-const detailClose = document.getElementById('detailClose');
-
-let hideTimer = null;
-let activeCard = null;
-
-
-
-
-function managerColor(card) {
-  if (card.classList.contains('mgr-cco')) return '#2563eb';
-  if (card.classList.contains('mgr-coo')) return '#0f766e';
-  if (card.classList.contains('mgr-lead-mkt')) return '#7c3aed';
-  if (card.classList.contains('mgr-lead-sale')) return '#d97706';
-  if (card.classList.contains('mgr-lead-customer')) return '#db2777';
-  if (card.classList.contains('mgr-lead-ops')) return '#16a34a';
-  if (card.classList.contains('mgr-ceo') || card.classList.contains('mgr-ceo-support')) return '#111827';
-  if (card.classList.contains('mgr-bod')) return '#475569';
-  return '#111827';
-}
-
-function showPopup(card) {
-  clearTimeout(hideTimer);
-  activeCard = card;
-
-  cards.forEach(c => c.classList.remove('active'));
-  card.classList.add('active');
-
-  detailTitle.textContent = card.dataset.role || '';
-  detailDesc.textContent = card.dataset.desc || '';
-  popup.style.setProperty('--popup-accent', managerColor(card));
-  const manager = card.dataset.manager || '';
-  detailManager.textContent = manager ? `Cấp trên trực tiếp: ${manager}` : 'Cấp cao nhất';
-
-  const nums = (card.dataset.sources || '')
-    .split(',')
-    .map(s => s.trim())
-    .filter(Boolean);
-
-  detailSources.innerHTML = '';
-
-  if (!nums.length) {
-    const span = document.createElement('span');
-    span.className = 'no-source';
-    span.textContent = 'Chưa chỉ định source riêng.';
-    detailSources.appendChild(span);
-  } else {
-    nums.forEach(num => {
-      const a = document.createElement('a');
-      a.className = 'source-badge';
-      a.textContent = num;
-      a.href = sourceLinks[num];
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      detailSources.appendChild(a);
-    });
-  }
-
-  document.body.classList.add('modal-open');
-  backdrop.classList.add('open');
-  backdrop.setAttribute('aria-hidden', 'false');
-  popup.classList.add('open');
-  popup.setAttribute('aria-hidden', 'false');
-}
-
-function hidePopup() {
-  document.body.classList.remove('modal-open');
-  backdrop.classList.remove('open');
-  backdrop.setAttribute('aria-hidden', 'true');
-  popup.classList.remove('open');
-  popup.setAttribute('aria-hidden', 'true');
-  cards.forEach(c => c.classList.remove('active'));
-  activeCard = null;
-}
-
-cards.forEach(card => {
-  card.addEventListener('click', () => {
-    if (activeCard === card && popup.classList.contains('open')) {
-      hidePopup();
-      return;
-    }
-    showPopup(card);
-  });
-});
-
-detailClose.addEventListener('click', () => hidePopup());
-backdrop.addEventListener('click', () => hidePopup());
-
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') hidePopup();
-});
-
-document.addEventListener('click', (event) => {
-  if (!popup.classList.contains('open')) return;
-  if (popup.contains(event.target)) return;
-  if (event.target.closest('.org-card[data-role]')) return;
-  hidePopup();
-});
-</script>
 </body>
 </html>
