@@ -13,6 +13,19 @@
   --soft:#f7f7f7;
   --radius:14px;
   --shadow:0 6px 20px rgba(0,0,0,.045);
+
+  /* Manager / relationship colors */
+  --c-governance:#475569;
+  --c-ceo:#111827;
+  --c-cco:#2563eb;
+  --c-coo:#0f766e;
+  --c-finance:#475569;
+  --c-legal:#475569;
+  --c-lead-mkt:#7c3aed;
+  --c-lead-sale:#d97706;
+  --c-lead-customer:#db2777;
+  --c-lead-ops:#16a34a;
+  --c-secretary:#64748b;
 }
 *{box-sizing:border-box}
 body{
@@ -38,7 +51,7 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
   box-shadow:var(--shadow);
 }
 
-.org-shell{padding:22px;overflow-x:auto}
+.org-shell{padding:22px;overflow-x:auto;position:relative}
 .org-chart{min-width:1180px}
 .level-block{margin:0}
 .level-label{
@@ -49,7 +62,7 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
 .level-label::after{content:"";height:1px;background:#e4e4e4;flex:1}
 .level-row{display:grid;gap:14px;align-items:stretch}
 .level-row.one{grid-template-columns:minmax(260px,360px);justify-content:center}
-.level-row.exec{grid-template-columns:repeat(4,minmax(0,1fr))}
+.level-row.exec{grid-template-columns:minmax(0,2.25fr) minmax(0,2fr) minmax(130px,1fr) minmax(130px,1fr)}
 .level-row.leads{grid-template-columns:repeat(4,minmax(0,1fr))}
 .level-row.agents{grid-template-columns:repeat(8,minmax(0,1fr))}
 
@@ -91,7 +104,24 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
 .top-card{border-color:#bcbcbc}
 .ceo-card{border-color:#111}
 .connector{
-  width:1px;height:24px;background:#bdbdbd;margin:8px auto;
+  width:4px;
+  height:30px;
+  margin:8px auto;
+  border-radius:999px;
+  background:linear-gradient(180deg,var(--c-governance),var(--c-ceo));
+  position:relative;
+}
+.connector::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-2px;
+  width:8px;
+  height:8px;
+  border-right:3px solid var(--c-ceo);
+  border-bottom:3px solid var(--c-ceo);
+  transform:translateX(-50%) rotate(45deg);
+  background:#fff;
 }
 .support-row{
   display:grid;
@@ -111,15 +141,82 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
   font-size:12px;
 }
 
-.detail-panel{
-  margin-top:18px;
+.detail-popup{
+  position:absolute;
+  top:18px;
+  right:18px;
+  z-index:100;
+  width:min(360px,calc(100% - 36px));
   padding:16px 18px;
-  min-height:104px;
+  border:1px solid #cfcfcf;
+  border-radius:14px;
+  background:rgba(255,255,255,.98);
+  box-shadow:0 18px 48px rgba(0,0,0,.16);
+  backdrop-filter:blur(8px);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-8px) scale(.985);
+  pointer-events:none;
+  transition:opacity .16s ease,transform .16s ease,visibility .16s ease;
 }
-.detail-kicker{font-size:10px;font-weight:850;letter-spacing:.09em;text-transform:uppercase;color:#777}
-.detail-title{font-size:18px;font-weight:850;margin-top:3px}
-.detail-desc{font-size:13px;color:#555;margin-top:4px}
-.detail-sources{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.detail-popup.open{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0) scale(1);
+  pointer-events:auto;
+}
+.detail-popup::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:4px;
+  border-radius:14px 14px 0 0;
+  background:var(--popup-accent,#111);
+}
+.detail-kicker{
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:#777;
+}
+.detail-title{
+  font-size:18px;
+  font-weight:850;
+  margin-top:4px;
+  padding-right:28px;
+}
+.detail-desc{
+  font-size:13px;
+  color:#555;
+  margin-top:5px;
+  line-height:1.5;
+}
+.detail-sources{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:12px;
+}
+.detail-close{
+  position:absolute;
+  top:10px;
+  right:10px;
+  width:28px;
+  height:28px;
+  display:grid;
+  place-items:center;
+  border:1px solid #d7d7d7;
+  border-radius:8px;
+  background:#fff;
+  color:#555;
+  font-size:16px;
+  line-height:1;
+  cursor:pointer;
+}
+.detail-close:hover{border-color:#111;color:#111}
 .source-badge{
   display:inline-flex;align-items:center;justify-content:center;
   min-width:30px;height:28px;padding:0 9px;
@@ -163,140 +260,307 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
 .open:hover{background:#111;color:#fff}
 
 
-/* Hierarchy connectors */
-.hierarchy-link{
+
+/* ===== Direct-manager relationship colors ===== */
+.direct-connector{
   position:relative;
-  height:46px;
+  width:100%;
   margin:0;
-}
-
-.hierarchy-stem{
-  position:absolute;
-  top:0;
-  left:50%;
-  width:1px;
-  height:18px;
-  background:#9f9f9f;
-  transform:translateX(-50%);
-}
-
-.hierarchy-bar{
-  position:absolute;
-  top:18px;
-  left:12.5%;
-  right:12.5%;
-  height:1px;
-  background:#c3c3c3;
-}
-
-.hierarchy-drops{
-  position:absolute;
-  top:18px;
-  left:0;
-  right:0;
-  height:28px;
-  display:grid;
   pointer-events:none;
 }
+.direct-connector.exec-direct{height:70px}
+.direct-connector.lead-direct{height:86px}
+.direct-connector.agent-direct{height:94px}
 
-.hierarchy-drops.four{
-  grid-template-columns:repeat(4,minmax(0,1fr));
-}
-
-.hierarchy-drops.eight{
-  grid-template-columns:repeat(8,minmax(0,1fr));
-}
-
-.hierarchy-drops span{
-  position:relative;
+.direct-connector svg{
   display:block;
+  width:100%;
+  height:100%;
+  overflow:visible;
+}
+.direct-connector path{
+  fill:none;
+  stroke-width:4;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  vector-effect:non-scaling-stroke;
+}
+.direct-connector .rel-ceo{stroke:var(--c-ceo)}
+.direct-connector .rel-cco{stroke:var(--c-cco)}
+.direct-connector .rel-coo{stroke:var(--c-coo)}
+.direct-connector .rel-lead-mkt{stroke:var(--c-lead-mkt)}
+.direct-connector .rel-lead-sale{stroke:var(--c-lead-sale)}
+.direct-connector .rel-lead-customer{stroke:var(--c-lead-customer)}
+.direct-connector .rel-lead-ops{stroke:var(--c-lead-ops)}
+
+.direct-connector::after{
+  content:"";
+  position:absolute;
+  inset:8px 0;
+  border-radius:12px;
+  pointer-events:none;
+  opacity:.45;
+}
+.exec-direct::after{
+  background:linear-gradient(90deg,transparent,rgba(17,24,39,.05),transparent);
+}
+.lead-direct::after{
+  background:
+    linear-gradient(90deg,rgba(37,99,235,.07) 0 75%,rgba(15,118,110,.07) 75% 100%);
+}
+.agent-direct::after{
+  background:
+    linear-gradient(90deg,
+      rgba(124,58,237,.07) 0 37.5%,
+      rgba(217,119,6,.07) 37.5% 50%,
+      rgba(219,39,119,.07) 50% 62.5%,
+      rgba(22,163,74,.07) 62.5% 100%);
 }
 
-.hierarchy-drops span::before{
+/* Incoming relationship color = direct manager */
+.org-card{
+  --manager-color:#cbd5e1;
+  --self-color:#94a3b8;
+  position:relative;
+  overflow:hidden;
+}
+.org-card::before{
   content:"";
   position:absolute;
   top:0;
-  left:50%;
-  width:1px;
-  height:18px;
-  background:#c3c3c3;
-  transform:translateX(-50%);
+  left:0;
+  width:100%;
+  height:4px;
+  background:var(--manager-color);
 }
-
-.hierarchy-drops span::after{
+.org-card::after{
   content:"";
   position:absolute;
-  left:50%;
-  top:17px;
+  bottom:0;
+  left:14px;
+  right:14px;
+  height:3px;
+  border-radius:999px 999px 0 0;
+  background:var(--self-color);
+  opacity:.95;
+}
+
+/* Parent / incoming colors */
+.mgr-bod{--manager-color:var(--c-governance)}
+.mgr-ceo{--manager-color:var(--c-ceo)}
+.mgr-ceo-support{--manager-color:var(--c-ceo)}
+.mgr-cco{--manager-color:var(--c-cco)}
+.mgr-coo{--manager-color:var(--c-coo)}
+.mgr-lead-mkt{--manager-color:var(--c-lead-mkt)}
+.mgr-lead-sale{--manager-color:var(--c-lead-sale)}
+.mgr-lead-customer{--manager-color:var(--c-lead-customer)}
+.mgr-lead-ops{--manager-color:var(--c-lead-ops)}
+
+/* Outgoing branch / manager's own color */
+.self-ceo{--self-color:var(--c-ceo)}
+.self-cco{--self-color:var(--c-cco)}
+.self-coo{--self-color:var(--c-coo)}
+.self-finance{--self-color:var(--c-finance)}
+.self-legal{--self-color:var(--c-legal)}
+.self-lead-mkt{--self-color:var(--c-lead-mkt)}
+.self-lead-sale{--self-color:var(--c-lead-sale)}
+.self-lead-customer{--self-color:var(--c-lead-customer)}
+.self-lead-ops{--self-color:var(--c-lead-ops)}
+
+/* Parent chip follows the DIRECT manager color */
+.org-card .parent-chip{
+  color:var(--manager-color);
+  border-color:color-mix(in srgb,var(--manager-color) 42%,white);
+  background:color-mix(in srgb,var(--manager-color) 7%,white);
+  opacity:1;
+}
+
+/* Small manager-color dot before parent chip */
+.org-card .parent-chip::before{
+  content:"";
+  display:inline-block;
   width:7px;
   height:7px;
-  border-right:1px solid #8f8f8f;
-  border-bottom:1px solid #8f8f8f;
-  transform:translateX(-50%) rotate(45deg);
-  background:#fff;
+  margin-right:5px;
+  border-radius:50%;
+  background:var(--manager-color);
+  vertical-align:1px;
 }
 
-/* Align horizontal bars with card centers */
-.single-to-multi .hierarchy-bar,
-.multi-to-multi .hierarchy-bar{
-  left:12.5%;
-  right:12.5%;
-}
-
-.agents-link .hierarchy-bar{
-  left:6.25%;
-  right:6.25%;
-}
-
-/* subtle top connection into each peer row */
-.level-exec .level-row,
-.level-leads .level-row,
-.level-agents .level-row{
-  position:relative;
-}
-
+/* Keep body text neutral */
 .level-exec .org-card,
 .level-leads .org-card,
 .level-agents .org-card{
-  position:relative;
+  color:var(--text);
+}
+.level-exec .org-role,
+.level-leads .org-role,
+.level-agents .org-role{
+  color:var(--text);
+}
+.level-exec .org-summary,
+.level-leads .org-summary,
+.level-agents .org-summary{
+  color:#6d6d6d;
+  opacity:1;
 }
 
-.level-exec .org-card::before,
-.level-leads .org-card::before,
-.level-agents .org-card::before{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:-15px;
-  width:1px;
-  height:14px;
-  background:#c3c3c3;
-  transform:translateX(-50%);
-}
-
-.level-exec .org-card::after,
-.level-leads .org-card::after,
-.level-agents .org-card::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:-4px;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#111;
-  transform:translateX(-50%);
-}
-
-/* Keep the label from visually colliding with connector drops */
+/* Level headings remain neutral: colors now indicate direct manager relationships */
 .level-exec .level-label,
 .level-leads .level-label,
 .level-agents .level-label{
-  margin-top:4px;
+  color:#555;
+}
+.level-exec .level-label::after,
+.level-leads .level-label::after,
+.level-agents .level-label::after{
+  background:#e4e4e4;
+}
+
+/* CEO -> secretary is support, shown as dashed direct relation */
+.support-row{
+  position:relative;
+}
+.support-card{
+  --manager-color:var(--c-ceo);
+  --self-color:var(--c-secretary);
+}
+.support-line{
+  height:2px;
+  background:repeating-linear-gradient(
+    90deg,
+    var(--c-secretary) 0 8px,
+    transparent 8px 14px
+  );
+  opacity:.65;
+}
+
+/* Popup accent uses the selected card's direct manager color */
+.detail-popup{
+  --popup-accent:#111;
+}
+
+/* Relationship legend */
+.manager-color-legend{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:8px;
+  margin:12px 0 0;
+}
+.manager-color-legend .legend-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:34px;
+  padding:7px 9px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#fafafa;
+  color:#555;
+  font-size:11px;
+}
+.manager-color-legend i{
+  flex:0 0 auto;
+  width:22px;
+  height:4px;
+  border-radius:999px;
+}
+.manager-color-legend .ceo i{background:var(--c-ceo)}
+.manager-color-legend .cco i{background:var(--c-cco)}
+.manager-color-legend .coo i{background:var(--c-coo)}
+.manager-color-legend .mkt i{background:var(--c-lead-mkt)}
+.manager-color-legend .sale i{background:var(--c-lead-sale)}
+.manager-color-legend .customer i{background:var(--c-lead-customer)}
+.manager-color-legend .ops i{background:var(--c-lead-ops)}
+.manager-color-legend .secretary i{
+  background:repeating-linear-gradient(
+    90deg,var(--c-secretary) 0 6px,transparent 6px 10px
+  );
 }
 
 
+.detail-manager{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:7px;
+  padding:4px 8px;
+  border:1px solid color-mix(in srgb,var(--popup-accent) 40%,white);
+  border-radius:999px;
+  background:color-mix(in srgb,var(--popup-accent) 7%,white);
+  color:var(--popup-accent);
+  font-size:11px;
+  font-weight:800;
+}
+.detail-manager::before{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--popup-accent);
+}
+
+
+/* Executive space priority: CCO / COO first, Finance / Legal compact */
+.level-row.exec .self-finance,
+.level-row.exec .self-legal{
+  min-height:78px;
+  padding:12px 11px;
+  align-self:start;
+}
+.level-row.exec .self-finance .org-role,
+.level-row.exec .self-legal .org-role{
+  font-size:14px;
+}
+.level-row.exec .self-finance .org-summary,
+.level-row.exec .self-legal .org-summary{
+  font-size:11px;
+}
+.level-row.exec .self-finance .parent-chip,
+.level-row.exec .self-legal .parent-chip{
+  margin-top:7px;
+  padding:2px 6px;
+  font-size:9px;
+}
+.level-row.exec .self-cco,
+.level-row.exec .self-coo{
+  min-height:96px;
+  padding:16px;
+}
+.level-row.exec .self-cco .org-role,
+.level-row.exec .self-coo .org-role{
+  font-size:16px;
+}
+
+
+@media(max-width:1180px){
+  .level-row.exec{
+    grid-template-columns:minmax(0,1.5fr) minmax(0,1.5fr) minmax(120px,.75fr) minmax(120px,.75fr);
+  }
+}
+
 @media(max-width:900px){
+  .level-row.exec{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .level-row.exec .self-finance,
+  .level-row.exec .self-legal,
+  .level-row.exec .self-cco,
+  .level-row.exec .self-coo{
+    min-height:88px;
+    padding:14px;
+  }
+  .detail-popup{
+    position:fixed;
+    top:50%;
+    left:50%;
+    right:auto;
+    width:min(92vw,380px);
+    transform:translate(-50%,-48%) scale(.985);
+  }
+  .detail-popup.open{
+    transform:translate(-50%,-50%) scale(1);
+  }
   .page{width:min(100% - 20px,1540px)}
   .org-shell{padding:14px}
   .flow-arrow{display:none}
@@ -310,7 +574,7 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
     <h1>Sơ đồ tổ chức & nguồn Agent</h1>
     <p class="subtitle">
       Layout được cố định theo cấp bậc để các chức danh  luôn nằm cùng một hàng.
-      Hover hoặc focus vào card để xem chi tiết và source, không làm thay đổi kích thước sơ đồ.
+      Click vào card để xem chi tiết và source trong popup nội bộ, không làm thay đổi kích thước sơ đồ.
     </p>
   </header>
 
@@ -337,10 +601,10 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
         <div class="level-block">
           <div class="level-label">Cấp điều hành cao nhất</div>
           <div class="level-row one">
-            <button class="org-card top-card ceo-card" type="button"
+            <button class="org-card top-card ceo-card mgr-bod self-ceo" type="button"
               data-role="CEO"
               data-desc="Điều hành tổng thể; quản lý CCO, COO, Finance và Pháp chế. Thư ký CEO hỗ trợ giám sát toàn diện."
-              data-sources="1,2,3,8">
+              data-sources="1,2,3,8" data-manager="BOD">
               <div class="org-role">CEO</div>
               <div class="org-summary">Điều hành tổng thể</div>
             </button>
@@ -349,93 +613,92 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
 
         <div class="support-row">
           <div class="support-line"></div>
-          <button class="org-card support-card" type="button"
+          <button class="org-card support-card mgr-ceo-support" type="button"
             data-role="Thư ký CEO"
             data-desc="Hỗ trợ CEO và giám sát toàn diện xuyên suốt các khối."
-            data-sources="6">
+            data-sources="6" data-manager="CEO">
             <div class="org-role">Thư ký CEO</div>
             <div class="org-summary">Hỗ trợ & giám sát toàn diện</div>
           </button>
           <div class="support-line"></div>
         </div>
 
-        <div class="hierarchy-link single-to-multi">
-          <div class="hierarchy-stem"></div>
-          <div class="hierarchy-bar"></div>
-          <div class="hierarchy-drops four">
-            <span></span><span></span><span></span><span></span>
-          </div>
+        <div class="direct-connector exec-direct" aria-hidden="true">
+          <svg viewBox="0 0 1000 70" preserveAspectRatio="none">
+            <path class="rel-ceo" d="M500 0 V22 H180 V70 M500 22 H520 V70 M500 22 H760 V70 M500 22 H920 V70"/>
+          </svg>
         </div>
 
         <div class="level-block level-exec">
           <div class="level-label">Cấp điều hành</div>
           <div class="level-row exec">
             
-          <button class="org-card peer-exec" type="button" data-role="CCO" data-desc="Quản lý Lead MKT, Lead Sale và Lead Customer." data-sources="1,3,5,8,11">
+          <button class="org-card peer-exec mgr-ceo self-cco" type="button" data-role="CCO" data-desc="Quản lý Lead MKT, Lead Sale và Lead Customer." data-sources="1,3,5,8,11" data-manager="CEO">
             <div class="org-role">CCO</div>
             <div class="org-summary">Khối thương mại</div>
             <div class="parent-chip">Báo cáo CEO</div>
           </button>
         
 
-          <button class="org-card peer-exec" type="button" data-role="COO" data-desc="Quản lý Lead Kế hoạch / Vận hành." data-sources="1,3,7,8">
+          <button class="org-card peer-exec mgr-ceo self-coo" type="button" data-role="COO" data-desc="Quản lý Lead Kế hoạch / Vận hành." data-sources="1,3,7,8" data-manager="CEO">
             <div class="org-role">COO</div>
             <div class="org-summary">Khối vận hành</div>
             <div class="parent-chip">Báo cáo CEO</div>
           </button>
         
 
-          <button class="org-card peer-exec" type="button" data-role="Finance" data-desc="Khối tài chính báo cáo CEO." data-sources="3,8">
+          <button class="org-card peer-exec mgr-ceo self-finance" type="button" data-role="Finance" data-desc="Khối tài chính báo cáo CEO." data-sources="3,8" data-manager="CEO">
             <div class="org-role">Finance</div>
             <div class="org-summary">Tài chính</div>
             <div class="parent-chip">Báo cáo CEO</div>
           </button>
         
 
-          <button class="org-card peer-exec" type="button" data-role="Pháp chế" data-desc="Khối pháp chế báo cáo CEO." data-sources="7">
+          <button class="org-card peer-exec mgr-ceo self-legal" type="button" data-role="Pháp chế" data-desc="Khối pháp chế báo cáo CEO." data-sources="7" data-manager="CEO">
             <div class="org-role">Pháp chế</div>
             <div class="org-summary">Policy & compliance</div>
             <div class="parent-chip">Báo cáo CEO</div>
           </button>
         
           </div>
-          <div class="peer-note">CCO · COO · Finance · Pháp chế cùng báo cáo CEO.</div>
+          <div class="peer-note">CCO và COO là hai khối điều hành chính; Finance và Pháp chế là các chức năng trực thuộc CEO.</div>
         </div>
 
-        <div class="hierarchy-link multi-to-multi">
-          <div class="hierarchy-stem"></div>
-          <div class="hierarchy-bar"></div>
-          <div class="hierarchy-drops four">
-            <span></span><span></span><span></span><span></span>
-          </div>
+        <div class="direct-connector lead-direct" aria-hidden="true">
+          <svg viewBox="0 0 1000 86" preserveAspectRatio="none">
+            <!-- CCO -> Lead MKT / Lead Sale / Lead Customer -->
+            <path class="rel-cco" d="M180 0 V22 H625 M180 22 H125 V86 M375 22 V86 M625 22 V86"/>
+            <!-- COO -> Lead Kế hoạch / Vận hành -->
+            <path class="rel-coo" d="M520 0 V54 H875 V86"/>
+          </svg>
         </div>
 
         <div class="level-block level-leads">
           <div class="level-label">Cấp Lead</div>
           <div class="level-row leads">
             
-          <button class="org-card peer-lead" type="button" data-role="Lead MKT" data-desc="Quản lý MKT 1, MKT 2, MKT 3. Source 4 được dự kiến mở rộng sau." data-sources="3,5,8,11,4">
+          <button class="org-card peer-lead mgr-cco self-lead-mkt" type="button" data-role="Lead MKT" data-desc="Quản lý MKT 1, MKT 2, MKT 3. Source 4 được dự kiến mở rộng sau." data-sources="3,5,8,11,4" data-manager="CCO">
             <div class="org-role">Lead MKT</div>
             <div class="org-summary">Điều phối Marketing</div>
             <div class="parent-chip">Thuộc CCO</div>
           </button>
         
 
-          <button class="org-card peer-lead" type="button" data-role="Lead Sale" data-desc="Quản lý agent Sale." data-sources="3,4,5,8,11">
+          <button class="org-card peer-lead mgr-cco self-lead-sale" type="button" data-role="Lead Sale" data-desc="Quản lý agent Sale." data-sources="3,4,5,8,11" data-manager="CCO">
             <div class="org-role">Lead Sale</div>
             <div class="org-summary">Điều phối Sales</div>
             <div class="parent-chip">Thuộc CCO</div>
           </button>
         
 
-          <button class="org-card peer-lead" type="button" data-role="Lead Customer" data-desc="Quản lý agent Customer. Chưa có source riêng được chỉ định cho chính Lead Customer." data-sources="">
+          <button class="org-card peer-lead mgr-cco self-lead-customer" type="button" data-role="Lead Customer" data-desc="Quản lý agent Customer. Chưa có source riêng được chỉ định cho chính Lead Customer." data-sources="" data-manager="CCO">
             <div class="org-role">Lead Customer</div>
             <div class="org-summary">Điều phối Customer</div>
             <div class="parent-chip">Thuộc CCO</div>
           </button>
         
 
-          <button class="org-card peer-lead" type="button" data-role="Lead Kế hoạch / Vận hành" data-desc="Quản lý Onboard, Support và Incident. Chưa có source riêng được chỉ định cho chính Lead." data-sources="">
+          <button class="org-card peer-lead mgr-coo self-lead-ops" type="button" data-role="Lead Kế hoạch / Vận hành" data-desc="Quản lý Onboard, Support và Incident. Chưa có source riêng được chỉ định cho chính Lead." data-sources="" data-manager="COO">
             <div class="org-role">Lead Kế hoạch / Vận hành</div>
             <div class="org-summary">Điều phối Operations</div>
             <div class="parent-chip">Thuộc COO</div>
@@ -445,69 +708,73 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
           <div class="peer-note">Lead MKT · Lead Sale · Lead Customer · Lead Kế hoạch/Vận hành.</div>
         </div>
 
-        <div class="hierarchy-link multi-to-multi agents-link">
-          <div class="hierarchy-stem"></div>
-          <div class="hierarchy-bar"></div>
-          <div class="hierarchy-drops eight">
-            <span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span>
-          </div>
+        <div class="direct-connector agent-direct" aria-hidden="true">
+          <svg viewBox="0 0 1000 94" preserveAspectRatio="none">
+            <!-- Lead MKT -> MKT 1 / 2 / 3 -->
+            <path class="rel-lead-mkt" d="M125 0 V24 H62.5 V94 M125 24 H187.5 V94 M125 24 H312.5 V94"/>
+            <!-- Lead Sale -> Sale -->
+            <path class="rel-lead-sale" d="M375 0 V48 H437.5 V94"/>
+            <!-- Lead Customer -> Customer -->
+            <path class="rel-lead-customer" d="M625 0 V48 H562.5 V94"/>
+            <!-- Lead KH/VH -> Onboard / Support / Incident -->
+            <path class="rel-lead-ops" d="M875 0 V24 H687.5 V94 M875 24 H812.5 V94 M875 24 H937.5 V94"/>
+          </svg>
         </div>
 
         <div class="level-block level-agents">
           <div class="level-label">Cấp thực thi</div>
           <div class="level-row agents">
             
-          <button class="org-card peer-agent" type="button" data-role="MKT 1" data-desc="Agent thực thi thuộc nhóm Marketing." data-sources="3,5,11">
+          <button class="org-card peer-agent mgr-lead-mkt" type="button" data-role="MKT 1" data-desc="Agent thực thi thuộc nhóm Marketing." data-sources="3,5,11" data-manager="Lead MKT">
             <div class="org-role">MKT 1</div>
             <div class="org-summary">Marketing agent</div>
             <div class="parent-chip">Lead MKT</div>
           </button>
         
 
-          <button class="org-card peer-agent" type="button" data-role="MKT 2" data-desc="Agent thực thi thuộc nhóm Marketing, có workflow Temporal." data-sources="3,5,8,11">
+          <button class="org-card peer-agent mgr-lead-mkt" type="button" data-role="MKT 2" data-desc="Agent thực thi thuộc nhóm Marketing, có workflow Temporal." data-sources="3,5,8,11" data-manager="Lead MKT">
             <div class="org-role">MKT 2</div>
             <div class="org-summary">Marketing agent</div>
             <div class="parent-chip">Lead MKT</div>
           </button>
         
 
-          <button class="org-card peer-agent" type="button" data-role="MKT 3" data-desc="Agent thực thi thuộc nhóm Marketing." data-sources="3,5,11">
+          <button class="org-card peer-agent mgr-lead-mkt" type="button" data-role="MKT 3" data-desc="Agent thực thi thuộc nhóm Marketing." data-sources="3,5,11" data-manager="Lead MKT">
             <div class="org-role">MKT 3</div>
             <div class="org-summary">Marketing agent</div>
             <div class="parent-chip">Lead MKT</div>
           </button>
         
 
-          <button class="org-card peer-agent" type="button" data-role="Sale" data-desc="Agent thực thi Sales. Chưa có source riêng được chỉ định." data-sources="">
+          <button class="org-card peer-agent mgr-lead-sale" type="button" data-role="Sale" data-desc="Agent thực thi Sales. Chưa có source riêng được chỉ định." data-sources="" data-manager="Lead Sale">
             <div class="org-role">Sale</div>
             <div class="org-summary">Sales agent</div>
             <div class="parent-chip">Lead Sale</div>
           </button>
         
 
-          <button class="org-card peer-agent" type="button" data-role="Customer" data-desc="Agent thực thi / chăm sóc khách hàng." data-sources="3,4,5,8,11">
+          <button class="org-card peer-agent mgr-lead-customer" type="button" data-role="Customer" data-desc="Agent thực thi / chăm sóc khách hàng." data-sources="3,4,5,8,11" data-manager="Lead Customer">
             <div class="org-role">Customer</div>
             <div class="org-summary">Customer agent</div>
             <div class="parent-chip">Lead Customer</div>
           </button>
         
 
-          <button class="org-card peer-agent" type="button" data-role="Onboard" data-desc="Agent thực thi Onboard. Chưa có source riêng được chỉ định." data-sources="">
+          <button class="org-card peer-agent mgr-lead-ops" type="button" data-role="Onboard" data-desc="Agent thực thi Onboard. Chưa có source riêng được chỉ định." data-sources="" data-manager="Lead Kế hoạch / Vận hành">
             <div class="org-role">Onboard</div>
             <div class="org-summary">Onboarding agent</div>
             <div class="parent-chip">Lead KH/VH</div>
           </button>
         
 
-          <button class="org-card peer-agent" type="button" data-role="Support" data-desc="Agent hỗ trợ vận hành." data-sources="3,4,8,11">
+          <button class="org-card peer-agent mgr-lead-ops" type="button" data-role="Support" data-desc="Agent hỗ trợ vận hành." data-sources="3,4,8,11" data-manager="Lead Kế hoạch / Vận hành">
             <div class="org-role">Support</div>
             <div class="org-summary">Support agent</div>
             <div class="parent-chip">Lead KH/VH</div>
           </button>
         
 
-          <button class="org-card peer-agent" type="button" data-role="Incident" data-desc="Agent xử lý incident. Chưa có source riêng được chỉ định." data-sources="">
+          <button class="org-card peer-agent mgr-lead-ops" type="button" data-role="Incident" data-desc="Agent xử lý incident. Chưa có source riêng được chỉ định." data-sources="" data-manager="Lead Kế hoạch / Vận hành">
             <div class="org-role">Incident</div>
             <div class="org-summary">Incident agent</div>
             <div class="parent-chip">Lead KH/VH</div>
@@ -519,13 +786,25 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
 
 
         <div class="peer-note">
-          Đường dọc thể hiện quan hệ cấp trên → cấp dưới; đường ngang thể hiện các chức danh trong cùng một tầng tổ chức.
+          Mỗi màu thể hiện quan hệ với cấp trên trực tiếp. Card con dùng cùng màu với đường nối từ manager trực tiếp của nó.
+        </div>
+        <div class="manager-color-legend">
+          <div class="legend-item ceo"><i></i><span>CEO → CCO / COO / Finance / Pháp chế</span></div>
+          <div class="legend-item cco"><i></i><span>CCO → Lead MKT / Sale / Customer</span></div>
+          <div class="legend-item coo"><i></i><span>COO → Lead Kế hoạch / Vận hành</span></div>
+          <div class="legend-item mkt"><i></i><span>Lead MKT → MKT 1 / 2 / 3</span></div>
+          <div class="legend-item sale"><i></i><span>Lead Sale → Sale</span></div>
+          <div class="legend-item customer"><i></i><span>Lead Customer → Customer</span></div>
+          <div class="legend-item ops"><i></i><span>Lead Kế hoạch / Vận hành → Onboard / Support / Incident</span></div>
+          <div class="legend-item secretary"><i></i><span>CEO ↔ Thư ký: hỗ trợ / giám sát</span></div>
         </div>
 
-        <div class="panel detail-panel" id="detailPanel">
-          <div class="detail-kicker">Chi tiết khi hover / focus</div>
-          <div class="detail-title" id="detailTitle">Di chuột vào một chức danh</div>
-          <div class="detail-desc" id="detailDesc">Thông tin quản lý và source sẽ hiển thị tại đây mà không làm card thay đổi kích thước.</div>
+        <div class="detail-popup" id="detailPopup" role="dialog" aria-live="polite" aria-hidden="true">
+          <button class="detail-close" id="detailClose" type="button" aria-label="Đóng">×</button>
+          <div class="detail-kicker">Chi tiết chức danh</div>
+          <div class="detail-title" id="detailTitle"></div>
+          <div class="detail-manager" id="detailManager"></div>
+          <div class="detail-desc" id="detailDesc"></div>
           <div class="detail-sources" id="detailSources"></div>
         </div>
 
@@ -693,18 +972,46 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
 </main>
 
 <script>
-const sourceLinks = {1:"https://github.com/OpenBMB/ChatDev",2:"https://github.com/BerriAI/self-improving-agent",3:"https://github.com/mem0ai/mem0",4:"https://github.com/unslothai/unsloth",5:"https://github.com/OpenPipe/ART",6:"https://github.com/langfuse/langfuse",7:"https://github.com/open-policy-agent/opa",8:"https://github.com/temporalio/temporal",9:"https://github.com/mlflow/mlflow",10:"https://github.com/BerriAI/litellm",11:"https://github.com/qdrant/qdrant",12:"https://github.com/microsoft/agent-framework"};
+const sourceLinks = {"1":"https://github.com/OpenBMB/ChatDev","2":"https://github.com/BerriAI/self-improving-agent","3":"https://github.com/mem0ai/mem0","4":"https://github.com/unslothai/unsloth","5":"https://github.com/OpenPipe/ART","6":"https://github.com/langfuse/langfuse","7":"https://github.com/open-policy-agent/opa","8":"https://github.com/temporalio/temporal","9":"https://github.com/mlflow/mlflow","10":"https://github.com/BerriAI/litellm","11":"https://github.com/qdrant/qdrant","12":"https://github.com/microsoft/agent-framework"};
+
 const cards = document.querySelectorAll('.org-card[data-role]');
+const popup = document.getElementById('detailPopup');
 const detailTitle = document.getElementById('detailTitle');
+const detailManager = document.getElementById('detailManager');
 const detailDesc = document.getElementById('detailDesc');
 const detailSources = document.getElementById('detailSources');
+const detailClose = document.getElementById('detailClose');
 
-function showDetail(card) {
+let hideTimer = null;
+let activeCard = null;
+
+
+
+
+function managerColor(card) {
+  if (card.classList.contains('mgr-cco')) return '#2563eb';
+  if (card.classList.contains('mgr-coo')) return '#0f766e';
+  if (card.classList.contains('mgr-lead-mkt')) return '#7c3aed';
+  if (card.classList.contains('mgr-lead-sale')) return '#d97706';
+  if (card.classList.contains('mgr-lead-customer')) return '#db2777';
+  if (card.classList.contains('mgr-lead-ops')) return '#16a34a';
+  if (card.classList.contains('mgr-ceo') || card.classList.contains('mgr-ceo-support')) return '#111827';
+  if (card.classList.contains('mgr-bod')) return '#475569';
+  return '#111827';
+}
+
+function showPopup(card) {
+  clearTimeout(hideTimer);
+  activeCard = card;
+
   cards.forEach(c => c.classList.remove('active'));
   card.classList.add('active');
 
   detailTitle.textContent = card.dataset.role || '';
   detailDesc.textContent = card.dataset.desc || '';
+  popup.style.setProperty('--popup-accent', managerColor(card));
+  const manager = card.dataset.manager || '';
+  detailManager.textContent = manager ? `Cấp trên trực tiếp: ${manager}` : 'Cấp cao nhất';
 
   const nums = (card.dataset.sources || '')
     .split(',')
@@ -718,24 +1025,50 @@ function showDetail(card) {
     span.className = 'no-source';
     span.textContent = 'Chưa chỉ định source riêng.';
     detailSources.appendChild(span);
-    return;
+  } else {
+    nums.forEach(num => {
+      const a = document.createElement('a');
+      a.className = 'source-badge';
+      a.textContent = num;
+      a.href = sourceLinks[num];
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      detailSources.appendChild(a);
+    });
   }
 
-  nums.forEach(num => {
-    const a = document.createElement('a');
-    a.className = 'source-badge';
-    a.textContent = num;
-    a.href = sourceLinks[num];
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    detailSources.appendChild(a);
-  });
+  popup.classList.add('open');
+  popup.setAttribute('aria-hidden', 'false');
+}
+
+function hidePopup() {
+  popup.classList.remove('open');
+  popup.setAttribute('aria-hidden', 'true');
+  cards.forEach(c => c.classList.remove('active'));
+  activeCard = null;
 }
 
 cards.forEach(card => {
-  card.addEventListener('mouseenter', () => showDetail(card));
-  card.addEventListener('focus', () => showDetail(card));
-  card.addEventListener('click', () => showDetail(card));
+  card.addEventListener('click', () => {
+    if (activeCard === card && popup.classList.contains('open')) {
+      hidePopup();
+      return;
+    }
+    showPopup(card);
+  });
+});
+
+detailClose.addEventListener('click', () => hidePopup());
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') hidePopup();
+});
+
+document.addEventListener('click', (event) => {
+  if (!popup.classList.contains('open')) return;
+  if (popup.contains(event.target)) return;
+  if (event.target.closest('.org-card[data-role]')) return;
+  hidePopup();
 });
 </script>
 </body>
