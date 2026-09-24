@@ -141,28 +141,45 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
   font-size:12px;
 }
 
+.detail-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:1190;
+  background:rgba(15,23,42,.22);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .18s ease, visibility .18s ease;
+}
+.detail-backdrop.open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
 .detail-popup{
-  position:absolute;
-  top:18px;
-  right:18px;
-  z-index:100;
-  width:min(360px,calc(100% - 36px));
+  position:fixed;
+  top:50%;
+  left:50%;
+  z-index:1200;
+  width:min(420px, calc(100vw - 32px));
+  max-height:min(78vh, 680px);
+  overflow:auto;
   padding:16px 18px;
   border:1px solid #cfcfcf;
-  border-radius:14px;
-  background:rgba(255,255,255,.98);
-  box-shadow:0 18px 48px rgba(0,0,0,.16);
+  border-radius:16px;
+  background:rgba(255,255,255,.99);
+  box-shadow:0 24px 60px rgba(0,0,0,.22);
   backdrop-filter:blur(8px);
   opacity:0;
   visibility:hidden;
-  transform:translateY(-8px) scale(.985);
+  transform:translate(-50%,-48%) scale(.985);
   pointer-events:none;
-  transition:opacity .16s ease,transform .16s ease,visibility .16s ease;
+  transition:opacity .16s ease, transform .16s ease, visibility .16s ease;
 }
 .detail-popup.open{
   opacity:1;
   visibility:visible;
-  transform:translateY(0) scale(1);
+  transform:translate(-50%,-50%) scale(1);
   pointer-events:auto;
 }
 .detail-popup::before{
@@ -172,7 +189,7 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
   top:0;
   width:100%;
   height:4px;
-  border-radius:14px 14px 0 0;
+  border-radius:16px 16px 0 0;
   background:var(--popup-accent,#111);
 }
 .detail-kicker{
@@ -540,6 +557,10 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
 }
 
 @media(max-width:900px){
+  .detail-popup{
+    width:min(92vw, 420px);
+    max-height:min(84vh, 720px);
+  }
   .level-row.exec{
     grid-template-columns:repeat(2,minmax(0,1fr));
   }
@@ -549,17 +570,6 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
   .level-row.exec .self-coo{
     min-height:88px;
     padding:14px;
-  }
-  .detail-popup{
-    position:fixed;
-    top:50%;
-    left:50%;
-    right:auto;
-    width:min(92vw,380px);
-    transform:translate(-50%,-48%) scale(.985);
-  }
-  .detail-popup.open{
-    transform:translate(-50%,-50%) scale(1);
   }
   .page{width:min(100% - 20px,1540px)}
   .org-shell{padding:14px}
@@ -667,9 +677,9 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
         <div class="direct-connector lead-direct" aria-hidden="true">
           <svg viewBox="0 0 1000 86" preserveAspectRatio="none">
             <!-- CCO -> Lead MKT / Lead Sale / Lead Customer -->
-            <path class="rel-cco" d="M180 0 V22 H625 M180 22 H125 V86 M375 22 V86 M625 22 V86"/>
-            <!-- COO -> Lead Kế hoạch / Vận hành -->
-            <path class="rel-coo" d="M520 0 V54 H875 V86"/>
+            <path class="rel-cco" d="M180 0 V26 H625 M125 26 V86 M375 26 V86 M625 26 V86"/>
+            <!-- COO -> Lead Kế hoạch / Vận hành (separate lane to avoid crossing) -->
+            <path class="rel-coo" d="M520 0 V12 H875 V86"/>
           </svg>
         </div>
 
@@ -799,6 +809,7 @@ h1{margin:5px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.1}
           <div class="legend-item secretary"><i></i><span>CEO ↔ Thư ký: hỗ trợ / giám sát</span></div>
         </div>
 
+        <div class="detail-backdrop" id="detailBackdrop" aria-hidden="true"></div>
         <div class="detail-popup" id="detailPopup" role="dialog" aria-live="polite" aria-hidden="true">
           <button class="detail-close" id="detailClose" type="button" aria-label="Đóng">×</button>
           <div class="detail-kicker">Chi tiết chức danh</div>
@@ -976,6 +987,7 @@ const sourceLinks = {"1":"https://github.com/OpenBMB/ChatDev","2":"https://githu
 
 const cards = document.querySelectorAll('.org-card[data-role]');
 const popup = document.getElementById('detailPopup');
+const backdrop = document.getElementById('detailBackdrop');
 const detailTitle = document.getElementById('detailTitle');
 const detailManager = document.getElementById('detailManager');
 const detailDesc = document.getElementById('detailDesc');
@@ -1037,11 +1049,15 @@ function showPopup(card) {
     });
   }
 
+  backdrop.classList.add('open');
+  backdrop.setAttribute('aria-hidden', 'false');
   popup.classList.add('open');
   popup.setAttribute('aria-hidden', 'false');
 }
 
 function hidePopup() {
+  backdrop.classList.remove('open');
+  backdrop.setAttribute('aria-hidden', 'true');
   popup.classList.remove('open');
   popup.setAttribute('aria-hidden', 'true');
   cards.forEach(c => c.classList.remove('active'));
@@ -1059,6 +1075,7 @@ cards.forEach(card => {
 });
 
 detailClose.addEventListener('click', () => hidePopup());
+backdrop.addEventListener('click', () => hidePopup());
 
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') hidePopup();
