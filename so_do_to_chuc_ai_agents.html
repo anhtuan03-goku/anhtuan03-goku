@@ -1091,6 +1091,39 @@ body.modal-open .org-card:hover{
     left:1px;
   }
 }
+
+/* ===== Extended CEO connector to lower levels ===== */
+.secretary-safe-row{
+  position:relative;
+}
+
+.secretary-safe-row::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-6px;
+  bottom:-4px;
+  width:4px;
+  border-radius:999px;
+  background:var(--c-ceo);
+  transform:translateX(-50%);
+  z-index:0;
+  pointer-events:none;
+}
+
+/* Keep the small secretary elbow on the left, but ensure the main CEO stem stays visible */
+.secretary-safe-row::after{
+  z-index:1;
+}
+
+/* Make the first executive connector visually continue from the CEO stem */
+.hierarchy-after-secretary .exec-direct{
+  margin-top:-2px;
+}
+.hierarchy-after-secretary .exec-direct .rel-ceo{
+  stroke-width:5;
+}
+
 </style>
 </head>
 <body>
