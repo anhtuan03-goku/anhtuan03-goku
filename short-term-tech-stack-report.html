@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Báo cáo Mục tiêu ngắn hạn: Chuẩn hóa Tech Stack & Frontend Base - Nguyễn Anh Tuấn</title>
+  <style>
+    :root {
+      --text: #111111;
+      --muted: #555555;
+      --border: #dddddd;
+      --background: #ffffff;
+      --surface: #fafafa;
+      --code-bg: #f7f7f7;
+      --content-width: 1040px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: var(--muted);
+    }
+
+    .top-nav {
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      padding: 12px 20px;
+    }
+
+    .top-nav-inner {
+      width: min(100%, var(--content-width));
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      padding-bottom: 2px;
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+      color: var(--text);
+      font-weight: 700;
+      border-bottom: 2px solid var(--text);
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--content-width));
+      margin: 0 auto;
+      padding: 48px 0 80px;
+    }
+
+    header {
+      padding-bottom: 24px;
+      margin-bottom: 36px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+    }
+
+    .period {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    section {
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      margin: 0 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      font-size: 23px;
+    }
+
+    h3 {
+      margin: 28px 0 12px;
+      font-size: 19px;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    ul {
+      margin: 8px 0 18px;
+      padding-left: 22px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    code {
+      padding: 2px 5px;
+      border: 1px solid #e5e5e5;
+      border-radius: 4px;
+      background: var(--code-bg);
+      font-family: "Courier New", Consolas, monospace;
+      font-size: 0.9em;
+    }
+
+    pre {
+      margin: 12px 0 20px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      background: var(--code-bg);
+      overflow-x: auto;
+      font-family: "Courier New", Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    pre code {
+      border: none;
+      padding: 0;
+      background: transparent;
+    }
+
+    .highlight-box {
+      margin: 18px 0;
+      padding: 14px 18px;
+      border-left: 3px solid #111111;
+      background: var(--surface);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 22px 0;
+    }
+
+    .summary-item {
+      border: 1px solid var(--border);
+      padding: 16px;
+      background: var(--surface);
+    }
+
+    .summary-value {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .summary-label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin: 20px 0;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      padding: 20px;
+      background: #ffffff;
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .shot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .shot-item {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+    }
+
+    .shot-item img {
+      width: 100%;
+      height: 145px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .shot-caption {
+      padding: 8px 10px;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin: 16px 0 24px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      min-width: 720px;
+    }
+
+    th, td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th:last-child, td:last-child {
+      border-right: none;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    th {
+      background: var(--surface);
+      font-weight: 700;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 7px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid #111111;
+      background: #ffffff;
+    }
+
+    .badge-muted {
+      border-color: #888888;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      flex-direction: column;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 94vw;
+      max-height: 82vh;
+      border: 1px solid #ffffff;
+      background: #ffffff;
+    }
+
+    .lightbox-caption {
+      color: #ffffff;
+      margin-top: 10px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      background: #ffffff;
+      color: #111111;
+      border: none;
+      padding: 6px 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    @media (max-width: 820px) {
+      .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(calc(100% - 28px), var(--content-width));
+        padding-top: 32px;
+      }
+      .summary-grid,
+      .shot-grid {
+        grid-template-columns: 1fr;
+      }
+      h1 {
+        font-size: 25px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+      body {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <strong>IDP Nguyễn Anh Tuấn (09/2026 – 03/2027)</strong>
+      <div class="nav-links">
+        <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/bao-cao-idp-thang-10-2026.html">Tổng quan Tháng 10</a>
+        <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/short-term-tech-stack-report.html" class="active">1. Chuẩn hóa Tech Stack</a>
+        <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/long-term-web360-krpano-comparison.html">2. Đối sánh Web360 (krpano)</a>
+        <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/muc-tieu-phat-trien-ca-nhan.html">Kế hoạch IDP gốc</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header>
+      <h1>BÁO CÁO MỤC TIÊU NGẮN HẠN: CHUẨN HÓA TECH STACK & FRONTEND BASE</h1>
+      <p class="period"><strong>Nhân viên:</strong> Nguyễn Anh Tuấn &nbsp;|&nbsp; <strong>Quản lý trực tiếp:</strong> Lý Gia Hoàng – Web Leader &nbsp;|&nbsp; <strong>Kỳ báo cáo:</strong> Tháng 10/2026</p>
+      <p>
+        Tổng hợp, đánh giá và chuẩn hóa nhóm dependency thường xuyên sử dụng thông qua đối chiếu thực tế mã nguồn nhánh <code>main</code> của 2 dự án:
+        <strong>SkySOLIS</strong> (<a href="https://360.skysolis.my/" target="_blank" rel="noopener">https://360.skysolis.my/</a>) và
+        <strong>Đảo Kim Quy</strong> (<a href="https://vr360.daokimquy.vn/" target="_blank" rel="noopener">https://vr360.daokimquy.vn/</a>).
+      </p>
+
+      <div class="summary-grid">
+        <div class="summary-item">
+          <div class="summary-value">100%</div>
+          <div class="summary-label">Đồng nhất bộ <code>package.json</code> giữa 2 dự án trên nhánh <code>main</code></div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-value">76.7%</div>
+          <div class="summary-label">Chia sẻ cấu trúc code (<code>181/236</code> files code, config, scripts)</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-value">39.8%</div>
+          <div class="summary-label">Tái sử dụng nguyên bản 100% (<code>94</code> files không cần sửa code)</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-value">~45%</div>
+          <div class="summary-label">Thời gian khởi tạo và dựng khung dự án mới được rút ngắn</div>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <h2>1. Đối chiếu thực tế 2 dự án minh chứng: SkySOLIS & Đảo Kim Quy</h2>
+      <p>
+        Hai dự án đại diện cho hai loại hình bất động sản khác nhau (Căn hộ cao tầng và Đô thị đảo thấp tầng), nhưng được xây dựng trên cùng một cấu trúc Frontend Base chuẩn hóa. Nhấn vào từng ảnh để xem chi tiết giao diện thực tế.
+      </p>
+
+      <div class="two-col">
+        <div class="card">
+          <h3>Dự án 1: SkySOLIS (Căn hộ cao tầng)</h3>
+          <p class="period"><strong>Link sản phẩm:</strong> <a href="https://360.skysolis.my/" target="_blank" rel="noopener">https://360.skysolis.my/</a></p>
+          <ul>
+            <li><strong>Quy mô:</strong> 40 tầng, 386 căn hộ, 6 cụm tour 360° (Toàn cảnh, Tiện ích, 3 Nhà mẫu, 16 góc Ban công).</li>
+            <li><strong>Đặc thù:</strong> Lọc căn hộ trên mặt đứng tòa nhà, mặt bằng từng tầng độ phân giải 8K (DeepZoom Tile Pyramid + SVG Polygon), đồng bộ trạng thái bảng hàng từ Google Sheets + dữ liệu dự phòng offline.</li>
+          </ul>
+          <div class="shot-grid">
+            <div class="shot-item" onclick="openLightbox('./assets/screenshots/skysolis-overview.webp', 'SkySOLIS — Toàn cảnh 360° Ngày/Đêm')">
+              <img src="./assets/screenshots/skysolis-overview.webp" alt="SkySOLIS Overview" />
+              <div class="shot-caption">1. Toàn cảnh 360° (/overview)</div>
+            </div>
+            <div class="shot-item" onclick="openLightbox('./assets/screenshots/skysolis-building-facade.webp', 'SkySOLIS — Mặt đứng & Bộ lọc căn hộ')">
+              <img src="./assets/screenshots/skysolis-building-facade.webp" alt="SkySOLIS Building" />
+              <div class="shot-caption">2. Mặt đứng & Bộ lọc (/building)</div>
+            </div>
+            <div class="shot-item" onclick="openLightbox('./assets/screenshots/skysolis-floorplan-deepzoom.webp', 'SkySOLIS — Mặt bằng tầng 8K DeepZoom')">
+              <img src="./assets/screenshots/skysolis-floorplan-deepzoom.webp" alt="SkySOLIS Floorplan" />
+              <div class="shot-caption">3. Mặt bằng 8K (/building/8)</div>
+            </div>
+            <div class="shot-item" onclick="openLightbox('./assets/screenshots/skysolis-showroom-360.webp', 'SkySOLIS — Nhà mẫu 360° & Minimap Radar SVG')">
+              <img src="./assets/screenshots/skysolis-showroom-360.webp" alt="SkySOLIS Showroom" />
+              <div class="shot-caption">4. Nhà mẫu 360° (/showroom)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Dự án 2: Đảo Kim Quy (Đô thị đảo thấp tầng)</h3>
+          <p class="period"><strong>Link sản phẩm:</strong> <a href="https://vr360.daokimquy.vn/" target="_blank" rel="noopener">https://vr360.daokimquy.vn/</a></p>
+          <ul>
+            <li><strong>Quy mô:</strong> 571 căn thấp tầng (Biệt thự Đơn lập Ven sông, Đơn lập Compound, Song lập, Liên kế), 34 góc quay 360° thực tế & phối cảnh.</li>
+            <li><strong>Đặc thù:</strong> Mặt bằng tổng thể phân khu đảo, lớp phủ hotspot bằng React (<code>ReactHotspotsOverlay</code>), la bàn đồng bộ góc quay <code>Compass360</code> và trình chiếu thư viện ảnh/video.</li>
+          </ul>
+          <div class="shot-grid">
+            <div class="shot-item" onclick="openLightbox('./assets/screenshots/daokimquy-overview-360.webp', 'Đảo Kim Quy — Toàn cảnh 360° & ReactHotspotsOverlay')">
+              <img src="./assets/screenshots/daokimquy-overview-360.webp" alt="Đảo Kim Quy Overview" />
+              <div class="shot-caption">1. Toàn cảnh 360° (/overview)</div>
+            </div>
+            <div class="shot-item" onclick="openLightbox('./assets/screenshots/daokimquy-location.webp', 'Đảo Kim Quy — Bản đồ Vị trí DeepZoom')">
+              <img src="./assets/screenshots/daokimquy-location.webp" alt="Đảo Kim Quy Location" />
+              <div class="shot-caption">2. Bản đồ Vị trí (/location)</div>
+            </div>
+            <div class="shot-item" onclick="openLightbox('./assets/screenshots/daokimquy-masterplan.webp', 'Đảo Kim Quy — Mặt bằng Phân khu 571 căn')">
+              <img src="./assets/screenshots/daokimquy-masterplan.webp" alt="Đảo Kim Quy Masterplan" />
+              <div class="shot-caption">3. Mặt bằng Phân khu (/masterplan)</div>
+            </div>
+            <div class="shot-item" onclick="openLightbox('./assets/screenshots/daokimquy-showroom-360.webp', 'Đảo Kim Quy — Không gian 360° Biệt thự mẫu')">
+              <img src="./assets/screenshots/daokimquy-showroom-360.webp" alt="Đảo Kim Quy Showroom" />
+              <div class="shot-caption">4. Biệt thự mẫu 360° (/showroom)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Thống kê tỷ lệ tái sử dụng cấu trúc Frontend Base giữa 2 dự án</h2>
+      <p>
+        Không tính thư mục tài sản tĩnh (<code>public/</code> và <code>src/assets/</code>), hai dự án có tổng cộng <strong>~236 files</strong> mã nguồn, cấu hình và script. Trong đó có <strong>181 files (76.7%)</strong> giữ nguyên đường dẫn và cấu trúc tổ chức:
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Phân tầng thư mục</th>
+              <th>SkySOLIS (<code>main</code>)</th>
+              <th>Đảo Kim Quy (<code>main</code>)</th>
+              <th>Dùng chung cấu trúc</th>
+              <th>Giống nhau 100%</th>
+              <th>Các module cốt lõi được tái sử dụng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong><code>src/components/shared/zoom/</code></strong></td>
+              <td>13 files</td>
+              <td>13 files</td>
+              <td>13 / 13 (100%)</td>
+              <td>11 / 13 (85%)</td>
+              <td><code>ZoomableView.jsx</code> (650 dòng), <code>use-live-viewport-transform.js</code>, <code>useZoomAnimations.js</code>, <code>useZoomCommands.js</code>, <code>TiledImage.jsx</code>.</td>
+            </tr>
+            <tr>
+              <td><strong><code>src/components/shared/</code></strong><br><span style="color:var(--muted);font-size:12.5px;">(UI, Layout, Pano, Apartment)</span></td>
+              <td>29 files</td>
+              <td>26 files</td>
+              <td>24 files</td>
+              <td>10 files</td>
+              <td><code>KrpanoViewer.jsx</code>, <code>KrpanoZoomControls.jsx</code>, <code>MainNav.jsx</code>, <code>SideTool.jsx</code>, <code>RoomDataProvider.jsx</code>, <code>BookingModal.jsx</code>.</td>
+            </tr>
+            <tr>
+              <td><strong><code>src/components/routes/</code></strong></td>
+              <td>43 files</td>
+              <td>54 files</td>
+              <td>38 files</td>
+              <td>9 files</td>
+              <td><code>DeepZoomFloorPlan.jsx</code>, <code>deep-zoom/*</code>, <code>LocationMap.jsx</code>, <code>Pano360Frame.jsx</code>, <code>UtilityDetailModal.jsx</code>.</td>
+            </tr>
+            <tr>
+              <td><strong><code>src/zustand/</code></strong></td>
+              <td>8 files</td>
+              <td>7 files</td>
+              <td>7 / 7 (100%)</td>
+              <td>3 files</td>
+              <td><code>useCommonStore.js</code>, <code>useRoomStore.js</code>, <code>useKrpanoStore.js</code>, <code>useBreadcrumbStore.js</code>, <code>useSavedApartmentStore.js</code>, <code>useTourGuideStore.js</code>.</td>
+            </tr>
+            <tr>
+              <td><strong><code>src/hooks/</code></strong></td>
+              <td>12 files</td>
+              <td>8 files</td>
+              <td>8 / 8 (100%)</td>
+              <td>5 files</td>
+              <td><code>useMultiResTiles.js</code>, <code>useProgressiveImage.js</code>, <code>useNavigationLoading.js</code>, <code>usePageMounted.js</code>, <code>useTurnstile.js</code> (+ <code>useIOSMemoryTier.js</code> ở SkySOLIS).</td>
+            </tr>
+            <tr>
+              <td><strong><code>src/service/</code> & <code>scripts/</code></strong></td>
+              <td>15 files</td>
+              <td>10 files</td>
+              <td>8 files</td>
+              <td>5 files</td>
+              <td><code>bookingService.js</code>, <code>room.js</code> (ETag cache 5 phút + 4 bảng chỉ mục <code>Map</code>), <code>generate-all-tiles.mjs</code>, <code>generate-floorplan-tiles.mjs</code>, <code>stream-optimize.mjs</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. So sánh và đánh giá các Dependency quan trọng (Theo 6 tiêu chí trong IDP)</h2>
+      <p>
+        Mỗi nhóm thư viện trong <code>package.json</code> được đánh giá dựa trên 6 tiêu chí đã đề ra trong kế hoạch IDP:
+        <strong>(1) Hiệu năng, (2) Khả năng maintain, (3) Mức độ hỗ trợ, (4) Kích thước bundle, (5) Khả năng mở rộng, (6) Mức độ phù hợp với loại dự án của công ty</strong>.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nhóm chức năng & Thư viện</th>
+              <th>Quyết định</th>
+              <th>1. Hiệu năng</th>
+              <th>2. Khả năng Maintain</th>
+              <th>3. Mức độ Hỗ trợ</th>
+              <th>4. Kích thước Bundle</th>
+              <th>5. Khả năng Mở rộng</th>
+              <th>6. Mức độ phù hợp với dự án tại Goku</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Core Framework</strong><br><code>next@15.5.4</code><br><code>react@19.1.0</code></td>
+              <td><span class="badge">Chuẩn hóa giữ lại</span></td>
+              <td>Xuất tĩnh <code>output: "export"</code> tải nhanh, hỗ trợ Turbopack khi dev.</td>
+              <td>Cấu trúc App Router phân tách rõ <code>page.jsx</code> và <code>client.jsx</code>.</td>
+              <td>Hệ sinh thái lớn, tài liệu chuẩn và cập nhật liên tục.</td>
+              <td>Tự động chia nhỏ chunk theo từng route.</td>
+              <td>Thuận lợi nâng cấp lên Next.js 16 + TypeScript.</td>
+              <td><strong>Rất phù hợp:</strong> Đáp ứng tốt cả bản Web tĩnh trên domain khách hàng lẫn đóng gói ứng dụng Electron chạy offline tại Sale Gallery.</td>
+            </tr>
+            <tr>
+              <td><strong>State Management</strong><br><code>zustand@^5.0.8</code></td>
+              <td><span class="badge">Chuẩn hóa giữ lại</span></td>
+              <td>Selector đăng ký chính xác từng trường, tránh re-render thừa.</td>
+              <td>Gọn nhẹ, đọc/ghi được trực tiếp ngoài React qua <code>getState()</code>.</td>
+              <td>Phổ biến cao trong cộng đồng React & Poimandres (R3F).</td>
+              <td>Rất nhẹ (~1.2KB gzipped).</td>
+              <td>Có sẵn middleware <code>persist</code> (hỗ trợ <code>skipHydration</code>).</td>
+              <td><strong>Rất phù hợp:</strong> Dễ dàng đồng bộ trạng thái hai chiều với các sự kiện bất đồng bộ từ <code>krpano</code> và lưu ngôn ngữ người dùng.</td>
+            </tr>
+            <tr>
+              <td><strong>Animation & Physics</strong><br><code>framer-motion@^11.18.2</code></td>
+              <td><span class="badge">Chuẩn hóa giữ lại</span></td>
+              <td><code>useMotionValue</code> & <code>useSpring</code> chạy mượt 60fps ngoài chu kỳ render React.</td>
+              <td>Cú pháp <code>motion.div</code> và <code>AnimatePresence</code> trực quan, đồng bộ.</td>
+              <td>Thư viện animation phổ biến nhất trên React hiện nay.</td>
+              <td>~32KB gzipped, nhưng đảm nhiệm đồng thời cả UI lẫn Zoom.</td>
+              <td>Đáp ứng tốt cả chuyển cảnh modal lẫn tương tác kéo/phóng 2D.</td>
+              <td><strong>Rất phù hợp:</strong> Đóng vai trò kép (hiệu ứng giao diện + lõi vật lý đàn hồi cho <code>ZoomableView</code>), giúp loại bỏ các thư viện trùng lặp như <code>@react-spring/web</code>.</td>
+            </tr>
+            <tr>
+              <td><strong>2D Deep Zoom</strong><br>Module nội bộ <code>ZoomableView</code> + <code>DeepZoomFloorPlan</code><br><span style="color:var(--muted);font-size:12px;">(So với <code>react-zoom-pan-pinch</code>)</span></td>
+              <td><span class="badge">Dùng Core nội bộ</span></td>
+              <td>Throttle cập nhật tọa độ <code>120ms</code>, chỉ tải các ô ảnh nằm trong vùng nhìn thấy.</td>
+              <td>Làm chủ hoàn toàn 12 files trong <code>shared/zoom/</code>, dùng chung 100% giữa các dự án.</td>
+              <td>Chủ động điều chỉnh theo yêu cầu riêng của từng mặt bằng.</td>
+              <td>0KB thư viện ngoài (gỡ bỏ được <code>react-zoom-pan-pinch</code>).</td>
+              <td>Tích hợp sẵn Event Bus (<code>q1:zoomCommand</code>) và chặn Ghost-click trên SVG.</td>
+              <td><strong>Rất phù hợp:</strong> Giải quyết triệt để bài toán hiển thị mặt bằng 8K (<code>8192×8192</code>) và giới hạn bộ nhớ trên Safari iOS mà thư viện có sẵn không đáp ứng tốt.</td>
+            </tr>
+            <tr>
+              <td><strong>Data Fetching & Cache</strong><br>Service nội bộ <code>room.js</code><br><span style="color:var(--muted);font-size:12px;">(So với <code>@tanstack/react-query</code>)</span></td>
+              <td><span class="badge">Dùng Service nội bộ</span></td>
+              <td>Kết hợp ETag HTTP 304 (cache 5 phút) và 4 bảng chỉ mục <code>Map</code> tra cứu $O(1)$.</td>
+              <td>Tập trung toàn bộ logic đọc CSV Google Sheets tại 1 file duy nhất.</td>
+              <td>Sử dụng Web Fetch API chuẩn của trình duyệt.</td>
+              <td>Loại bỏ được ~13KB gzipped của <code>@tanstack/react-query</code> khi không dùng.</td>
+              <td>Hỗ trợ sẵn cơ chế fallback về dữ liệu offline khi mất mạng.</td>
+              <td><strong>Rất phù hợp cho Web360:</strong> Các dự án Sa bàn ảo chỉ đọc dữ liệu bảng hàng từ 1 nguồn Sheet nên dùng <code>room.js</code> nhẹ và trực tiếp hơn (chỉ dùng React Query cho hệ thống Admin CMS).</td>
+            </tr>
+            <tr>
+              <td><strong>Đa ngôn ngữ (i18n)</strong><br><code>next-intl@^4.11.0</code></td>
+              <td><span class="badge">Chuẩn hóa giữ lại</span></td>
+              <td>Đổi ngôn ngữ <code>vi ↔ en</code> tức thì ở phía Client mà không cần tải lại trang.</td>
+              <td>Quản lý tập trung tại <code>src/i18n/messages/{vi,en}.json</code>.</td>
+              <td>Tài liệu rõ ràng, tương thích tốt với Next.js 15/16.</td>
+              <td>Nhẹ, không yêu cầu tách route <code>[locale]</code> phức tạp.</td>
+              <td>Dễ dàng thêm ngôn ngữ mới khi khách hàng yêu cầu.</td>
+              <td><strong>Rất phù hợp:</strong> Hoạt động trơn tru với chế độ xuất tĩnh <code>output: "export"</code>.</td>
+            </tr>
+            <tr>
+              <td><strong>Xử lý Hình ảnh & 3D</strong><br><code>sharp@^0.34.4</code><br><code>@gltf-transform/*</code><br><code>meshoptimizer</code></td>
+              <td><span class="badge">Chuẩn hóa giữ lại</span></td>
+              <td>Cắt ảnh 8K ra lưới WebP đa mức và nén model 3D (<code>.glb</code>) nhanh ở bước build.</td>
+              <td>Đóng gói thành các lệnh chuẩn trong <code>scripts/</code> (<code>pnpm tiles</code>, <code>pnpm assets:validate</code>).</td>
+              <td>Chuẩn công nghiệp cho xử lý ảnh và tối ưu WebGL.</td>
+              <td>Chạy ở <code>devDependencies</code> (0KB ảnh hưởng bundle client).</td>
+              <td>Mở rộng thành công cụ kiểm tra dung lượng ảnh tự động khi build.</td>
+              <td><strong>Rất phù hợp:</strong> Nền tảng cốt lõi phục vụ mục tiêu tối ưu hệ thống hình ảnh và tài sản 3D.</td>
+            </tr>
+            <tr>
+              <td><strong>Các gói không còn sử dụng</strong><br><code>@react-spring/web</code>, <code>react-zoom-pan-pinch</code>, <code>minisearch</code>, <code>tw-animate-css</code>, <code>gltfpack</code></td>
+              <td><span class="badge badge-muted">Lược bỏ ở Base mới</span></td>
+              <td colspan="6">Qua rà soát mã nguồn nhánh <code>main</code> của cả 2 dự án, các gói này không có lượt import thực tế do đã được thay thế bởi các module nội bộ nêu trên. Việc gỡ bỏ khỏi Base Template giúp giảm thời gian cài đặt và giữ <code>package.json</code> gọn sạch.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Minh chứng kỹ thuật tiêu biểu từ mã nguồn nhánh <code>main</code></h2>
+
+      <h3>4.1. Cơ chế Throttle 120ms giúp kéo/phóng mặt bằng 8K mượt ở 60fps</h3>
+      <p>
+        Trong <code>src/components/shared/zoom/ZoomableView/hooks/use-live-viewport-transform.js</code> (dùng chung 100% ở cả 2 dự án), vị trí kéo/phóng được cập nhật trực tiếp qua <code>MotionValue</code> của Framer Motion, còn việc tính toán lại danh sách ô ảnh (tile culling) trong React state được giới hạn tần suất ở mức <code>120ms</code>:
+      </p>
+      <pre><code>const LIVE_TRANSFORM_THROTTLE_MS = 120;
+
+useEffect(() => {
+  const flush = () => {
+    rafIdRef.current = null;
+    lastEmitRef.current = performance.now();
+    const next = readCurrent();
+    setLiveTransform((prev) => {
+      if (
+        Math.abs(prev.x - next.x) < 0.5 &&
+        Math.abs(prev.y - next.y) < 0.5 &&
+        Math.abs(prev.scale - next.scale) < 0.001
+      ) {
+        return prev;
+      }
+      return next;
+    });
+  };
+  const unsubX = motionX.on("change", scheduleEmit);
+  const unsubY = motionY.on("change", scheduleEmit);
+  const unsubScale = motionScale.on("change", scheduleEmit);
+  return () => { unsubX(); unsubY(); unsubScale(); };
+}, [enabled, motionX, motionY, motionScale]);</code></pre>
+
+      <h3>4.2. Bảo vệ bộ nhớ trên iOS Safari khi tải lưới ảnh phân giải cao</h3>
+      <p>
+        Trong <code>src/hooks/useIOSMemoryTier.js</code> và <code>src/components/routes/building/floor-plan/deep-zoom/DeepZoomTileLayer.jsx</code>, hệ thống kiểm tra ngưỡng cấp phát bộ nhớ của WebKit và đưa các ô ảnh vào hàng đợi giải mã tuần tự (tối đa 2 ảnh cùng lúc trên iOS) để tránh trình duyệt tự động đóng tab:
+      </p>
+      <pre><code>const IOS_MAX_CONCURRENT_DECODES = 2;
+let activeDecodes = 0;
+const decodeQueue = [];
+
+function pumpDecodeQueue() {
+  while (activeDecodes < IOS_MAX_CONCURRENT_DECODES && decodeQueue.length > 0) {
+    const job = decodeQueue.shift();
+    if (job.cancelled) continue;
+    activeDecodes++;
+    job.start();
+  }
+}</code></pre>
+
+      <h3>4.3. Bộ nhớ đệm ETag 5 phút & 4 bảng chỉ mục <code>Map</code> ($O(1)$) cho dữ liệu bảng hàng</h3>
+      <p>
+        Trong <code>src/service/room.js</code>, dữ liệu căn hộ tải từ Google Sheets được đánh chỉ mục sẵn vào 4 bảng <code>Map</code> giúp thao tác lọc theo tầng hoặc tra cứu khi hover lên mặt bằng SVG diễn ra tức thì:
+      </p>
+      <pre><code>const CACHE_DURATION = 5 * 60 * 1000;
+let roomCache = {
+  data: null, timestamp: 0, etag: null,
+  codeIndex: null,      // Tra cứu theo mã căn O(1)
+  roomIdIndex: null,    // Tra cứu theo ID trên mặt bằng SVG O(1)
+  floorIndex: null,     // Lọc danh sách căn theo tầng O(1)
+  floorRoomIndex: null, // Tra cứu kết hợp tầng + mã phòng O(1)
+};</code></pre>
+
+      <div class="highlight-box">
+        <strong>Kết luận cho Mục tiêu ngắn hạn #1:</strong> Việc chuẩn hóa Tech Stack và cấu trúc dự án qua <strong>SkySOLIS</strong> và <strong>Đảo Kim Quy</strong> đã tạo ra một bộ khung Frontend Base ổn định, tái sử dụng được <strong>76.7% cấu trúc code</strong> giữa các loại hình bất động sản khác nhau và sẵn sàng làm nền tảng cho các dự án tiếp theo.
+      </div>
+    </section>
+  </main>
+
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">Đóng (×)</button>
+    <img id="lightbox-img" src="" alt="Xem ảnh phóng to" />
+    <div id="lightbox-caption" class="lightbox-caption"></div>
+  </div>
+
+  <script>
+    function openLightbox(src, caption) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-caption').textContent = caption;
+      document.getElementById('lightbox').classList.add('open');
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Báo cáo Mục tiêu dài hạn: Đối sánh Công nghệ Web360 & Giảm phụ thuộc krpano - Nguyễn Anh Tuấn</title>
+  <style>
+    :root {
+      --text: #111111;
+      --muted: #555555;
+      --border: #dddddd;
+      --background: #ffffff;
+      --surface: #fafafa;
+      --code-bg: #f7f7f7;
+      --content-width: 1040px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: var(--muted);
+    }
+
+    .top-nav {
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      padding: 12px 20px;
+    }
+
+    .top-nav-inner {
+      width: min(100%, var(--content-width));
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      padding-bottom: 2px;
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+      color: var(--text);
+      font-weight: 700;
+      border-bottom: 2px solid var(--text);
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--content-width));
+      margin: 0 auto;
+      padding: 48px 0 80px;
+    }
+
+    header {
+      padding-bottom: 24px;
+      margin-bottom: 36px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+    }
+
+    .period {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    section {
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      margin: 0 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      font-size: 23px;
+    }
+
+    h3 {
+      margin: 28px 0 12px;
+      font-size: 19px;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    ul {
+      margin: 8px 0 18px;
+      padding-left: 22px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    code {
+      padding: 2px 5px;
+      border: 1px solid #e5e5e5;
+      border-radius: 4px;
+      background: var(--code-bg);
+      font-family: "Courier New", Consolas, monospace;
+      font-size: 0.9em;
+    }
+
+    pre {
+      margin: 12px 0 20px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      background: var(--code-bg);
+      overflow-x: auto;
+      font-family: "Courier New", Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    pre code {
+      border: none;
+      padding: 0;
+      background: transparent;
+    }
+
+    .highlight-box {
+      margin: 18px 0;
+      padding: 16px 20px;
+      border-left: 3px solid #111111;
+      background: var(--surface);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 22px 0;
+    }
+
+    .summary-item {
+      border: 1px solid var(--border);
+      padding: 16px;
+      background: var(--surface);
+    }
+
+    .summary-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .summary-value {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 6px 0;
+    }
+
+    .summary-label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .pain-card {
+      border: 1px solid var(--border);
+      padding: 16px;
+      background: #ffffff;
+    }
+
+    .pain-card h4 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .pain-card p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .pain-meta {
+      font-size: 12px;
+      color: var(--text);
+      background: var(--code-bg);
+      padding: 4px 8px;
+      border: 1px solid #e5e5e5;
+      font-family: "Courier New", Consolas, monospace;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin: 16px 0 24px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      min-width: 780px;
+    }
+
+    th, td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th:last-child, td:last-child {
+      border-right: none;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    th {
+      background: var(--surface);
+      font-weight: 700;
+    }
+
+    .tab-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 13.5px;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: #111111;
+      color: #ffffff;
+      border-color: #111111;
+      font-weight: 700;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .roadmap-card {
+      border: 1px solid var(--border);
+      padding: 16px;
+      background: #ffffff;
+    }
+
+    .roadmap-card h4 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .pain-grid,
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(calc(100% - 28px), var(--content-width));
+        padding-top: 32px;
+      }
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+      h1 {
+        font-size: 25px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+      body {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <strong>IDP Nguyễn Anh Tuấn (09/2026 – 03/2027)</strong>
+      <div class="nav-links">
+        <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/bao-cao-idp-thang-10-2026.html">Tổng quan Tháng 10</a>
+        <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/short-term-tech-stack-report.html">1. Chuẩn hóa Tech Stack</a>
+        <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/long-term-web360-krpano-comparison.html" class="active">2. Đối sánh Web360 (krpano)</a>
+        <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/muc-tieu-phat-trien-ca-nhan.html">Kế hoạch IDP gốc</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header>
+      <h1>BÁO CÁO MỤC TIÊU DÀI HẠN: GIẢM PHỤ THUỘC VÀO KRPANO & ĐỐI SÁNH CÔNG NGHỆ WEB360</h1>
+      <p class="period"><strong>Nhân viên:</strong> Nguyễn Anh Tuấn &nbsp;|&nbsp; <strong>Quản lý trực tiếp:</strong> Lý Gia Hoàng – Web Leader &nbsp;|&nbsp; <strong>Kỳ báo cáo:</strong> Tháng 10/2026</p>
+      <p>
+        Nghiên cứu chuyên sâu các phương án thay thế hoặc bổ trợ cho <strong>krpano</strong> trong hệ thống Web360 của công ty
+        (gồm <strong>Photo Sphere Viewer</strong>, <strong>Marzipano</strong> và <strong>Three.js Custom Panorama Engine</strong>),
+        nhằm hiểu rõ ưu/nhược điểm và xây dựng <strong>Plan B về mặt công nghệ</strong> khi sản phẩm cần mức độ tùy biến lớn hơn hoặc kết hợp sâu với không gian 3D.
+      </p>
+
+      <div class="summary-grid">
+        <div class="summary-item">
+          <div class="summary-title">1. krpano 1.23 (Hiện tại)</div>
+          <div class="summary-value">6.32 / 10</div>
+          <div class="summary-label">Mạnh về hiển thị Multi-res tiles, nhưng đóng kín và khó đồng bộ sâu với React UI.</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-title">2. Photo Sphere Viewer v5</div>
+          <div class="summary-value">8.36 / 10</div>
+          <div class="summary-label">Mã nguồn mở (MIT) trên nền Three.js; khả thi nhất để thay thế trực tiếp 1-1.</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-title">3. Marzipano (Google)</div>
+          <div class="summary-value">7.18 / 10</div>
+          <div class="summary-label">Engine WebGL siêu nhẹ (~55KB), quản lý tile tốt nhưng không hỗ trợ không gian 3D.</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-title">4. Three.js / R3F Custom</div>
+          <div class="summary-value">8.85 / 10</div>
+          <div class="summary-label">Giá trị chiến lược cao nhất để liên thông Tòa nhà 3D → Tầng → Căn hộ → Nội thất.</div>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <h2>1. Các giới hạn thực tế khi tích hợp <code>krpano</code> trên SkySOLIS và Đảo Kim Quy</h2>
+      <p>
+        Qua thực tế vận hành <strong>5.460 files krpano</strong> trên dự án
+        <a href="https://360.skysolis.my/" target="_blank" rel="noopener">SkySOLIS</a> và
+        <a href="https://vr360.daokimquy.vn/" target="_blank" rel="noopener">Đảo Kim Quy</a>,
+        việc nhúng một engine đóng cấu hình bằng XML như <code>krpano</code> vào ứng dụng Next.js / React bộc lộ 9 vấn đề kỹ thuật rõ rệt:
+      </p>
+
+      <div class="pain-grid">
+        <div class="pain-card">
+          <h4>1. Bẫy hủy instance & rò rỉ vòng lặp WebGL</h4>
+          <p>Hàm hủy của krpano là chữ thường <code>window.removepano(id)</code>. Khi gọi nhầm <code>removePano()</code> hoặc khi React StrictMode chạy kép, instance cũ không bị hủy và tiếp tục bắn <code>onviewchange</code> làm lệch kim la bàn. Ở SkySOLIS phải thêm bộ đếm định danh <code>krpanoEmbedSeq</code> để xử lý.</p>
+          <div class="pain-meta">KrpanoViewer.jsx (dòng 23, 176, 246)</div>
+        </div>
+
+        <div class="pain-card">
+          <h4>2. Xung đột <code>autorun="onstart"</code> khi nạp cảnh</h4>
+          <p><code>vtourskin.xml</code> tự chạy cảnh đầu tiên trong file XML trước khi nhận được tham số <code>startscene</code> từ URL của React Router, gây tải lặp cảnh và làm sai lệch query parameter (phải dùng <code>initialSceneLockRef</code> để chặn).</p>
+          <div class="pain-meta">src/app/amenities/[id]/client.jsx</div>
+        </div>
+
+        <div class="pain-card">
+          <h4>3. Giới hạn truyền dữ liệu từ XML sang JS</h4>
+          <p>Trình phân tích cú pháp <code>js(...)</code> trong XML của krpano tách tham số theo dấu phẩy mà không hiểu cú pháp Object <code>{ a: 1, b: 2 }</code> của JavaScript, buộc phải đi vòng qua hàm toàn cục <code>window.krpanoPostMessage</code>.</p>
+          <div class="pain-meta">Pano360Frame.jsx (dòng 26–37)</div>
+        </div>
+
+        <div class="pain-card">
+          <h4>4. Phải polling 240 frames để dịch Hotspot</h4>
+          <p>Ở SkySOLIS, các hotspot XML tạo layer chữ con bất đồng bộ sau khi tải xong ảnh. Khi người dùng đổi ngôn ngữ <code>vi ↔ en</code>, React phải chạy vòng lặp <code>requestAnimationFrame</code> kiểm tra liên tục suốt 240 frames (~4 giây) mới ghi đè được chữ dịch.</p>
+          <div class="pain-meta">useKrpanoHotspotI18n.js (dòng 35–99)</div>
+        </div>
+
+        <div class="pain-card">
+          <h4>5. Chi phí tính toán <code>spheretoscreen</code> 60fps</h4>
+          <p>Ở Đảo Kim Quy, để vẽ hotspot bằng React component, hệ thống phải chạy vòng lặp 60fps gọi <code>krpano.call("spheretoscreen(ath, atv, sx, sy)")</code> trên từng điểm và dễ phát sinh xung đột <code>z-index</code> khi mở bảng thông tin dự án.</p>
+          <div class="pain-meta">ReactHotspotsOverlay.jsx (dòng 50–85)</div>
+        </div>
+
+        <div class="pain-card">
+          <h4>6. Mất hiệu ứng kính mờ <code>backdrop-filter</code></h4>
+          <p>Khi krpano thực hiện hiệu ứng chuyển cảnh <code>OPENBLEND</code>, trình duyệt mất lớp <code>backdrop-filter: blur(10px)</code> trên nhãn hotspot HTML, buộc phải viết action XML <code>reapply_backdrop_blur</code> dùng <code>delayedcall</code> để vẽ lại.</p>
+          <div class="pain-meta">public/file360/plugins/flaghotspot.xml</div>
+        </div>
+
+        <div class="pain-card">
+          <h4>7. Sự kiện <code>onviewchange</code> gây re-render liên tục</h4>
+          <p>Krpano bắn góc quay dạng số thực ở mỗi khung hình. Nếu đẩy thẳng vào React state sẽ làm bản đồ Minimap và La bàn re-render 60 lần/giây (phải làm tròn <code>Math.round(heading)</code> và tách nội suy rAF riêng).</p>
+          <div class="pain-meta">showroom/[type]/client.jsx & Compass360.jsx</div>
+        </div>
+
+        <div class="pain-card">
+          <h4>8. Plugin <code>FloorPlan</code> gốc không thể tái sử dụng</h4>
+          <p>Plugin bản đồ <code>FloorPlan</code> đi kèm krpano (dùng XML và jQuery cũ) không kết nối được với i18n và giao diện React của dự án, nên đều phải vô hiệu hóa và viết mới hoàn toàn bằng SVG React.</p>
+          <div class="pain-meta">UtilityFloorPlan.jsx & HouseFloorPlan.jsx</div>
+        </div>
+
+        <div class="pain-card">
+          <h4>9. Không thể mở đồng thời 2 <code>KrpanoViewer</code></h4>
+          <p>Do dùng chung <code>id="krpanoContainer"</code> và store đơn, ứng dụng không thể mở chồng 2 viewer trên cùng một trang DOM, khiến tính năng xem 360° Ban công từ trong Nhà mẫu phải nhúng qua thẻ <code>&lt;iframe&gt;</code>.</p>
+          <div class="pain-meta">BanconyOverlay.jsx (dòng 45–62)</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Bảng đánh giá hiệu năng, tính khả thi và các yếu tố kỹ thuật (12 tiêu chí)</h2>
+      <p>
+        Bảng dưới đây so sánh chi tiết <strong>krpano</strong> với 3 phương án công nghệ được đề xuất trong bản IDP dựa trên yêu cầu thực tế của các dự án Bất động sản tại Goku:
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 22%;">Tiêu chí đánh giá (Trọng số)</th>
+              <th style="width: 19.5%;">1. krpano 1.23<br><span style="font-weight:400;color:var(--muted);">Giải pháp hiện tại</span></th>
+              <th style="width: 19.5%;">2. Photo Sphere Viewer v5<br><span style="font-weight:400;color:var(--muted);">Three.js-based (MIT)</span></th>
+              <th style="width: 19.5%;">3. Marzipano<br><span style="font-weight:400;color:var(--muted);">Google WebGL (Apache 2.0)</span></th>
+              <th style="width: 19.5%;">4. Three.js / R3F Custom<br><span style="font-weight:400;color:var(--muted);">Custom Spatial Engine</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Hiệu năng Multi-Res Tiles (8K–16K) & Bộ nhớ Mobile</strong> (15%)</td>
+              <td><strong>9.5 / 10</strong><br>Tối ưu rất sâu, chia nhỏ khối lập phương đa mức, tiết kiệm VRAM trên iOS.</td>
+              <td><strong>8.0 / 10</strong><br>Có sẵn <code>CubemapTilesAdapter</code> & <code>EquirectangularTilesAdapter</code>; tốn VRAM hơn ~15%.</td>
+              <td><strong>9.0 / 10</strong><br>Kiến trúc multi-res pyramid rất nhẹ, quản lý texture GPU chặt chẽ.</td>
+              <td><strong>7.5 / 10</strong><br>Cần tự xây dựng bộ nạp Frustum Multi-Res Tile hoặc nén KTX2 để tối ưu RAM iOS.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Tích hợp React / Next.js & Đồng bộ State (Zustand)</strong> (15%)</td>
+              <td><strong>4.0 / 10</strong><br>Giao tiếp qua chuỗi lệnh XML, biến toàn cục <code>window</code>, xung đột StrictMode.</td>
+              <td><strong>8.5 / 10</strong><br>API TypeScript hướng sự kiện chuẩn, khởi tạo và hủy instance (<code>destroy()</code>) sạch sẽ.</td>
+              <td><strong>8.0 / 10</strong><br>API thuần JS rõ ràng, dễ bọc vào Custom Hook, hỗ trợ mở nhiều viewer cùng lúc.</td>
+              <td><strong>10 / 10</strong><br>Toàn bộ Scene, Camera, Hotspot là React Component, đọc/ghi trực tiếp <code>Zustand</code>.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Tùy biến Hotspot UI, CSS & Đa ngôn ngữ (<code>next-intl</code>)</strong> (15%)</td>
+              <td><strong>4.5 / 10</strong><br>Phải polling 240 frames hoặc tính <code>spheretoscreen</code> 60fps; lỗi mất <code>backdrop-filter</code>.</td>
+              <td><strong>9.0 / 10</strong><br><code>MarkersPlugin</code> hỗ trợ gắn trực tiếp phần tử HTML/DOM chuẩn, đổi ngôn ngữ tức thì.</td>
+              <td><strong>9.0 / 10</strong><br><code>createHotspot(domNode)</code> cho phép render trực tiếp React Component qua Portal.</td>
+              <td><strong>10 / 10</strong><br>Dùng <code>&lt;Html&gt;</code> của <code>@react-three/drei</code>, render trực tiếp JSX + Tailwind + <code>next-intl</code>.</td>
+            </tr>
+            <tr>
+              <td><strong>4. Mở rộng sang trải nghiệm 3D liên hoàn (<em>Dự án → Tòa nhà → Tầng → Căn hộ → Nội thất</em>)</strong> (15%)</td>
+              <td><strong>3.5 / 10</strong><br>Chỉ là trình xem ảnh cầu 360°, không thể tải và bay camera xuyên qua khối tòa nhà <code>.glb</code>.</td>
+              <td><strong>6.5 / 10</strong><br>Xây trên Three.js nhưng camera bị cố định ở tâm quả cầu panorama.</td>
+              <td><strong>3.0 / 10</strong><br>Chỉ hỗ trợ hình học panorama, không có Scene Graph 3D cho mô hình <code>.glb</code>.</td>
+              <td><strong>10 / 10</strong><br>Cùng 1 WebGL Canvas duy nhất: bay camera mượt từ mô hình tòa nhà 3D vào thẳng tâm quả cầu 360°.</td>
+            </tr>
+            <tr>
+              <td><strong>5. Tự động hóa Pipeline cắt ảnh (Node.js / <code>sharp</code>)</strong> (10%)</td>
+              <td><strong>5.0 / 10</strong><br>Phụ thuộc công cụ đóng <code>krpanotools</code> chạy thủ công ngoài luồng code dự án.</td>
+              <td><strong>9.0 / 10</strong><br>Định dạng lưới ảnh chuẩn, tích hợp ngay vào script <code>sharp</code> sẵn có của team.</td>
+              <td><strong>8.0 / 10</strong><br>Cấu trúc tile rõ ràng, cần thêm bước chuyển đổi Equirectangular sang Cubemap.</td>
+              <td><strong>9.0 / 10</strong><br>Chủ động hoàn toàn bằng pipeline <code>sharp</code> + <code>@gltf-transform</code> hiện có.</td>
+            </tr>
+            <tr>
+              <td><strong>6. Hiệu ứng chuyển cảnh (Transitions) & Custom Shaders</strong> (8%)</td>
+              <td><strong>7.0 / 10</strong><br>Có sẵn <code>BLEND</code> / <code>OPENBLEND</code> nhưng đóng cứng, không viết được shader riêng.</td>
+              <td><strong>7.5 / 10</strong><br>Hỗ trợ hiệu ứng fade + zoom hướng nhìn sẵn có trong <code>VirtualTourPlugin</code>.</td>
+              <td><strong>6.5 / 10</strong><br>Hỗ trợ chuyển cảnh cơ bản qua hàm <code>transitionUpdate</code>.</td>
+              <td><strong>10 / 10</strong><br>Toàn quyền viết Custom GLSL Shaders (trộn Ngày/Đêm theo thanh trượt, Depth-map transition).</td>
+            </tr>
+            <tr>
+              <td><strong>7. Hỗ trợ WebXR / Kính VR & Cảm biến Gyroscope</strong> (5%)</td>
+              <td><strong>8.5 / 10</strong><br>Plugin <code>webvr.xml</code> và <code>gyro2.js</code> ổn định.</td>
+              <td><strong>8.0 / 10</strong><br>Có sẵn <code>GyroscopePlugin</code> và <code>StereoPlugin</code>.</td>
+              <td><strong>6.0 / 10</strong><br>Dựa trên chuẩn WebVR cũ, cần cập nhật sang WebXR Device API.</td>
+              <td><strong>9.5 / 10</strong><br>Hỗ trợ chuẩn WebXR mới nhất qua <code>@react-three/xr</code>.</td>
+            </tr>
+            <tr>
+              <td><strong>8. Kích thước Bundle (Bundle Size Impact)</strong> (5%)</td>
+              <td><strong>8.5 / 10</strong><br><code>krpano.js</code> ~135KB tải độc lập ngoài bundle Next.js.</td>
+              <td><strong>7.0 / 10</strong><br>Core + Plugins ~90KB (chạy trên nền <code>three</code> đã cài sẵn trong dự án).</td>
+              <td><strong>9.5 / 10</strong><br>Siêu nhẹ (~55KB gzipped), không phụ thuộc thư viện 3D ngoài.</td>
+              <td><strong>8.0 / 10</strong><br>Tận dụng trực tiếp <code>three</code> + <code>R3F</code> đã có sẵn trong <code>package.json</code>, code riêng ~20KB.</td>
+            </tr>
+            <tr>
+              <td><strong>9. Chi phí bản quyền & Tính chủ động mã nguồn</strong> (5%)</td>
+              <td><strong>4.0 / 10</strong><br>Bản quyền thương mại đóng, mã nguồn bị làm rối (obfuscated), khó debug sâu.</td>
+              <td><strong>10 / 10</strong><br>Mã nguồn mở MIT 100%, miễn phí thương mại, tự chủ hoàn toàn.</td>
+              <td><strong>9.5 / 10</strong><br>Mã nguồn mở Apache 2.0 miễn phí.</td>
+              <td><strong>10 / 10</strong><br>Mã nguồn mở MIT 100%, công ty làm chủ hoàn toàn công nghệ lõi.</td>
+            </tr>
+            <tr>
+              <td><strong>10. Cộng đồng, Tài liệu & Khả năng tiếp cận</strong> (5%)</td>
+              <td><strong>6.5 / 10</strong><br>Ngôn ngữ XML riêng biệt, nhân sự Frontend mới mất thời gian làm quen.</td>
+              <td><strong>9.0 / 10</strong><br>Tài liệu rõ ràng, chuẩn JS/TS hiện đại, lập trình viên React nắm bắt nhanh.</td>
+              <td><strong>5.5 / 10</strong><br>Rất ổn định nhưng Google ít cập nhật tính năng mới từ năm 2021.</td>
+              <td><strong>9.5 / 10</strong><br>Cộng đồng Three.js / R3F lớn nhất hiện nay, đồng bộ với định hướng học tập của team.</td>
+            </tr>
+            <tr>
+              <td><strong>11. Thời gian triển khai ban đầu (Time-to-Market)</strong> (2%)</td>
+              <td><strong>9.0 / 10</strong><br>Đã có sẵn quy trình xuất file 360 hiện hành.</td>
+              <td><strong>8.5 / 10</strong><br>Nhanh (1–2 tuần) nhờ có sẵn hệ thống plugin tương đương.</td>
+              <td><strong>7.0 / 10</strong><br>Cần 2–3 tuần để xây dựng thêm lớp UI/Minimap bao quanh.</td>
+              <td><strong>5.5 / 10</strong><br>Cần 4–6 tuần R&D để hoàn thiện bộ tải multi-res tiles & công cụ đặt hotspot.</td>
+            </tr>
+            <tr style="background: var(--surface);">
+              <td><strong>12. ĐIỂM TỔNG HỢP CÓ TRỌNG SỐ & TÍNH KHẢ THI</strong> (100%)</td>
+              <td><strong>6.32 / 10</strong><br>Duy trì cho các dự án ngắn hạn với wrapper <code>KrpanoViewer</code> đã fix lỗi.</td>
+              <td><strong>8.36 / 10</strong><br><strong>Phương án khả thi cao nhất</strong> để thay thế trực tiếp 1-1 trong ngắn & trung hạn.</td>
+              <td><strong>7.18 / 10</strong><br>Tham chiếu tốt về cấu trúc multi-res tile và phép chiếu DOM nhẹ.</td>
+              <td><strong>8.85 / 10</strong><br><strong>Đích đến chiến lược</strong> cho sản phẩm kết hợp Sa bàn 3D + Panorama 360°.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. Ví dụ đối sánh cách triển khai Hotspot đa ngôn ngữ (<code>next-intl</code>) giữa 4 công nghệ</h2>
+      <p>Chọn từng công nghệ bên dưới để so sánh mức độ gọn nhẹ khi gắn một điểm Hotspot có hỗ trợ đổi ngôn ngữ <code>vi ↔ en</code> và mở Modal React khi người dùng nhấn vào:</p>
+
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="showTab('tab-krpano', this)">1. krpano hiện tại (XML + 240-frame rAF Polling)</button>
+        <button class="tab-btn" onclick="showTab('tab-psv', this)">2. Photo Sphere Viewer v5 (MarkersPlugin)</button>
+        <button class="tab-btn" onclick="showTab('tab-marzipano', this)">3. Marzipano (DOM Hotspot + React Portal)</button>
+        <button class="tab-btn" onclick="showTab('tab-r3f', this)">4. Three.js / React Three Fiber (&lt;Html&gt; Component)</button>
+      </div>
+
+      <div id="tab-krpano" class="tab-panel active">
+        <pre><code>// 1. Khai báo cứng trong public/file360/overview/tour.xml:
+// &lt;hotspot name="hs_lobby" style="flag_icon" ath="42.5" atv="-8.2" text="Sảnh Đón"
+//          onclick="js(window.krpanoPostMessage('open-utility', { id: 'lobby' }))" /&gt;
+
+// 2. Trong src/hooks/useKrpanoHotspotI18n.js (Phải chạy vòng lặp chờ XML tạo xong layer chữ con):
+useEffect(() => {
+  let frame = 0;
+  let rafId;
+  const syncLabels = () => {
+    const krpano = krpanoRef?.current;
+    if (!krpano) {
+      if (frame++ < 240) rafId = requestAnimationFrame(syncLabels);
+      return;
+    }
+    let allApplied = true;
+    for (const [hsName, i18nKey] of Object.entries(hotspotMap)) {
+      const txtLayerName = `${hsName}txt`;
+      if (!krpano.get(`layer[${txtLayerName}]`)) {
+        allApplied = false;
+        continue;
+      }
+      krpano.set(`layer[${txtLayerName}].html`, t(i18nKey));
+    }
+    if (!allApplied && frame++ < 240) rafId = requestAnimationFrame(syncLabels);
+  };
+  rafId = requestAnimationFrame(syncLabels);
+  return () => cancelAnimationFrame(rafId);
+}, [locale, activeScene]);</code></pre>
+      </div>
+
+      <div id="tab-psv" class="tab-panel">
+        <pre><code>import { Viewer } from '@photo-sphere-viewer/core';
+import { CubemapTilesAdapter } from '@photo-sphere-viewer/cubemap-tiles-adapter';
+import { MarkersPlugin } from '@photo-sphere-viewer/markers-plugin';
+
+const viewer = new Viewer({
+  container: containerRef.current,
+  adapter: CubemapTilesAdapter,
+  panorama: {
+    faceSize: 4096,
+    nbTiles: 8,
+    tileUrl: (face, col, row) => `/tiles/overview/${face}_${col}_${row}.webp`,
+  },
+  plugins: [[MarkersPlugin, { markers: [] }]],
+});
+
+// Khi đổi ngôn ngữ (vi <-> en), cập nhật trực tiếp DOM/HTML chuẩn mà không cần polling:
+const markersPlugin = viewer.getPlugin(MarkersPlugin);
+markersPlugin.setMarkers(
+  hotspots.map((hs) => ({
+    id: hs.id,
+    position: { yaw: `${hs.ath}deg`, pitch: `${hs.atv}deg` },
+    html: `&lt;button class="hotspot-pill"&gt;${t(hs.i18nKey)}&lt;/button&gt;`,
+    data: { utilityId: hs.id },
+  }))
+);
+
+markersPlugin.addEventListener('select-marker', ({ marker }) => {
+  openUtilityModal(marker.data.utilityId);
+});</code></pre>
+      </div>
+
+      <div id="tab-marzipano" class="tab-panel">
+        <pre><code>import Marzipano from 'marzipano';
+import { createPortal } from 'react-dom';
+
+const geometry = new Marzipano.CubeGeometry([
+  { tileSize: 512, size: 512 },
+  { tileSize: 512, size: 2048 },
+  { tileSize: 512, size: 4096 },
+]);
+const source = Marzipano.ImageUrlSource.fromString('/tiles/{z}/{f}/{y}/{x}.webp');
+const view = new Marzipano.RectilinearView({ yaw: 0, pitch: 0, fov: Math.PI / 2 });
+const scene = viewer.createScene({ source, geometry, view });
+
+// Gắn phần tử DOM trực tiếp vào tọa độ cầu và dùng React Portal:
+const domNode = document.createElement('div');
+scene.hotspotContainer().createHotspot(domNode, {
+  yaw: (hs.ath * Math.PI) / 180,
+  pitch: (hs.atv * Math.PI) / 180,
+});
+
+return createPortal(
+  &lt;HotspotCallout title={t(hs.i18nKey)} onClick={() =&gt; openUtilityModal(hs.id)} /&gt;,
+  domNode
+);</code></pre>
+      </div>
+
+      <div id="tab-r3f" class="tab-panel">
+        <pre><code>import { Canvas } from '@react-three/fiber';
+import { Html, useTexture } from '@react-three/drei';
+import { useTranslations } from 'next-intl';
+
+function PanoramaSphere({ textureUrl, hotspots, onSelect }) {
+  const t = useTranslations('Overview');
+  const texture = useTexture(textureUrl);
+
+  return (
+    &lt;group&gt;
+      &lt;mesh scale={[-1, 1, 1]}&gt;
+        &lt;sphereGeometry args={[500, 64, 32]} /&gt;
+        &lt;meshBasicMaterial map={texture} side={2} /&gt;
+      &lt;/mesh&gt;
+
+      {hotspots.map((hs) =&gt; (
+        &lt;Html key={hs.id} position={sphericalToCartesian(500, hs.ath, hs.atv)} center&gt;
+          &lt;button onClick={() =&gt; onSelect(hs.id)} className="hotspot-pill"&gt;
+            {t(hs.i18nKey)}
+          &lt;/button&gt;
+        &lt;/Html&gt;
+      ))}
+    &lt;/group&gt;
+  );
+}</code></pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Kết luận và kế hoạch thử nghiệm trong thời gian tới</h2>
+
+      <div class="highlight-box">
+        <p style="margin-bottom: 8px;">
+          <strong>Kết luận chung:</strong> Mục tiêu của giai đoạn này không phải là thay thế <code>krpano</code> ngay lập tức trên các dự án đang chạy gấp, mà là nắm vững ưu/nhược điểm của từng công nghệ để có sẵn <strong>Plan B</strong> khi dự án yêu cầu tùy biến giao diện React sâu hơn hoặc kết hợp không gian 3D.
+        </p>
+        <p style="margin-bottom: 0;">
+          <strong>Định hướng sắp tới:</strong> <strong>Sẽ tiếp tục thực hiện thử nghiệm thực tế (Build POC) trong thời gian tới</strong> theo 3 bước cụ thể dưới đây.
+        </p>
+      </div>
+
+      <div class="roadmap-grid">
+        <div class="roadmap-card">
+          <h4>Bước 1: Chuẩn hóa ngắn hạn</h4>
+          <p style="font-size: 14px; color: var(--muted); margin: 0;">
+            Tiếp tục sử dụng bản <code>KrpanoViewer.jsx</code> đã khắc phục lỗi hủy instance (<code>removepano(id)</code> + <code>krpanoEmbedSeq</code>) và khóa <code>initialSceneLockRef</code> của dự án SkySOLIS làm chuẩn chung cho các dự án hiện hành.
+          </p>
+        </div>
+        <div class="roadmap-card">
+          <h4>Bước 2: Thử nghiệm POC với Photo Sphere Viewer v5</h4>
+          <p style="font-size: 14px; color: var(--muted); margin: 0;">
+            Dựng bản POC thử nghiệm bằng <strong>Photo Sphere Viewer v5</strong> (sử dụng <code>CubemapTilesAdapter</code> + <code>MarkersPlugin</code>) trên dữ liệu ảnh thực tế của dự án để đo đạc FPS, bộ nhớ Safari iOS và khả năng cập nhật đa ngôn ngữ tức thì.
+          </p>
+        </div>
+        <div class="roadmap-card">
+          <h4>Bước 3: Thử nghiệm POC liên thông 3D ↔ 360° với Three.js</h4>
+          <p style="font-size: 14px; color: var(--muted); margin: 0;">
+            Tận dụng bộ thư viện <code>three</code> + <code>@react-three/fiber</code> sẵn có trong dự án để thử nghiệm luồng trải nghiệm liên hoàn: <strong>Khám phá dự án → Tòa nhà 3D → Tầng → Căn hộ → Nội thất 360°</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function showTab(tabId, btn) {
+      document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+      document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+  </script>
+</body>
+</html>

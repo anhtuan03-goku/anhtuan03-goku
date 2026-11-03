@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Báo cáo Tiến độ IDP Giai đoạn 1 (Tháng 10/2026) - Nguyễn Anh Tuấn</title>
+  <style>
+    :root {
+      --text: #111111;
+      --muted: #555555;
+      --border: #dddddd;
+      --background: #ffffff;
+      --surface: #fafafa;
+      --code-bg: #f7f7f7;
+      --content-width: 1040px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: var(--muted);
+    }
+
+    .top-nav {
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      padding: 12px 20px;
+    }
+
+    .top-nav-inner {
+      width: min(100%, var(--content-width));
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      padding-bottom: 2px;
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+      color: var(--text);
+      font-weight: 700;
+      border-bottom: 2px solid var(--text);
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--content-width));
+      margin: 0 auto;
+      padding: 48px 0 80px;
+    }
+
+    header {
+      padding-bottom: 24px;
+      margin-bottom: 36px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+    }
+
+    .period {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    section {
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      margin: 0 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      font-size: 23px;
+    }
+
+    h3 {
+      margin: 26px 0 12px;
+      font-size: 19px;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    ul {
+      margin: 8px 0 18px;
+      padding-left: 22px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    code {
+      padding: 2px 5px;
+      border: 1px solid #e5e5e5;
+      border-radius: 4px;
+      background: var(--code-bg);
+      font-family: "Courier New", Consolas, monospace;
+      font-size: 0.9em;
+    }
+
+    .highlight-box {
+      margin: 18px 0;
+      padding: 16px 20px;
+      border-left: 3px solid #111111;
+      background: var(--surface);
+    }
+
+    .report-links-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin: 20px 0;
+    }
+
+    .report-card {
+      border: 1px solid var(--border);
+      padding: 20px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .report-card h3 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .btn-link {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 8px 14px;
+      border: 1px solid #111111;
+      background: #111111;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      width: fit-content;
+    }
+
+    .btn-link:hover {
+      background: #333333;
+      color: #ffffff;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin: 18px 0;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      padding: 18px;
+      background: #ffffff;
+    }
+
+    .card h4 {
+      margin: 0 0 10px;
+      font-size: 16.5px;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin: 16px 0 24px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      min-width: 720px;
+    }
+
+    th, td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th:last-child, td:last-child {
+      border-right: none;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    th {
+      background: var(--surface);
+      font-weight: 700;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .gallery-item {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 125px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .gallery-caption {
+      padding: 7px 9px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      flex-direction: column;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 94vw;
+      max-height: 82vh;
+      border: 1px solid #ffffff;
+      background: #ffffff;
+    }
+
+    .lightbox-caption {
+      color: #ffffff;
+      margin-top: 10px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      background: #ffffff;
+      color: #111111;
+      border: none;
+      padding: 6px 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .report-links-grid,
+      .three-col {
+        grid-template-columns: 1fr;
+      }
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(calc(100% - 28px), var(--content-width));
+        padding-top: 32px;
+      }
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      h1 {
+        font-size: 25px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+      body {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <strong>IDP Nguyễn Anh Tuấn (09/2026 – 03/2027)</strong>
+      <div class="nav-links">
+        <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/bao-cao-idp-thang-10-2026.html" class="active">Tổng quan Tháng 10</a>
+        <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/short-term-tech-stack-report.html">1. Chuẩn hóa Tech Stack</a>
+        <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/long-term-web360-krpano-comparison.html">2. Đối sánh Web360 (krpano)</a>
+        <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/muc-tieu-phat-trien-ca-nhan.html">Kế hoạch IDP gốc</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header>
+      <h1>BÁO CÁO TIẾN ĐỘ IDP GIAI ĐOẠN 1 (THÁNG 10/2026)</h1>
+      <p class="period">
+        <strong>Nhân viên:</strong> Nguyễn Anh Tuấn (Junior Frontend Developer) &nbsp;|&nbsp;
+        <strong>Mục tiêu (03/2027):</strong> Middle Frontend Developer &nbsp;|&nbsp;
+        <strong>Quản lý trực tiếp:</strong> Lý Gia Hoàng – Web Leader
+      </p>
+      <div class="highlight-box">
+        <strong>Tóm tắt kết quả Giai đoạn 1 (Tháng 10/2026):</strong> Hoàn thành 100% mục tiêu ngắn hạn về <strong>Chuẩn hóa Tech Stack & Frontend Base</strong> qua 2 dự án thực tế
+        (<a href="https://360.skysolis.my/" target="_blank" rel="noopener">SkySOLIS</a> và <a href="https://vr360.daokimquy.vn/" target="_blank" rel="noopener">Đảo Kim Quy</a>),
+        đồng thời hoàn thành nghiên cứu đối sánh chuyên sâu cho mục tiêu dài hạn <strong>Giảm phụ thuộc vào krpano</strong> và thực hiện 3 đóng góp mở rộng cho đội ngũ.
+      </div>
+    </header>
+
+    <section>
+      <h2>1. Hai báo cáo chuyên sâu cho mục tiêu Ngắn hạn và Dài hạn</h2>
+
+      <div class="report-links-grid">
+        <div class="report-card">
+          <div>
+            <h3>Mục tiêu ngắn hạn: Chuẩn hóa Tech Stack & Frontend Base</h3>
+            <p>
+              Đối chiếu mã nguồn nhánh <code>main</code> của dự án <strong>SkySOLIS</strong> (<a href="https://360.skysolis.my/" target="_blank" rel="noopener">https://360.skysolis.my/</a>)
+              và <strong>Đảo Kim Quy</strong> (<a href="https://vr360.daokimquy.vn/" target="_blank" rel="noopener">https://vr360.daokimquy.vn/</a>):
+            </p>
+            <ul>
+              <li>Đồng nhất 100% bộ <code>package.json</code> giữa 2 dự án.</li>
+              <li>Chia sẻ <strong>76.7% cấu trúc code (<code>181/236</code> files)</strong>; trong đó <strong>94 files (39.8%)</strong> giống nhau 100% không cần sửa code.</li>
+              <li>Đánh giá nhóm dependency trên 6 tiêu chí IDP và rà soát tinh gọn các gói không còn sử dụng.</li>
+            </ul>
+          </div>
+          <a class="btn-link" href="https://anhtuan03-goku.github.io/anhtuan03-goku/short-term-tech-stack-report.html">Xem báo cáo chi tiết Chuẩn hóa Tech Stack →</a>
+        </div>
+
+        <div class="report-card">
+          <div>
+            <h3>Mục tiêu dài hạn: Giảm phụ thuộc vào công nghệ đơn lẻ (krpano)</h3>
+            <p>
+              Nghiên cứu và đặt lên bàn cân so sánh giữa <strong>krpano</strong> với <strong>Photo Sphere Viewer v5</strong>, <strong>Marzipano</strong> và <strong>Three.js / R3F Custom Engine</strong>:
+            </p>
+            <ul>
+              <li>Đúc kết 9 giới hạn kỹ thuật thực tế khi tích hợp <code>krpano</code> vào React/Next.js.</li>
+              <li>Bảng đánh giá đa chiều trên <strong>12 tiêu chí</strong> (hiệu năng, khả năng tùy biến, bản quyền, khả năng mở rộng sang Web 3D...).</li>
+              <li>Kết luận xây dựng Plan B công nghệ và <strong>tiếp tục thử nghiệm (POC) trong thời gian tới</strong>.</li>
+            </ul>
+          </div>
+          <a class="btn-link" href="https://anhtuan03-goku.github.io/anhtuan03-goku/long-term-web360-krpano-comparison.html">Xem báo cáo chi tiết Đối sánh Web360 →</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Những điểm cộng mở rộng trong Tháng 10/2026 (Plus Points)</h2>
+
+      <div class="three-col">
+        <div class="card">
+          <h4>1. Nghiên cứu, thực hiện & cải tiến dự án Landing Page + CMS</h4>
+          <ul>
+            <li>Triển khai trang web nội bộ công ty <a href="https://goku.agency/" target="_blank" rel="noopener">https://goku.agency/</a> và trang Landing Page cho khách hàng <a href="https://thecollection688.com.vn/" target="_blank" rel="noopener">https://thecollection688.com.vn/</a>.</li>
+            <li>Áp dụng <strong>Next.js + TypeScript</strong>, hoàn thiện giao diện theo đúng thiết kế và kết nối hệ thống CMS cho Backend.</li>
+            <li>Hướng tới việc rút kinh nghiệm thực tế để tiến tới <strong>chuẩn hóa quy trình thực hiện một dự án Landing Page</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h4>2. Hỗ trợ & hướng dẫn đồng nghiệp thực hiện dự án Imperia Sensa Park</h4>
+          <ul>
+            <li>Hỗ trợ đồng nghiệp thực hiện <strong>bóc tách dữ liệu đầu vào từ khách hàng</strong>.</li>
+            <li>Rà soát, đối chiếu và làm rõ thông tin cho <strong>phân khu thấp tầng</strong>.</li>
+            <li>Đảm bảo dự án được triển khai với thông tin chính xác ngay từ đầu, hạn chế việc phải chỉnh sửa nhiều lần.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h4>3. Hỗ trợ đồng nghiệp build ứng dụng Touchscreen dự án Keppel Celesta</h4>
+          <ul>
+            <li>Phối hợp hỗ trợ đồng nghiệp cấu hình và build ứng dụng chạy trên <strong>màn hình cảm ứng (Touchscreen) tại Sale Gallery của dự án Keppel Celesta</strong>.</li>
+            <li>Tinh chỉnh thông số hiển thị và thao tác chạm dựa sát trên <strong>cấu hình phần cứng mà khách hàng cung cấp</strong>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. Bảng theo dõi tiến bộ năng lực qua nhiệm vụ thực tế (70%)</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Năng lực trọng tâm trong IDP</th>
+              <th>Baseline (09/2026)</th>
+              <th>Kết quả hiện tại (10/2026)</th>
+              <th>Dự án / Minh chứng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><strong>Chuẩn hóa Tech Stack & Lựa chọn kỹ thuật phù hợp</strong></td>
+              <td>Các dự án cài đặt thư viện rời rạc, trùng lặp chức năng.</td>
+              <td>Đã đánh giá trên 6 tiêu chí và thống nhất bộ dependency cốt lõi cho dòng dự án Web360/Sa bàn ảo.</td>
+              <td><a href="https://360.skysolis.my/" target="_blank" rel="noopener">SkySOLIS</a> &amp; <a href="https://vr360.daokimquy.vn/" target="_blank" rel="noopener">Đảo Kim Quy</a></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><strong>Xây dựng kiến trúc Frontend rõ ràng, dễ maintain</strong></td>
+              <td>Component gắn chặt với dữ liệu từng dự án, khó tái sử dụng.</td>
+              <td>Chia sẻ <strong>76.7% cấu trúc code (<code>181/236</code> files)</strong> giữa dự án cao tầng và thấp tầng.</td>
+              <td><a href="https://anhtuan03-goku.github.io/anhtuan03-goku/short-term-tech-stack-report.html">Báo cáo Tech Stack</a></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><strong>Chủ động xử lý vấn đề Performance & UX</strong></td>
+              <td>Xử lý khi phát sinh lỗi ở giai đoạn cuối dự án.</td>
+              <td>Chủ động áp dụng Multi-res Tiles 8K, throttle 120ms khi pan/zoom, giới hạn bộ nhớ Safari iOS và cache ETag.</td>
+              <td>Module <code>ZoomableView</code>, <code>DeepZoomFloorPlan</code>, <code>room.js</code></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><strong>Nghiên cứu giảm phụ thuộc vào <code>krpano</code></strong></td>
+              <td>Phụ thuộc hoàn toàn vào <code>krpano</code> và cấu hình XML.</td>
+              <td>Hoàn thành đối sánh 12 tiêu chí với Photo Sphere Viewer, Marzipano, Three.js; chuẩn bị dựng POC.</td>
+              <td><a href="https://anhtuan03-goku.github.io/anhtuan03-goku/long-term-web360-krpano-comparison.html">Báo cáo Đối sánh Web360</a></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><strong>Tự chủ triển khai, phối hợp BE & Hỗ trợ đồng nghiệp</strong></td>
+              <td>Tập trung hoàn thành công việc cá nhân.</td>
+              <td>Triển khai Landing Page + CMS (Next.js/TS), hỗ trợ bóc tách dữ liệu Imperia Sensa Park và build app Keppel Celesta.</td>
+              <td><a href="https://goku.agency/" target="_blank" rel="noopener">goku.agency</a>, <a href="https://thecollection688.com.vn/" target="_blank" rel="noopener">thecollection688.com.vn</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Minh chứng hình ảnh thực tế từ dự án SkySOLIS & Đảo Kim Quy</h2>
+      <p>Nhấn vào từng ảnh chụp màn hình bên dưới để xem kích thước đầy đủ (<code>1920×1080</code>):</p>
+
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/skysolis-overview.webp', 'SkySOLIS — Toàn cảnh 360° (/overview)')">
+          <img src="./assets/screenshots/skysolis-overview.webp" alt="SkySOLIS Overview" />
+          <div class="gallery-caption">SkySOLIS • Toàn cảnh 360°</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/skysolis-location.webp', 'SkySOLIS — Bản đồ Vị trí DeepZoom (/location)')">
+          <img src="./assets/screenshots/skysolis-location.webp" alt="SkySOLIS Location" />
+          <div class="gallery-caption">SkySOLIS • Vị trí DeepZoom</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/skysolis-building-facade.webp', 'SkySOLIS — Mặt đứng & Bộ lọc Căn hộ (/building)')">
+          <img src="./assets/screenshots/skysolis-building-facade.webp" alt="SkySOLIS Building" />
+          <div class="gallery-caption">SkySOLIS • Mặt đứng & Lọc căn</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/skysolis-floorplan-deepzoom.webp', 'SkySOLIS — Mặt bằng Tầng 8 DeepZoom 8K (/building/8)')">
+          <img src="./assets/screenshots/skysolis-floorplan-deepzoom.webp" alt="SkySOLIS Floorplan" />
+          <div class="gallery-caption">SkySOLIS • Mặt bằng Tầng 8K</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/skysolis-showroom-360.webp', 'SkySOLIS — Nhà mẫu 360° & Radar Minimap (/showroom/2pn1wc)')">
+          <img src="./assets/screenshots/skysolis-showroom-360.webp" alt="SkySOLIS Showroom" />
+          <div class="gallery-caption">SkySOLIS • Nhà mẫu 360°</div>
+        </div>
+
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/daokimquy-overview-360.webp', 'Đảo Kim Quy — Toàn cảnh 360° & ReactHotspotsOverlay (/overview)')">
+          <img src="./assets/screenshots/daokimquy-overview-360.webp" alt="Đảo Kim Quy Overview" />
+          <div class="gallery-caption">Đảo Kim Quy • Toàn cảnh 360°</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/daokimquy-location.webp', 'Đảo Kim Quy — Bản đồ Vị trí & Kết nối vùng (/location)')">
+          <img src="./assets/screenshots/daokimquy-location.webp" alt="Đảo Kim Quy Location" />
+          <div class="gallery-caption">Đảo Kim Quy • Bản đồ Vị trí</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/daokimquy-masterplan.webp', 'Đảo Kim Quy — Mặt bằng Phân khu 571 căn (/masterplan)')">
+          <img src="./assets/screenshots/daokimquy-masterplan.webp" alt="Đảo Kim Quy Masterplan" />
+          <div class="gallery-caption">Đảo Kim Quy • Mặt bằng Phân khu</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/daokimquy-showroom-360.webp', 'Đảo Kim Quy — Biệt thự Đơn lập Ven sông 360° (/showroom/donlapvensong)')">
+          <img src="./assets/screenshots/daokimquy-showroom-360.webp" alt="Đảo Kim Quy Showroom" />
+          <div class="gallery-caption">Đảo Kim Quy • Biệt thự Mẫu 360°</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/daokimquy-amenities-360.webp', 'Đảo Kim Quy — Hệ thống 34 Cảnh Tiện ích 360° (/amenities)')">
+          <img src="./assets/screenshots/daokimquy-amenities-360.webp" alt="Đảo Kim Quy Amenities" />
+          <div class="gallery-caption">Đảo Kim Quy • Tiện ích 360°</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>5. Tự đánh giá (Self-Reflection) & Kế hoạch hành động Tháng 11/2026</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Hành động cụ thể trong Tháng 11/2026</th>
+              <th>Mục tiêu IDP liên quan</th>
+              <th>Kết quả đầu ra kỳ vọng</th>
+              <th>Thời hạn</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><strong>Tiếp tục thử nghiệm thực tế (Build POC) cho công nghệ Web360 thay thế <code>krpano</code></strong></td>
+              <td>Mục tiêu dài hạn: Giảm phụ thuộc vào một công nghệ duy nhất &amp; Nghiên cứu Web 3D</td>
+              <td>Xây dựng bản POC bằng <strong>Photo Sphere Viewer / Three.js</strong> trên dữ liệu ảnh thực tế để đo đạc hiệu năng và khả năng gắn React Hotspot đa ngôn ngữ.</td>
+              <td>25/11/2026</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><strong>Tách Base Template sạch &amp; Đúc kết quy trình chuẩn cho dự án Landing Page + CMS</strong></td>
+              <td>Mục tiêu ngắn hạn: Chuẩn hóa Tech Stack &amp; Chuyển đổi sang TypeScript / Next.js</td>
+              <td>Làm sạch các thư viện không dùng trong Base Template Web360; tổng hợp kinh nghiệm từ <a href="https://goku.agency/" target="_blank" rel="noopener">goku.agency</a> và <a href="https://thecollection688.com.vn/" target="_blank" rel="noopener">thecollection688.com.vn</a> thành quy trình chuẩn.</td>
+              <td>27/11/2026</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><strong>Tổng hợp Guideline Tối ưu hệ thống hình ảnh &amp; Checklist UX/UI</strong></td>
+              <td>Mục tiêu ngắn hạn: Tối ưu hệ thống hình ảnh &amp; Nâng chất lượng UX/UI</td>
+              <td>Tài liệu Guideline về lựa chọn định dạng ảnh, cắt multi-res tiles, lazy loading, quản lý bộ nhớ mobile và checklist kiểm tra UX/UI trước bàn giao.</td>
+              <td>30/11/2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">Đóng (×)</button>
+    <img id="lightbox-img" src="" alt="Xem ảnh phóng to" />
+    <div id="lightbox-caption" class="lightbox-caption"></div>
+  </div>
+
+  <script>
+    function openLightbox(src, caption) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-caption').textContent = caption;
+      document.getElementById('lightbox').classList.add('open');
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
+</html>
