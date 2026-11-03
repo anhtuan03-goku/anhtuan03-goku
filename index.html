@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IDP Checkpoint Report (Giai Đoạn 1 - 10/2026) | Nguyễn Anh Tuấn</title>
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: #111827;
+      --bg-surface: #0f172a;
+      --border: #1e293b;
+      --border-highlight: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #6366f1;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-purple: #a855f7;
+      --grad-primary: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+      --grad-emerald: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --grad-purple: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+      --grad-amber: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9, 13, 22, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-main);
+    }
+
+    .nav-badge {
+      background: var(--grad-primary);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+      background: var(--bg-card);
+      border-color: var(--border-highlight);
+    }
+
+    .nav-link.active {
+      color: #fff;
+      background: rgba(56, 189, 248, 0.16);
+      border-color: rgba(56, 189, 248, 0.45);
+    }
+
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* Profile Header */
+    .hero {
+      padding: 48px 0 36px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .profile-card {
+      background: linear-gradient(135deg, rgba(17, 24, 39, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid var(--border-highlight);
+      border-radius: 18px;
+      padding: 28px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .profile-info h1 {
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, #ffffff 0%, #93c5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .profile-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    .profile-meta span strong {
+      color: #fff;
+    }
+
+    .status-pill {
+      background: rgba(16, 185, 129, 0.16);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Hub Cards */
+    .hub-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 1024px) {
+      .hub-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hub-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .hub-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-blue);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+    }
+
+    .hub-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+
+    .hub-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .hub-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .hub-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--grad-primary);
+      transition: opacity 0.2s;
+    }
+
+    .hub-btn.purple { background: var(--grad-purple); }
+    .hub-btn.emerald { background: var(--grad-emerald); }
+
+    .hub-btn:hover {
+      opacity: 0.92;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 52px;
+    }
+
+    .section-header {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 23px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .section-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--grad-primary);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .section-subtitle {
+      font-size: 14.5px;
+      color: var(--text-muted);
+    }
+
+    /* Plus Points Section */
+    .plus-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .plus-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .plus-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .plus-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--grad-emerald);
+    }
+
+    .plus-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      margin-bottom: 12px;
+    }
+
+    .plus-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .plus-list {
+      list-style: none;
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    .plus-list li {
+      margin-bottom: 10px;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .plus-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent-emerald);
+      font-weight: 800;
+    }
+
+    /* Screenshot Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 1100px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .gallery-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-blue);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 135px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-label {
+      padding: 9px 11px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+
+    code {
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 12px;
+      background: rgba(15, 23, 42, 0.85);
+      color: #7dd3fc;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      flex-direction: column;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 94vw;
+      max-height: 84vh;
+      border-radius: 12px;
+      border: 1px solid var(--border-highlight);
+    }
+
+    .lightbox-caption {
+      margin-top: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 28px;
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-brand">
+      <span class="nav-badge">IDP 09/2026 – 03/2027</span>
+      <span>Nguyễn Anh Tuấn — Hồ Sơ Báo Cáo IDP Giai Đoạn 1 (Tháng 10/2026)</span>
+    </div>
+    <div class="nav-links">
+      <a href="./index.html" class="nav-link active">🏠 Dashboard Tổng Quan</a>
+      <a href="./short-term-tech-stack-report.html" class="nav-link">⚡ 1. Chuẩn Hóa Tech Stack (Ngắn Hạn)</a>
+      <a href="./long-term-web360-krpano-comparison.html" class="nav-link">🌐 2. Đối Sánh Krpano & Web360 (Dài Hạn)</a>
+      <a href="./BAO_CAO_IDP_GIAI_DOAN_1_10_2026.md" class="nav-link">📄 Bản Báo Cáo Markdown</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header class="hero">
+      <div class="profile-card">
+        <div class="profile-info">
+          <h1>BÁO CÁO TIẾN ĐỘ IDP GIAI ĐOẠN 1 — NGUYỄN ANH TUẤN</h1>
+          <div class="profile-meta">
+            <span>👤 <strong>Chức danh hiện tại:</strong> Junior Frontend Developer</span>
+            <span>🎯 <strong>Mục tiêu (03/2027):</strong> Middle Frontend Developer (Web 3D & Spatial Experience)</span>
+            <span>👨‍💼 <strong>Quản lý trực tiếp:</strong> Anh Lý Gia Hoàng (Web Leader)</span>
+            <span>📅 <strong>Kỳ báo cáo:</strong> Tháng 10/2026 (Check-in 1)</span>
+          </div>
+        </div>
+        <div class="status-pill">✅ Hoàn thành 100% Mục tiêu T10 & Khởi động sớm Mục tiêu Dài hạn</div>
+      </div>
+
+      <div class="hub-grid">
+        <div class="hub-card">
+          <div>
+            <span class="hub-tag" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">Trọng tâm 1 • Mục tiêu ngắn hạn</span>
+            <div class="hub-title">Chuẩn Hóa Tech Stack & Frontend Base (SkySOLIS & Đảo Kim Quy)</div>
+            <div class="hub-desc">
+              Báo cáo phân tích mã nguồn nhánh <code>main</code> của 2 dự án <strong>SkySOLIS</strong> và <strong>Đảo Kim Quy</strong>:
+              đạt <strong>76.7% (181/236 files)</strong> chia sẻ cấu trúc Base, đánh giá nhóm dependency trên 6 tiêu chí IDP và kiểm toán loại bỏ 7 thư viện dư thừa.
+            </div>
+          </div>
+          <a href="./short-term-tech-stack-report.html" class="hub-btn">Xem Báo Cáo Chuẩn Hóa Tech Stack →</a>
+        </div>
+
+        <div class="hub-card">
+          <div>
+            <span class="hub-tag" style="background: rgba(168, 85, 247, 0.16); color: #c084fc;">Trọng tâm 2 • Mục tiêu dài hạn</span>
+            <div class="hub-title">Giảm Phụ Thuộc Krpano: Đối Sánh PSV, Marzipano & Three.js</div>
+            <div class="hub-desc">
+              Hệ thống hóa <strong>9 Pain Points</strong> thực tế khi tích hợp <code>krpano</code> vào React 19 / Next.js 15; lập bảng ma trận chấm điểm <strong>12 tiêu chí</strong> về hiệu năng, tính khả thi, bản quyền và khả năng mở rộng Web 3D; đề xuất lộ trình POC thời gian tới.
+            </div>
+          </div>
+          <a href="./long-term-web360-krpano-comparison.html" class="hub-btn purple">Xem Báo Cáo Đối Sánh Web360 →</a>
+        </div>
+
+        <div class="hub-card">
+          <div>
+            <span class="hub-tag" style="background: rgba(16, 185, 129, 0.16); color: #34d399;">Tài liệu chuẩn • IDP Checkpoint Template</span>
+            <div class="hub-title">Bản Báo Cáo IDP Tháng 10/2026 (Theo Mẫu Chuẩn L&D / Leader)</div>
+            <div class="hub-desc">
+              Tài liệu Markdown tổng hợp đầy đủ theo mẫu <code>IDP MONTHLY CHECKPOINT REPORT TEMPLATE.md</code>: Executive Summary, Competency Progress (70%), Coaching (20%), Learning (10%), Self-Reflection (Gap Analysis) và Kế hoạch Tháng 11/2026.
+            </div>
+          </div>
+          <a href="./BAO_CAO_IDP_GIAI_DOAN_1_10_2026.md" class="hub-btn emerald">Mở File Báo Cáo Markdown →</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION: OCTOBER BONUS POINTS -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title">
+          <span class="section-num">★</span>
+          Những Điểm Cộng Thêm Trong Tháng 10/2026 (Plus Points & Team Impact)
+        </div>
+        <p class="section-subtitle">
+          Bên cạnh 2 mục tiêu trọng tâm trong IDP, trong tháng 10/2026 em đã chủ động mở rộng phạm vi đóng góp sang mảng <strong>Landing Page + CMS (Next.js + TypeScript)</strong> và <strong>hỗ trợ kỹ thuật trực tiếp cho đồng nghiệp</strong> ở các dự án khó.
+        </p>
+      </div>
+
+      <div class="plus-grid">
+        <div class="plus-card">
+          <span class="plus-badge">Plus Point #1 • Next.js 16 + TypeScript + CMS</span>
+          <div class="plus-title">Nghiên Cứu, Thực Hiện & Cải Tiến Dự Án Landing Page + Hệ Thống CMS</div>
+          <ul class="plus-list">
+            <li>Triển khai và cải tiến dự án trang chủ nội bộ công ty <strong><code>goku.agency</code></strong> (<code>E:\goku.agency</code>) và dự án Landing Page cho khách hàng tại tên miền <strong><code>thecollection688.com.vn</code></strong>.</li>
+            <li>Áp dụng trực tiếp định hướng <strong>Next.js 16 + React 19.2 + TypeScript 5 (<code>tsconfig.json</code>) + GSAP + Framer Motion + Three.js</strong>.</li>
+            <li>Hoàn thiện giao diện bám sát thiết kế Figma và tích hợp chặt chẽ với hệ thống <strong>CMS Backend (<code>admin.goku.agency</code>)</strong> qua tầng <code>cmsResolver</code> (có unit test tự động <code>cmsResolver.test.mts</code>).</li>
+            <li><strong>Định hướng tiếp theo:</strong> Đúc kết bài học kinh nghiệm thực tế để xây dựng và <strong>chuẩn hóa quy trình thực hiện một dự án Landing Page</strong> cho toàn team.</li>
+          </ul>
+        </div>
+
+        <div class="plus-card">
+          <span class="plus-badge">Plus Point #2 • Mentoring & Chuẩn Hóa Dữ Liệu</span>
+          <div class="plus-title">Hỗ Trợ & Hướng Dẫn Đồng Nghiệp Thực Hiện Dự Án Imperia Sensa Park</div>
+          <ul class="plus-list">
+            <li>Tham gia hỗ trợ trực tiếp và hướng dẫn đồng nghiệp xử lý bài toán dữ liệu đầu vào phức tạp của dự án <strong>Imperia Sensa Park</strong>.</li>
+            <li>Thực hiện <strong>bóc tách dữ liệu đầu vào từ khách hàng</strong>, đối chiếu mặt bằng và làm rõ các thông tin nghiệp vụ cho <strong>phân khu thấp tầng</strong>.</li>
+            <li>Giúp đồng nghiệp nắm vững cách cấu trúc hóa dữ liệu phân khu (tương tự mô hình chuẩn đã áp dụng trên <em>Đảo Kim Quy</em>), đảm bảo dự án được triển khai với thông tin chính xác ngay từ đầu, hạn chế tối đa việc phải sửa lại nhiều lần.</li>
+          </ul>
+        </div>
+
+        <div class="plus-card">
+          <span class="plus-badge">Plus Point #3 • Triển Khai Thiết Bị Thực Tế</span>
+          <div class="plus-title">Hỗ Trợ Đồng Nghiệp Build App Touchscreen Tại Sale Gallery Dự Án Keppel Celesta</div>
+          <ul class="plus-list">
+            <li>Phối hợp và hỗ trợ đồng nghiệp đóng gói ứng dụng tương tác chạy trên <strong>màn hình cảm ứng lớn (Touchscreen) đặt tại Sale Gallery của dự án Keppel Celesta</strong>.</li>
+            <li>Tinh chỉnh cấu hình đóng gói, độ phân giải, mức DPI scaling và tối ưu thao tác chạm (touch behavior) dựa sát trên <strong>cấu hình phần cứng thực tế mà khách hàng cung cấp</strong>.</li>
+            <li>Phát huy hiệu quả kinh nghiệm đóng gói ứng dụng Desktop/Offline từ nhánh <code>windows-app-electron</code> của dự án SkySOLIS sang hỗ trợ thành công dự án của đồng nghiệp.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: LIVE SCREENSHOTS GALLERY -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title">
+          <span class="section-num">📷</span>
+          Thư Viện Minh Chứng Hình Ảnh Chạy Thực Tế: SkySOLIS & Đảo Kim Quy (1920×1080)
+        </div>
+        <p class="section-subtitle">
+          Ảnh chụp màn hình trực tiếp từ 2 dự án vận hành trên cùng nền tảng Frontend Base chuẩn hóa. Nhấn vào ảnh bất kỳ để xem kích thước đầy đủ.
+        </p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/skysolis-overview.webp', 'SkySOLIS — Toàn cảnh 360° (/overview)')">
+          <img src="./assets/screenshots/skysolis-overview.webp" alt="SkySOLIS Overview" />
+          <div class="gallery-label">SkySOLIS • Toàn cảnh 360°</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/skysolis-location.webp', 'SkySOLIS — Bản đồ Vị trí DeepZoom (/location)')">
+          <img src="./assets/screenshots/skysolis-location.webp" alt="SkySOLIS Location" />
+          <div class="gallery-label">SkySOLIS • Vị trí DeepZoom</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/skysolis-building-facade.webp', 'SkySOLIS — Mặt đứng & Bộ lọc Căn hộ (/building)')">
+          <img src="./assets/screenshots/skysolis-building-facade.webp" alt="SkySOLIS Building" />
+          <div class="gallery-label">SkySOLIS • Mặt đứng & Lọc căn</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/skysolis-floorplan-deepzoom.webp', 'SkySOLIS — Mặt bằng Tầng 8 DeepZoom 8K (/building/8)')">
+          <img src="./assets/screenshots/skysolis-floorplan-deepzoom.webp" alt="SkySOLIS Floorplan" />
+          <div class="gallery-label">SkySOLIS • Mặt bằng Tầng 8K</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/skysolis-showroom-360.webp', 'SkySOLIS — Nhà mẫu 360° & Radar Minimap (/showroom/2pn1wc)')">
+          <img src="./assets/screenshots/skysolis-showroom-360.webp" alt="SkySOLIS Showroom" />
+          <div class="gallery-label">SkySOLIS • Nhà mẫu 360°</div>
+        </div>
+
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/daokimquy-overview-360.webp', 'Đảo Kim Quy — Toàn cảnh 360° & ReactHotspotsOverlay (/overview)')">
+          <img src="./assets/screenshots/daokimquy-overview-360.webp" alt="Đảo Kim Quy Overview" />
+          <div class="gallery-label">Đảo Kim Quy • Toàn cảnh 360°</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/daokimquy-location.webp', 'Đảo Kim Quy — Bản đồ Vị trí & Kết nối vùng (/location)')">
+          <img src="./assets/screenshots/daokimquy-location.webp" alt="Đảo Kim Quy Location" />
+          <div class="gallery-label">Đảo Kim Quy • Bản đồ Vị trí</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/daokimquy-masterplan.webp', 'Đảo Kim Quy — Mặt bằng Phân khu 571 căn (/masterplan)')">
+          <img src="./assets/screenshots/daokimquy-masterplan.webp" alt="Đảo Kim Quy Masterplan" />
+          <div class="gallery-label">Đảo Kim Quy • Mặt bằng Phân khu</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/daokimquy-showroom-360.webp', 'Đảo Kim Quy — Biệt thự Đơn lập Ven sông 360° (/showroom/donlapvensong)')">
+          <img src="./assets/screenshots/daokimquy-showroom-360.webp" alt="Đảo Kim Quy Showroom" />
+          <div class="gallery-label">Đảo Kim Quy • Biệt thự Mẫu 360°</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox('./assets/screenshots/daokimquy-amenities-360.webp', 'Đảo Kim Quy — Hệ thống 34 Cảnh Tiện ích 360° (/amenities)')">
+          <img src="./assets/screenshots/daokimquy-amenities-360.webp" alt="Đảo Kim Quy Amenities" />
+          <div class="gallery-label">Đảo Kim Quy • Tiện ích 360°</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+    <img id="lightbox-img" src="" alt="Preview" />
+    <div id="lightbox-caption" class="lightbox-caption"></div>
+  </div>
+
+  <script>
+    function openLightbox(src, caption) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-caption').textContent = caption;
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
+</html>
