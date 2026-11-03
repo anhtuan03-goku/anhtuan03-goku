@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mục Tiêu Ngắn Hạn: Chuẩn Hóa Tech Stack & Frontend Base | IDP Nguyễn Anh Tuấn</title>
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: #111827;
+      --bg-card-hover: #1a2438;
+      --bg-surface: #0f172a;
+      --border: #1e293b;
+      --border-highlight: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #6366f1;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-purple: #a855f7;
+      --grad-primary: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+      --grad-emerald: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --grad-amber: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    /* Top Nav */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9, 13, 22, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-main);
+    }
+
+    .nav-badge {
+      background: var(--grad-primary);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+      background: var(--bg-card);
+      border-color: var(--border-highlight);
+    }
+
+    .nav-link.active {
+      color: #fff;
+      background: rgba(56, 189, 248, 0.14);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 52px 0 36px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      line-height: 1.25;
+      font-weight: 800;
+      margin-bottom: 14px;
+      background: linear-gradient(90deg, #ffffff 0%, #93c5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 960px;
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--grad-primary);
+    }
+
+    .kpi-card.emerald::before { background: var(--grad-emerald); }
+    .kpi-card.amber::before { background: var(--grad-amber); }
+    .kpi-card.rose::before { background: var(--accent-rose); }
+
+    .kpi-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .kpi-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 6px;
+    }
+
+    .kpi-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 52px;
+    }
+
+    .section-header {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 23px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .section-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--grad-primary);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .section-subtitle {
+      font-size: 14.5px;
+      color: var(--text-muted);
+    }
+
+    /* Visual Screenshot Comparison */
+    .project-compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 960px) {
+      .project-compare-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .project-column {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .project-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+    }
+
+    .tag-sky { background: rgba(245, 158, 11, 0.16); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); }
+    .tag-dkq { background: rgba(16, 185, 129, 0.16); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35); }
+    .tag-core { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .tag-dead { background: rgba(244, 63, 94, 0.15); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.3); }
+    .tag-opt { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+
+    .shot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .shot-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .shot-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-blue);
+    }
+
+    .shot-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .shot-caption {
+      padding: 8px 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Sharing Progress Bar */
+    .share-meter {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .bar-stack {
+      height: 28px;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      margin: 14px 0;
+      border: 1px solid var(--border-highlight);
+    }
+
+    .bar-seg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    .legend-row {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    th {
+      background: #162033;
+      color: #e2e8f0;
+      font-weight: 700;
+      text-align: left;
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border-highlight);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: #cbd5e1;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    code {
+      font-family: "JetBrains Mono", Consolas, Monaco, monospace;
+      font-size: 12px;
+      background: rgba(15, 23, 42, 0.8);
+      color: #7dd3fc;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    /* Filter Tabs */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      color: #fff;
+      border-color: var(--accent-blue);
+    }
+
+    /* Code Evidence Grid */
+    .code-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 960px) {
+      .code-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .code-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .code-box-header {
+      background: #162033;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    pre {
+      padding: 16px;
+      overflow-x: auto;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 12.2px;
+      line-height: 1.55;
+      color: #e2e8f0;
+      background: #0b101b;
+    }
+
+    .score-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 12px;
+      background: rgba(16, 185, 129, 0.16);
+      color: #34d399;
+    }
+
+    .score-pill.warn {
+      background: rgba(245, 158, 11, 0.16);
+      color: #fbbf24;
+    }
+
+    .score-pill.bad {
+      background: rgba(244, 63, 94, 0.16);
+      color: #fb7185;
+    }
+
+    /* Lightbox Modal */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      flex-direction: column;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 94vw;
+      max-height: 84vh;
+      border-radius: 12px;
+      border: 1px solid var(--border-highlight);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    .lightbox-caption {
+      margin-top: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 28px;
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-brand">
+      <span class="nav-badge">IDP 09/2026 – 03/2027</span>
+      <span>Nguyễn Anh Tuấn — Báo Cáo Chuyên Sâu Mục Tiêu Ngắn Hạn</span>
+    </div>
+    <div class="nav-links">
+      <a href="./index.html" class="nav-link">🏠 Dashboard Tổng Quan</a>
+      <a href="./short-term-tech-stack-report.html" class="nav-link active">⚡ 1. Chuẩn Hóa Tech Stack (Ngắn Hạn)</a>
+      <a href="./long-term-web360-krpano-comparison.html" class="nav-link">🌐 2. Đối Sánh Krpano & Web360 (Dài Hạn)</a>
+      <a href="./BAO_CAO_IDP_GIAI_DOAN_1_10_2026.md" class="nav-link">📄 Bản Báo Cáo Markdown</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header class="hero">
+      <div class="hero-eyebrow">🎯 Mục tiêu ngắn hạn #1 • Minh chứng thực tế từ nhánh main</div>
+      <h1>Chuẩn Hóa Tech Stack & Xây Dựng Frontend Base Tái Sử Dụng</h1>
+      <p>
+        Báo cáo phân tích, đo lường và đối sánh trực tiếp mã nguồn nhánh <code>main</code> của 2 dự án trọng điểm:
+        <strong>SkySOLIS</strong> (<code>E:\skysolis</code> – Chung cư cao tầng 40 tầng) và <strong>Đảo Kim Quy</strong>
+        (<code>E:\dao-kim-quy-vr-360</code> – Đại đô thị đảo thấp tầng). Chứng minh tính hiệu quả của việc chuẩn hóa nhóm dependency,
+        cấu trúc phân tầng Frontend rõ ràng và rà soát tinh gọn các thư viện cho Base Template.
+      </p>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Đồng Nhất Dependency</div>
+          <div class="kpi-value">100% (41/41)</div>
+          <div class="kpi-desc">Cả 2 dự án chia sẻ chính xác cùng 19 <code>dependencies</code> và 22 <code>devDependencies</code> trên nhánh <code>main</code>.</div>
+        </div>
+        <div class="kpi-card emerald">
+          <div class="kpi-label">Tỷ Lệ Chia Sẻ Kiến Trúc</div>
+          <div class="kpi-value">76.7% (181/236)</div>
+          <div class="kpi-desc">181 trên ~236 file code/config/scripts dùng chung đường dẫn; trong đó <strong>94 file (39.8%) giống nhau 100% byte-for-byte</strong>.</div>
+        </div>
+        <div class="kpi-card amber">
+          <div class="kpi-label">Kiểm Toán Thư Viện Thừa</div>
+          <div class="kpi-value">7 Packages</div>
+          <div class="kpi-desc">Phát hiện 7 dependency không có lượt import thực tế (đã được thay thế bởi các core module nội bộ tối ưu hơn).</div>
+        </div>
+        <div class="kpi-card rose">
+          <div class="kpi-label">Tiết Kiệm Thời Gian Setup</div>
+          <div class="kpi-value">~45% – 50%</div>
+          <div class="kpi-desc">Tái sử dụng trọn vẹn hệ thống DeepZoom 8K, Krpano Bridge, Google Sheets O(1) Cache, Booking & i18n.</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION 1: TWO PROJECTS COMPARISON & SCREENSHOTS -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title">
+          <span class="section-num">1</span>
+          Đối Chiếu Thực Tế 2 Dự Án Minh Chứng: SkySOLIS vs Đảo Kim Quy
+        </div>
+        <p class="section-subtitle">
+          Hai dự án đại diện cho 2 bài toán nghiệp vụ Bất động sản khác biệt (Cao tầng vs Thấp tầng) nhưng được vận hành trên cùng một Frontend Base/Template chuẩn hóa. Nhấn vào từng ảnh chụp màn hình thực tế để phóng to.
+        </p>
+      </div>
+
+      <div class="project-compare-grid">
+        <!-- SKYSOLIS -->
+        <div class="project-column">
+          <div class="project-header">
+            <div>
+              <div class="project-title">Dự án 1: SkySOLIS (Chủ đầu tư SkyWorld)</div>
+              <div class="project-meta">Đường dẫn: <code>E:\skysolis</code> • Branch phân tích: <code>main</code> • Tổng số file: <strong>5,061 files</strong></div>
+            </div>
+            <span class="tag tag-sky">Cao Tầng • 40 Tầng • 386 Căn</span>
+          </div>
+          <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 10px;">
+            <strong>Đặc thù kỹ thuật:</strong> Tương tác mặt đứng tòa nhà (Facade Filter), bóc tách mặt bằng từng tầng độ phân giải 8K (DeepZoom Tile Pyramid + SVG Polygon), đồng bộ trạng thái 386 căn hộ từ Google Sheets + Offline Fallback, tích hợp 6 cụm tour 360° (Overview, Tiện ích 3 tầng, 3 Nhà mẫu, 16 góc Ban công).
+          </p>
+          <div class="shot-grid">
+            <div class="shot-card" onclick="openLightbox('./assets/screenshots/skysolis-overview.webp', 'SkySOLIS — Toàn cảnh 360° Ngày/Đêm & Hệ thống Hotspot Đa Ngôn Ngữ')">
+              <img src="./assets/screenshots/skysolis-overview.webp" alt="SkySOLIS Overview" />
+              <div class="shot-caption"><span>1. Toàn cảnh 360° (/overview)</span><span>🔍</span></div>
+            </div>
+            <div class="shot-card" onclick="openLightbox('./assets/screenshots/skysolis-building-facade.webp', 'SkySOLIS — Mặt đứng Tòa nhà & Bộ lọc loại căn hộ (/building)')">
+              <img src="./assets/screenshots/skysolis-building-facade.webp" alt="SkySOLIS Building Facade" />
+              <div class="shot-caption"><span>2. Mặt đứng & Bộ lọc (/building)</span><span>🔍</span></div>
+            </div>
+            <div class="shot-card" onclick="openLightbox('./assets/screenshots/skysolis-floorplan-deepzoom.webp', 'SkySOLIS — Mặt bằng Tầng 8 DeepZoom 8K + SVG Polygon (/building/8)')">
+              <img src="./assets/screenshots/skysolis-floorplan-deepzoom.webp" alt="SkySOLIS Floorplan DeepZoom" />
+              <div class="shot-caption"><span>3. Mặt bằng DeepZoom 8K (/building/8)</span><span>🔍</span></div>
+            </div>
+            <div class="shot-card" onclick="openLightbox('./assets/screenshots/skysolis-showroom-360.webp', 'SkySOLIS — Nhà mẫu 360° & Bản đồ Minimap Radar SVG (/showroom/2pn1wc)')">
+              <img src="./assets/screenshots/skysolis-showroom-360.webp" alt="SkySOLIS Showroom 360" />
+              <div class="shot-caption"><span>4. Nhà mẫu 360° + Radar (/showroom)</span><span>🔍</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAO KIM QUY -->
+        <div class="project-column">
+          <div class="project-header">
+            <div>
+              <div class="project-title">Dự án 2: Đảo Kim Quy (Chủ đầu tư TNAC)</div>
+              <div class="project-meta">Đường dẫn: <code>E:\dao-kim-quy-vr-360</code> • Branch phân tích: <code>main</code> • Tổng số file: <strong>1,494 files</strong></div>
+            </div>
+            <span class="tag tag-dkq">Thấp Tầng • Đô Thị Đảo • 571 Căn</span>
+          </div>
+          <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 10px;">
+            <strong>Đặc thù kỹ thuật:</strong> Quy hoạch tổng thể phân khu đảo (Biệt thự Đơn lập Ven sông, Đơn lập Compound, Song lập, Nhà Liên kế), hệ thống React Hotspots Overlay đồng bộ tọa độ cầu <code>spheretoscreen</code>, la bàn <code>Compass360</code>, 34 góc quay 360° thực tế (Drone) & phối cảnh 3D.
+          </p>
+          <div class="shot-grid">
+            <div class="shot-card" onclick="openLightbox('./assets/screenshots/daokimquy-overview-360.webp', 'Đảo Kim Quy — Toàn cảnh 360° với ReactHotspotsOverlay & La bàn Compass360')">
+              <img src="./assets/screenshots/daokimquy-overview-360.webp" alt="Đảo Kim Quy Overview" />
+              <div class="shot-caption"><span>1. Toàn cảnh 360° (/overview)</span><span>🔍</span></div>
+            </div>
+            <div class="shot-card" onclick="openLightbox('./assets/screenshots/daokimquy-location.webp', 'Đảo Kim Quy — Bản đồ Vị trí DeepZoom & Lớp SVG Kết nối giao thông (/location)')">
+              <img src="./assets/screenshots/daokimquy-location.webp" alt="Đảo Kim Quy Location" />
+              <div class="shot-caption"><span>2. Vị trí DeepZoom (/location)</span><span>🔍</span></div>
+            </div>
+            <div class="shot-card" onclick="openLightbox('./assets/screenshots/daokimquy-masterplan.webp', 'Đảo Kim Quy — Mặt bằng Phân khu Thấp tầng 571 căn (/masterplan)')">
+              <img src="./assets/screenshots/daokimquy-masterplan.webp" alt="Đảo Kim Quy Masterplan" />
+              <div class="shot-caption"><span>3. Mặt bằng Phân khu (/masterplan)</span><span>🔍</span></div>
+            </div>
+            <div class="shot-card" onclick="openLightbox('./assets/screenshots/daokimquy-showroom-360.webp', 'Đảo Kim Quy — Không gian 360° Biệt thự Đơn lập Ven sông (/showroom/donlapvensong)')">
+              <img src="./assets/screenshots/daokimquy-showroom-360.webp" alt="Đảo Kim Quy Showroom 360" />
+              <div class="shot-caption"><span>4. Biệt thự Mẫu 360° (/showroom)</span><span>🔍</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: ARCHITECTURAL REUSE METRICS -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title">
+          <span class="section-num">2</span>
+          Đo Lường Tỷ Lệ Chuẩn Hóa & Tái Sử Dụng Code (Frontend Base Metrics)
+        </div>
+        <p class="section-subtitle">
+          Số liệu thống kê tự động bằng Git SHA-1 blob hash trên toàn bộ ~236 file mã nguồn, cấu hình, tài liệu và script (không tính thư mục tài sản ảnh tĩnh <code>public/</code> và <code>src/assets/</code>).
+        </p>
+      </div>
+
+      <div class="share-meter">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong>Phân bố mức độ chia sẻ mã nguồn giữa SkySOLIS & Đảo Kim Quy (Tổng cộng ~236 files code/config/scripts)</strong>
+          <span style="color: var(--accent-emerald); font-weight: 800;">76.7% Chia sẻ Cấu trúc Base</span>
+        </div>
+        <div class="bar-stack">
+          <div class="bar-seg" style="width: 39.8%; background: linear-gradient(90deg, #059669, #10b981);">39.8% (94 files) Giống 100% Byte-for-Byte</div>
+          <div class="bar-seg" style="width: 36.9%; background: linear-gradient(90deg, #0284c7, #38bdf8);">36.9% (87 files) Cùng Module / Tùy biến Data</div>
+          <div class="bar-seg" style="width: 23.3%; background: #334155;">23.3% (55 files) Đặc thù riêng</div>
+        </div>
+        <div class="legend-row">
+          <div class="legend-item"><span class="legend-dot" style="background: #10b981;"></span><strong>94 files (39.8%):</strong> Tái sử dụng nguyên bản 100% (ZoomableView, MultiResTiles, BookingService, Stores, Scripts cắt tile).</div>
+          <div class="legend-item"><span class="legend-dot" style="background: #38bdf8;"></span><strong>87 files (36.9%):</strong> Giữ nguyên khung kiến trúc, chỉ điều chỉnh màu thương hiệu, cột CSV hoặc danh sách route.</div>
+          <div class="legend-item"><span class="legend-dot" style="background: #334155;"></span><strong>55–56 files (23.3%):</strong> Các tính năng đặc thù riêng của Cao tầng (Facade/Balcony) hoặc Thấp tầng (Masterplan/Gallery).</div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Phân Tầng Cấu Trúc Thư Mục Dự Án</th>
+              <th>SkySOLIS (<code>main</code>)</th>
+              <th>Đảo Kim Quy (<code>main</code>)</th>
+              <th>Số File Chung Đường Dẫn</th>
+              <th>Giống 100% (SHA-1 Blob)</th>
+              <th>Các Module Lõi Đã Được Chuẩn Hóa (Reusable Core Modules)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong><code>src/components/shared/zoom/</code></strong><br><span style="font-size:12px;color:var(--text-muted)">Engine Phóng To & Cắt Lớp Ảnh 8K</span></td>
+              <td>13 files</td>
+              <td>13 files</td>
+              <td><strong>13 / 13 (100%)</strong></td>
+              <td><strong>11 / 13 (85%)</strong></td>
+              <td><code>ZoomableView.jsx</code> (650 dòng), <code>use-live-viewport-transform.js</code>, <code>useZoomAnimations.js</code>, <code>useZoomCommands.js</code>, <code>usePanning.js</code>, <code>useTouchHandlers.js</code>, <code>TiledImage.jsx</code>.</td>
+            </tr>
+            <tr>
+              <td><strong><code>src/components/shared/ (UI, Layout, Pano, Apartment)</code></strong></td>
+              <td>29 files</td>
+              <td>26 files</td>
+              <td><strong>24 files</strong></td>
+              <td><strong>10 files</strong></td>
+              <td><code>KrpanoViewer.jsx</code>, <code>KrpanoZoomControls.jsx</code>, <code>Gallery360.jsx</code>, <code>MainNav.jsx</code>, <code>SideTool.jsx</code>, <code>RoomDataProvider.jsx</code>, <code>BookingModal.jsx</code>, <code>BookingButton.jsx</code>.</td>
+            </tr>
+            <tr>
+              <td><strong><code>src/components/routes/</code></strong><br><span style="font-size:12px;color:var(--text-muted)">Giao diện theo từng phân khu</span></td>
+              <td>43 files</td>
+              <td>54 files</td>
+              <td><strong>38 files</strong></td>
+              <td><strong>9 files</strong></td>
+              <td><code>DeepZoomFloorPlan.jsx</code>, <code>deep-zoom/*</code>, <code>LocationMap.jsx</code>, <code>Pano360Frame.jsx</code>, <code>UtilityDetailModal.jsx</code>, <code>FloorPlanEditor.jsx</code>.</td>
+            </tr>
+            <tr>
+              <td><strong><code>src/zustand/</code></strong><br><span style="font-size:12px;color:var(--text-muted)">Quản lý Global State</span></td>
+              <td>8 files</td>
+              <td>7 files</td>
+              <td><strong>7 / 7 (100%)</strong></td>
+              <td><strong>3 files</strong></td>
+              <td><code>useCommonStore.js</code> (persist + <code>skipHydration</code>), <code>useRoomStore.js</code>, <code>useKrpanoStore.js</code>, <code>useBreadcrumbStore.js</code>, <code>useSavedApartmentStore.js</code>, <code>useTourGuideStore.js</code>.</td>
+            </tr>
+            <tr>
+              <td><strong><code>src/hooks/</code></strong><br><span style="font-size:12px;color:var(--text-muted)">Custom React Hooks</span></td>
+              <td>12 files</td>
+              <td>8 files</td>
+              <td><strong>8 / 8 (100%)</strong></td>
+              <td><strong>5 files</strong></td>
+              <td><code>useMultiResTiles.js</code>, <code>useProgressiveImage.js</code>, <code>useNavigationLoading.js</code>, <code>usePageMounted.js</code>, <code>useTurnstile.js</code>, <code>useBreadcrumbSync.js</code>, <code>useFloorMinimap.js</code> (+ <code>useIOSMemoryTier.js</code> ở SkySOLIS).</td>
+            </tr>
+            <tr>
+              <td><strong><code>src/service/</code> & <code>google-apps-script/</code></strong><br><span style="font-size:12px;color:var(--text-muted)">Tầng Dữ liệu & Tích hợp Backend</span></td>
+              <td>3 files</td>
+              <td>3 files</td>
+              <td><strong>3 / 3 (100%)</strong></td>
+              <td><strong>2 / 3 (67%)</strong></td>
+              <td><code>bookingService.js</code> (100% giống nhau), <code>booking-to-sheet.gs</code> (100% giống nhau), <code>room.js</code> (cùng cơ chế ETag cache 5 phút + 4 <code>Map</code> index $O(1)$).</td>
+            </tr>
+            <tr>
+              <td><strong><code>scripts/</code></strong><br><span style="font-size:12px;color:var(--text-muted)">Pipeline Tự động hóa Tài sản Đồ họa</span></td>
+              <td>13 files</td>
+              <td>8 files</td>
+              <td><strong>6 files</strong></td>
+              <td><strong>4 files</strong></td>
+              <td><code>generate-all-tiles.mjs</code>, <code>generate-floorplan-tiles.mjs</code>, <code>generate-mobile-tiles.mjs</code>, <code>generate-highlight-jsx.mjs</code>, <code>stream-optimize.mjs</code> (+ <code>optimize-critical-images.mjs</code> & <code>validate-critical-assets.mjs</code> ở SkySOLIS).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 3: 6-CRITERIA DEPENDENCY EVALUATION -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title">
+          <span class="section-num">3</span>
+          Đánh Giá & Chuẩn Hóa Nhóm Dependency Trọng Tâm (Theo 6 Tiêu Chí IDP)
+        </div>
+        <p class="section-subtitle">
+          Mỗi dependency quan trọng trong <code>package.json</code> được đánh giá dựa trên 6 tiêu chí trong bản kế hoạch IDP: (1) Hiệu năng, (2) Khả năng maintain, (3) Mức độ hỗ trợ, (4) Kích thước bundle, (5) Khả năng mở rộng, và (6) Mức độ phù hợp với dự án của Goku. Bạn có thể lọc theo trạng thái kiểm toán bên dưới.
+        </p>
+      </div>
+
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterDeps('all', this)">Tất cả nhóm công nghệ (14)</button>
+        <button class="filter-btn" onclick="filterDeps('core', this)">✅ Core Chuẩn Hóa Giữ Lại (9)</button>
+        <button class="filter-btn" onclick="filterDeps('dead', this)">🗑️ Dependency Dư Thừa Cần Loại Bỏ (5 nhóm / 7 gói)</button>
+      </div>
+
+      <div class="table-wrap">
+        <table id="depTable">
+          <thead>
+            <tr>
+              <th>Nhóm Chức Năng & Package</th>
+              <th>Trạng Thái Kiểm Toán</th>
+              <th>1. Hiệu Năng (Performance)</th>
+              <th>2. Khả Năng Maintain</th>
+              <th>3. Mức Độ Hỗ Trợ</th>
+              <th>4. Kích Thước Bundle</th>
+              <th>5. Khả Năng Mở Rộng</th>
+              <th>6. Mức Độ Phù Hợp Tại Goku & Quyết Định</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Core 1: Next.js + React 19 -->
+            <tr data-status="core">
+              <td><strong>Core Framework</strong><br><code>next@15.5.4</code><br><code>react@19.1.0</code></td>
+              <td><span class="tag tag-core">Chuẩn Hóa Cốt Lõi</span></td>
+              <td><span class="score-pill">9.5/10</span><br>Hỗ trợ <code>--turbo</code> dev nhanh, xuất tĩnh <code>output: "export"</code> tải tức thì trên CDN/Local.</td>
+              <td><span class="score-pill">9.5/10</span><br>App Router phân tách rõ <code>page.jsx</code> (Server params) và <code>client.jsx</code>.</td>
+              <td><span class="score-pill">10/10</span><br>Hệ sinh thái lớn nhất hiện tại, tài liệu chuẩn.</td>
+              <td><span class="score-pill">8.5/10</span><br>Tự động code-splitting theo từng route.</td>
+              <td><span class="score-pill">9.5/10</span><br>Chuyển tiếp mượt sang Next.js 16 + TypeScript.</td>
+              <td><strong>Rất phù hợp (10/10):</strong> Vừa build được Web tĩnh trên <code>works.goku.agency</code>, vừa đóng gói được thành ứng dụng <strong>Electron Offline</strong> cho màn hình cảm ứng Sale Gallery.</td>
+            </tr>
+            <!-- Core 2: Zustand -->
+            <tr data-status="core">
+              <td><strong>State Management</strong><br><code>zustand@^5.0.8</code><br><span style="font-size:11.5px;color:var(--text-muted)">(8 stores ở SkySOLIS, 7 stores ở ĐKQ)</span></td>
+              <td><span class="tag tag-core">Chuẩn Hóa Cốt Lõi</span></td>
+              <td><span class="score-pill">9.5/10</span><br>Selector đăng ký chính xác từng trường, không gây re-render dây chuyền như Context.</td>
+              <td><span class="score-pill">9.5/10</span><br>Không cần boilerplate Action/Reducer phức tạp; gọi được trực tiếp ngoài React qua <code>getState()</code>.</td>
+              <td><span class="score-pill">9.5/10</span><br>Chuẩn mực của cộng đồng Poimandres (cùng hệ sinh thái R3F).</td>
+              <td><span class="score-pill">10/10</span><br>Siêu nhẹ (~1.2KB gzipped).</td>
+              <td><span class="score-pill">9.0/10</span><br>Tích hợp sẵn middleware <code>persist</code> (với <code>skipHydration: true</code>).</td>
+              <td><strong>Rất phù hợp (10/10):</strong> Đặc biệt quan trọng khi đồng bộ trạng thái bất đồng bộ từ <code>krpano</code> hoặc <code>room.js</code> thông qua <code>useKrpanoStore.getState()</code>.</td>
+            </tr>
+            <!-- Dead 1: TanStack React Query -->
+            <tr data-status="dead">
+              <td><strong>Server State Fetching</strong><br><code>@tanstack/react-query@^5.90.21</code></td>
+              <td><span class="tag tag-dead">Loại Bỏ (Unused)</span></td>
+              <td><span class="score-pill warn">Không sử dụng</span><br>Chỉ bọc <code>QueryProvider.jsx</code> ở root, <strong>0</strong> lượt gọi <code>useQuery</code> trong cả 2 dự án.</td>
+              <td><span class="score-pill bad">Gây hiểu lầm</span><br>Làm lập trình viên mới tưởng dự án quản lý cache bằng React Query.</td>
+              <td><span class="score-pill">9.5/10</span><br>Thư viện tốt cho app CRUD nhiều endpoint.</td>
+              <td><span class="score-pill bad">~13KB gzipped lãng phí</span><br>Tải trong root layout của mọi trang dù không dùng.</td>
+              <td><span class="score-pill warn">Dư thừa</span><br>Dự án Web360 chỉ đọc 1 nguồn CSV Google Sheets.</td>
+              <td><strong>Loại bỏ khỏi Web360 Base:</strong> Tầng <code>src/service/room.js</code> tự xây dựng với <strong>HTTP ETag 304 + 4 bảng băm <code>Map</code> ($O(1)$)</strong> đã tối ưu và nhẹ hơn nhiều. (Chỉ giữ React Query cho dự án Admin CMS).</td>
+            </tr>
+            <!-- Core 3: Framer Motion -->
+            <tr data-status="core">
+              <td><strong>UI Animation & Spring Physics</strong><br><code>framer-motion@^11.18.2</code><br><span style="font-size:11.5px;color:var(--text-muted)">(32 files ở SkySOLIS, 38 files ở ĐKQ)</span></td>
+              <td><span class="tag tag-core">Chuẩn Hóa Cốt Lõi</span></td>
+              <td><span class="score-pill">9.0/10</span><br><code>useMotionValue</code> & <code>useSpring</code> chạy ngoài chu kỳ render của React, đạt 60fps khi pan/zoom.</td>
+              <td><span class="score-pill">9.0/10</span><br>Cú pháp khai báo <code>motion.div</code> và <code>AnimatePresence</code> trực quan, thống nhất toàn dự án.</td>
+              <td><span class="score-pill">9.5/10</span><br>Thư viện animation phổ biến nhất cho React.</td>
+              <td><span class="score-pill warn">7.0/10</span><br>~32KB gzipped, nhưng thay thế được cả thư viện zoom lẫn modal transition.</td>
+              <td><span class="score-pill">9.5/10</span><br>Đáp ứng cả chuyển động UI lẫn vật lý mặt bằng 2D.</td>
+              <td><strong>Rất phù hợp (9.5/10):</strong> Đóng vai trò kép (vừa làm hiệu ứng đóng/mở Modal, Sidebar, vừa làm lõi vật lý đàn hồi cho <code>ZoomableView</code>).</td>
+            </tr>
+            <!-- Dead 2: React Spring -->
+            <tr data-status="dead">
+              <td><strong>Duplicate Animation Lib</strong><br><code>@react-spring/web@^10.0.3</code></td>
+              <td><span class="tag tag-dead">Loại Bỏ (0 Imports)</span></td>
+              <td><span class="score-pill warn">Trùng lặp</span><br>Trùng hoàn toàn chức năng vật lý lò xo với <code>framer-motion</code>.</td>
+              <td><span class="score-pill bad">Phân mảnh</span><br>Giữ 2 thư viện spring song song vi phạm nguyên tắc chuẩn hóa Tech Stack.</td>
+              <td><span class="score-pill">8.0/10</span></td>
+              <td><span class="score-pill bad">~20KB tiềm năng thừa</span></td>
+              <td><span class="score-pill warn">Không cần thiết</span></td>
+              <td><strong>Loại bỏ hoàn toàn:</strong> Kiểm toán mã nguồn nhánh <code>main</code> của cả SkySOLIS và Đảo Kim Quy đều ghi nhận <strong>0 lượt import</strong>.</td>
+            </tr>
+            <!-- Dead 3: react-zoom-pan-pinch vs Custom ZoomableView -->
+            <tr data-status="dead">
+              <td><strong>2D Deep Zoom & Pan</strong><br><code>react-zoom-pan-pinch@^3.7.0</code><br><em>(Đã thay bằng <code>ZoomableView</code> nội bộ)</em></td>
+              <td><span class="tag tag-dead">Loại Bỏ (0 Imports)</span></td>
+              <td><span class="score-pill bad">Kém với ảnh 8K</span><br>Không có cơ chế viewport tile culling, throttle 120ms và giới hạn hàng đợi giải mã ảnh iOS.</td>
+              <td><span class="score-pill">9.0/10 (Custom)</span><br>Module nội bộ <code>ZoomableView</code> (12 files) tách biệt rõ trách nhiệm và dùng chung 100%.</td>
+              <td><span class="score-pill">Chủ động 100%</span><br>Không phụ thuộc giới hạn của thư viện bên thứ 3.</td>
+              <td><span class="score-pill">Tiết kiệm ~12KB</span><br>Khi gỡ bỏ gói npm không dùng.</td>
+              <td><span class="score-pill">10/10 (Custom)</span><br>Tích hợp sẵn Event Bus (<code>q1:zoomCommand</code>) và khóa Ghost-click trên SVG.</td>
+              <td><strong>Gỡ gói npm <code>react-zoom-pan-pinch</code>; chuẩn hóa <code>ZoomableView</code> + <code>DeepZoomFloorPlan</code> nội bộ</strong> làm tài sản kỹ thuật cốt lõi của Goku.</td>
+            </tr>
+            <!-- Core 4: Tailwind CSS v4 -->
+            <tr data-status="core">
+              <td><strong>Styling System</strong><br><code>tailwindcss@^4</code><br><code>@tailwindcss/postcss@^4</code></td>
+              <td><span class="tag tag-core">Chuẩn Hóa Cốt Lõi</span></td>
+              <td><span class="score-pill">10/10</span><br>Engine Rust/Oxide mới của Tailwind v4 biên dịch CSS tức thì.</td>
+              <td><span class="score-pill">9.0/10</span><br>Kết hợp biến theme (<code>gradient-primary</code>) và utility classes đồng nhất.</td>
+              <td><span class="score-pill">10/10</span></td>
+              <td><span class="score-pill">9.5/10</span><br>Chỉ xuất ra các class thực sự được sử dụng trong HTML/JSX.</td>
+              <td><span class="score-pill">9.5/10</span></td>
+              <td><strong>Chuẩn hóa giữ lại:</strong> Lưu ý gỡ bỏ gói phụ <code>tw-animate-css@^1.4.0</code> vì có <strong>0 lượt import</strong> trong <code>globals.css</code>.</td>
+            </tr>
+            <!-- Core 5: Localization next-intl -->
+            <tr data-status="core">
+              <td><strong>Đa Ngôn Ngữ (i18n)</strong><br><code>next-intl@^4.11.0</code><br><span style="font-size:11.5px;color:var(--text-muted)">(48 files ở SkySOLIS, 43 files ở ĐKQ)</span></td>
+              <td><span class="tag tag-core">Chuẩn Hóa Cốt Lõi</span></td>
+              <td><span class="score-pill">9.5/10</span><br>Chuyển đổi ngôn ngữ <code>vi ↔ en</code> tức thì ở phía Client mà không cần tải lại trang hay đổi URL.</td>
+              <td><span class="score-pill">9.5/10</span><br>Tập trung toàn bộ từ điển tại <code>src/i18n/messages/{vi,en}.json</code>.</td>
+              <td><span class="score-pill">9.5/10</span></td>
+              <td><span class="score-pill">9.0/10</span><br>Nhẹ, tương thích hoàn toàn với <code>output: "export"</code>.</td>
+              <td><span class="score-pill">9.5/10</span><br>Dễ dàng mở rộng thêm ngôn ngữ thứ 3 (Hàn/Trung/Nhật) cho khách ngoại.</td>
+              <td><strong>Rất phù hợp (10/10):</strong> Kết hợp với cơ chế <code>skipHydration: true</code> trong <code>useCommonStore</code> giúp triệt tiêu hoàn toàn lỗi Hydration Mismatch.</td>
+            </tr>
+            <!-- Dead 4: MiniSearch -->
+            <tr data-status="dead">
+              <td><strong>Client Search Engine</strong><br><code>minisearch@^7.2.0</code></td>
+              <td><span class="tag tag-dead">Loại Bỏ (0 Imports)</span></td>
+              <td><span class="score-pill warn">Không sử dụng</span><br>Số lượng căn hộ mỗi dự án chỉ từ 300–600 căn; lọc bằng <code>Map</code>/<code>Array.filter</code> mất &lt;1ms.</td>
+              <td><span class="score-pill warn">Dư thừa</span></td>
+              <td><span class="score-pill">8.5/10</span></td>
+              <td><span class="score-pill bad">Thừa dependency</span></td>
+              <td><span class="score-pill">7.5/10</span></td>
+              <td><strong>Loại bỏ khỏi <code>package.json</code>:</strong> Ngay cả file <code>src/hooks/useMiniSearch.js</code> cũng tự viết bằng <code>Map</code> thuần chứ không import gói <code>minisearch</code>.</td>
+            </tr>
+            <!-- Core 6: Sharp Image Pipeline -->
+            <tr data-status="core">
+              <td><strong>Build-time Image & Tile Pipeline</strong><br><code>sharp@^0.34.4</code></td>
+              <td><span class="tag tag-core">Chuẩn Hóa Cốt Lõi</span></td>
+              <td><span class="score-pill">10/10</span><br>Xử lý ảnh bằng C++ <code>libvips</code> cực nhanh; cắt ảnh 8K ra hàng trăm ô WebP chỉ trong vài giây.</td>
+              <td><span class="score-pill">9.5/10</span><br>Đóng gói thành các script chuẩn trong <code>scripts/generate-*.mjs</code>.</td>
+              <td><span class="score-pill">10/10</span></td>
+              <td><span class="score-pill">10/10</span><br><code>devDependencies</code> (0KB ảnh hưởng tới bundle trình duyệt).</td>
+              <td><span class="score-pill">10/10</span><br>Mở rộng thêm <code>validate-critical-assets.mjs</code> kiểm tra SHA-256 tự động.</td>
+              <td><strong>Trụ cột của mục tiêu Tối ưu hình ảnh (10/10):</strong> Giúp tự động hóa hoàn toàn việc tạo Pyramid Tiles (2K/4K/8K) và nén WebP chất lượng cao.</td>
+            </tr>
+            <!-- Core 7: 3D Ecosystem -->
+            <tr data-status="core">
+              <td><strong>Web 3D & Asset Compression</strong><br><code>three@^0.182.0</code>, <code>@react-three/fiber@^9.4.2</code>, <code>@react-three/drei@^10.7.7</code>, <code>@gltf-transform/*</code>, <code>meshoptimizer</code></td>
+              <td><span class="tag tag-opt">Giữ Cho Lộ Trình 3D / Gỡ CLI Thừa</span></td>
+              <td><span class="score-pill">9.0/10</span><br><code>stream-optimize.mjs</code> giảm 50% đa giác + nén WebP + tách node <code>.gltf</code> để tải cuốn chiếu.</td>
+              <td><span class="score-pill">8.5/10</span></td>
+              <td><span class="score-pill">10/10</span></td>
+              <td><span class="score-pill">8.5/10</span><br>Chỉ nạp vào chunk nào thực sự import Three.js.</td>
+              <td><span class="score-pill">10/10</span><br>Nền tảng trực tiếp cho mục tiêu dài hạn Web 3D & Custom Panorama Engine.</td>
+              <td><strong>Giữ <code>three</code>, <code>R3F</code>, <code>drei</code>, <code>@gltf-transform/core|functions|extensions</code>, <code>meshoptimizer</code>; gỡ 2 gói thừa <code>gltfpack</code> & <code>@gltf-transform/cli</code> (0 lượt gọi).</strong></td>
+            </tr>
+            <!-- Core 8: UI Helpers -->
+            <tr data-status="core">
+              <td><strong>UI Icons, Toast & Carousel</strong><br><code>lucide-react@^0.546.0</code><br><code>react-hot-toast@^2.6.0</code><br><code>swiper@^12.0.3</code></td>
+              <td><span class="tag tag-core">Chuẩn Hóa Cốt Lõi</span></td>
+              <td><span class="score-pill">9.5/10</span><br><code>lucide-react</code> hỗ trợ tree-shaking từng icon SVG; <code>CustomeToaster</code> render qua Portal.</td>
+              <td><span class="score-pill">9.5/10</span></td>
+              <td><span class="score-pill">9.5/10</span></td>
+              <td><span class="score-pill">9.0/10</span></td>
+              <td><span class="score-pill">9.0/10</span></td>
+              <td><strong>Chuẩn hóa giữ lại:</strong> Đáp ứng đầy đủ nhu cầu icon đồng bộ, thông báo trạng thái lưu căn hộ/đặt chỗ và trình chiếu thư viện ảnh/video.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 4: CONCRETE CODE EVIDENCE -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title">
+          <span class="section-num">4</span>
+          Minh Chứng Kỹ Thuật Từ Mã Nguồn Nhánh <code>main</code> (Code-Level Evidence)
+        </div>
+        <p class="section-subtitle">
+          Bốn đoạn mã tiêu biểu chứng minh năng lực thiết kế kiến trúc, tối ưu hiệu năng thực tế và giải quyết các bài toán khó trên trình duyệt di động trong 2 dự án SkySOLIS & Đảo Kim Quy.
+        </p>
+      </div>
+
+      <div class="code-grid">
+        <div class="code-box">
+          <div class="code-box-header">
+            <span>1. Throttle 120ms Chống Re-render 60fps Khi Kéo/Phóng Mặt Bằng 8K</span>
+            <code>use-live-viewport-transform.js:24-75</code>
+          </div>
+          <pre><code>// Dùng chung 100% giữa SkySOLIS và Đảo Kim Quy
+// Lắng nghe trực tiếp MotionValue của Framer Motion ngoài chu kỳ React,
+// chỉ cập nhật state tính toán lưới ô ảnh (tile culling) tối đa 1 lần / 120ms.
+const LIVE_TRANSFORM_THROTTLE_MS = 120;
+
+useEffect(() => {
+  const flush = () => {
+    rafIdRef.current = null;
+    lastEmitRef.current = performance.now();
+    const next = readCurrent();
+    setLiveTransform((prev) => {
+      if (
+        Math.abs(prev.x - next.x) < 0.5 &&
+        Math.abs(prev.y - next.y) < 0.5 &&
+        Math.abs(prev.scale - next.scale) < 0.001
+      ) {
+        return prev; // Bailout nếu thay đổi dưới ngưỡng điểm ảnh
+      }
+      return next;
+    });
+  };
+  // Đăng ký trực tiếp vào spring/motion values mà không làm re-render ZoomableView
+  const unsubX = motionX.on("change", scheduleEmit);
+  const unsubY = motionY.on("change", scheduleEmit);
+  const unsubScale = motionScale.on("change", scheduleEmit);
+  return () => { unsubX(); unsubY(); unsubScale(); };
+}, [enabled, motionX, motionY, motionScale]);</code></pre>
+        </div>
+
+        <div class="code-box">
+          <div class="code-box-header">
+            <span>2. Bảo Vệ Bộ Nhớ iOS Safari (Canvas Probe + Hàng Đợi Giải Mã FIFO)</span>
+            <code>useIOSMemoryTier.js & DeepZoomTileLayer.jsx</code>
+          </div>
+          <pre><code>// Phát hiện thiết bị iOS/iPadOS có giới hạn bộ nhớ WebKit Jetsam thấp
+// và giới hạn số lượng tile ảnh giải mã đồng thời (IOS_MAX_CONCURRENT_DECODES = 2)
+const IOS_MAX_CONCURRENT_DECODES = 2;
+let activeDecodes = 0;
+const decodeQueue = [];
+
+function pumpDecodeQueue() {
+  while (activeDecodes < IOS_MAX_CONCURRENT_DECODES && decodeQueue.length > 0) {
+    const job = decodeQueue.shift();
+    if (job.cancelled) continue;
+    activeDecodes++;
+    job.start();
+  }
+}
+
+// Trong useIOSMemoryTier.js: Probe cấp phát canvas 5000x5000 để hạ maxLevel từ 8K -> 4K
+const canvas = document.createElement("canvas");
+canvas.width = 5000;
+canvas.height = 5000;
+const ctx = canvas.getContext("2d");
+const isLowMemory = !ctx; // Nếu WebKit từ chối cấp phát -> khóa ở Level 1 (4K)</code></pre>
+        </div>
+
+        <div class="code-box">
+          <div class="code-box-header">
+            <span>3. Bộ Nhớ Đệm ETag 5 Phút & 4 Bảng Băm Chỉ Mục $O(1)$ Cho Google Sheets</span>
+            <code>src/service/room.js:4-59, 244-260</code>
+          </div>
+          <pre><code>// Thay thế hoàn toàn nhu cầu dùng @tanstack/react-query hay minisearch
+const CACHE_DURATION = 5 * 60 * 1000; // 5 phút
+let roomCache = {
+  data: null, timestamp: 0, etag: null,
+  codeIndex: null,      // Map<CODE_UPPER, Room> -> Tra cứu theo mã căn O(1)
+  roomIdIndex: null,    // Map<roomId_lower, Room> -> Tra cứu theo SVG ID O(1)
+  floorIndex: null,     // Map<floorNum, Room[]> -> Lọc theo tầng O(1)
+  floorRoomIndex: null, // Map<"floor:roomId", Room> -> Tra cứu kép O(1)
+};
+
+const headers = {};
+if (roomCache.etag && roomCache.data) {
+  headers["If-None-Match"] = roomCache.etag;
+}
+const response = await fetch(sheetUrl, { cache: "no-store", headers });
+if (response.status === 304 && roomCache.data) {
+  roomCache.timestamp = now; // Tái sử dụng dữ liệu ngay lập tức, 0 tốn băng thông
+  return roomCache.data;
+}</code></pre>
+        </div>
+
+        <div class="code-box">
+          <div class="code-box-header">
+            <span>4. Vượt Rào Cản CORS Preflight Khi Gửi Booking Tới Google Apps Script</span>
+            <code>src/service/bookingService.js:23-50</code>
+          </div>
+          <pre><code>// Dùng chung 100% giữa SkySOLIS và Đảo Kim Quy
+// Google Apps Script doPost(e) không phản hồi OPTIONS preflight khi gửi application/json.
+// Sử dụng text/plain;charset=utf-8 biến request thành CORS Simple Request hợp lệ.
+export async function submitBooking({ apartmentCode, name, phone, email, turnstileToken }) {
+  const payload = {
+    apartmentCode: String(apartmentCode || "").trim(),
+    name: String(name || "").trim(),
+    phone: String(phone || "").trim(),
+    email: String(email || "").trim(),
+    turnstileToken,
+    sourceUrl: typeof window !== "undefined" ? window.location.href : "",
+    submittedAt: new Date().toISOString(),
+  };
+
+  const response = await fetch(gasUrl, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload),
+  });
+  return await response.json();
+}</code></pre>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+    <img id="lightbox-img" src="" alt="Preview" />
+    <div id="lightbox-caption" class="lightbox-caption"></div>
+  </div>
+
+  <script>
+    function filterDeps(status, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#depTable tbody tr').forEach(row => {
+        if (status === 'all' || row.getAttribute('data-status') === status) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    function openLightbox(src, caption) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-caption').textContent = caption;
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
+</html>
