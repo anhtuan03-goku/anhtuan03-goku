@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Báo cáo Mục tiêu dài hạn: Đối sánh Công nghệ Web360 & Giảm phụ thuộc krpano - Nguyễn Anh Tuấn</title>
+  <title>Báo cáo Mục tiêu dài hạn: Nghiên cứu Công nghệ Web360 Thay thế (Plan B) - Nguyễn Anh Tuấn</title>
   <style>
     :root {
       --text: #111111;
@@ -172,19 +172,19 @@
 
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
       margin: 22px 0;
     }
 
     .summary-item {
       border: 1px solid var(--border);
-      padding: 16px;
+      padding: 18px;
       background: var(--surface);
     }
 
     .summary-title {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
       margin-bottom: 4px;
     }
@@ -196,41 +196,38 @@
     }
 
     .summary-label {
-      font-size: 13px;
+      font-size: 13.5px;
       color: var(--muted);
     }
 
-    .pain-grid {
+    .tech-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      gap: 18px;
       margin-top: 16px;
     }
 
-    .pain-card {
+    .tech-card {
       border: 1px solid var(--border);
-      padding: 16px;
+      padding: 20px;
       background: #ffffff;
     }
 
-    .pain-card h4 {
-      margin: 0 0 8px;
-      font-size: 16px;
+    .tech-card h3 {
+      margin-top: 0;
+      font-size: 18px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .pain-card p {
+    .tech-card h4 {
+      margin: 14px 0 6px;
+      font-size: 14.5px;
+    }
+
+    .tech-card ul {
       font-size: 14px;
-      color: var(--muted);
       margin-bottom: 10px;
-    }
-
-    .pain-meta {
-      font-size: 12px;
-      color: var(--text);
-      background: var(--code-bg);
-      padding: 4px 8px;
-      border: 1px solid #e5e5e5;
-      font-family: "Courier New", Consolas, monospace;
     }
 
     .table-wrap {
@@ -244,7 +241,7 @@
       width: 100%;
       border-collapse: collapse;
       font-size: 14px;
-      min-width: 780px;
+      min-width: 720px;
     }
 
     th, td {
@@ -308,7 +305,7 @@
 
     .roadmap-card {
       border: 1px solid var(--border);
-      padding: 16px;
+      padding: 18px;
       background: #ffffff;
     }
 
@@ -318,10 +315,8 @@
     }
 
     @media (max-width: 900px) {
-      .summary-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .pain-grid,
+      .summary-grid,
+      .tech-grid,
       .roadmap-grid {
         grid-template-columns: 1fr;
       }
@@ -331,9 +326,6 @@
       .container {
         width: min(calc(100% - 28px), var(--content-width));
         padding-top: 32px;
-      }
-      .summary-grid {
-        grid-template-columns: 1fr;
       }
       h1 {
         font-size: 25px;
@@ -354,7 +346,7 @@
       <div class="nav-links">
         <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/bao-cao-idp-thang-10-2026.html">Tổng quan Tháng 10</a>
         <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/short-term-tech-stack-report.html">1. Chuẩn hóa Tech Stack</a>
-        <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/long-term-web360-krpano-comparison.html" class="active">2. Đối sánh Web360 (krpano)</a>
+        <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/long-term-web360-krpano-comparison.html" class="active">2. Nghiên cứu Công nghệ Web360</a>
         <a href="https://anhtuan03-goku.github.io/anhtuan03-goku/muc-tieu-phat-trien-ca-nhan.html">Kế hoạch IDP gốc</a>
       </div>
     </div>
@@ -362,100 +354,105 @@
 
   <main class="container">
     <header>
-      <h1>BÁO CÁO MỤC TIÊU DÀI HẠN: GIẢM PHỤ THUỘC VÀO KRPANO & ĐỐI SÁNH CÔNG NGHỆ WEB360</h1>
+      <h1>BÁO CÁO MỤC TIÊU DÀI HẠN: NGHIÊN CỨU PHƯƠNG ÁN CÔNG NGHỆ WEB360 THAY THẾ (PLAN B)</h1>
       <p class="period"><strong>Nhân viên:</strong> Nguyễn Anh Tuấn &nbsp;|&nbsp; <strong>Quản lý trực tiếp:</strong> Lý Gia Hoàng – Web Leader &nbsp;|&nbsp; <strong>Kỳ báo cáo:</strong> Tháng 10/2026</p>
       <p>
-        Nghiên cứu chuyên sâu các phương án thay thế hoặc bổ trợ cho <strong>krpano</strong> trong hệ thống Web360 của công ty
-        (gồm <strong>Photo Sphere Viewer</strong>, <strong>Marzipano</strong> và <strong>Three.js Custom Panorama Engine</strong>),
-        nhằm hiểu rõ ưu/nhược điểm và xây dựng <strong>Plan B về mặt công nghệ</strong> khi sản phẩm cần mức độ tùy biến lớn hơn hoặc kết hợp sâu với không gian 3D.
+        Nhằm giảm sự phụ thuộc vào một công nghệ duy nhất trong hệ thống Web360, báo cáo này tập trung nghiên cứu và đánh giá chuyên sâu
+        <strong>3 phương án công nghệ thay thế</strong> đã đề ra trong kế hoạch IDP:
+        <strong>Photo Sphere Viewer</strong>, <strong>Marzipano</strong> và <strong>Three.js Custom Panorama Engine</strong>.
+        Mục tiêu là nắm vững ưu/nhược điểm, đánh giá hiệu năng, tính khả thi và xây dựng <strong>Plan B về mặt công nghệ</strong> khi các sản phẩm trong tương lai cần mức độ tùy biến lớn hơn.
       </p>
 
       <div class="summary-grid">
         <div class="summary-item">
-          <div class="summary-title">1. krpano 1.23 (Hiện tại)</div>
-          <div class="summary-value">6.32 / 10</div>
-          <div class="summary-label">Mạnh về hiển thị Multi-res tiles, nhưng đóng kín và khó đồng bộ sâu với React UI.</div>
-        </div>
-        <div class="summary-item">
-          <div class="summary-title">2. Photo Sphere Viewer v5</div>
+          <div class="summary-title">1. Photo Sphere Viewer (v5)</div>
           <div class="summary-value">8.36 / 10</div>
-          <div class="summary-label">Mã nguồn mở (MIT) trên nền Three.js; khả thi nhất để thay thế trực tiếp 1-1.</div>
+          <div class="summary-label">Thư viện mã nguồn mở (MIT) xây dựng trên nền Three.js, viết bằng TypeScript. Có sẵn hệ thống Plugin và Adapter đa phân giải hoàn chỉnh; tính khả thi triển khai nhanh cao nhất.</div>
         </div>
         <div class="summary-item">
-          <div class="summary-title">3. Marzipano (Google)</div>
+          <div class="summary-title">2. Marzipano (Google)</div>
           <div class="summary-value">7.18 / 10</div>
-          <div class="summary-label">Engine WebGL siêu nhẹ (~55KB), quản lý tile tốt nhưng không hỗ trợ không gian 3D.</div>
+          <div class="summary-label">Engine WebGL 360° siêu nhẹ (~55KB gzipped, Apache 2.0). Tối ưu rất tốt cho Multi-resolution Tile Pyramid và gắn phần tử DOM, nhưng ít cập nhật mới và không hỗ trợ cảnh 3D.</div>
         </div>
         <div class="summary-item">
-          <div class="summary-title">4. Three.js / R3F Custom</div>
+          <div class="summary-title">3. Three.js Custom Panorama Engine</div>
           <div class="summary-value">8.85 / 10</div>
-          <div class="summary-label">Giá trị chiến lược cao nhất để liên thông Tòa nhà 3D → Tầng → Căn hộ → Nội thất.</div>
+          <div class="summary-label">Xây dựng trực tiếp trên <code>three</code> + <code>@react-three/fiber</code>. Tự chủ 100% về Shaders, React UI và có khả năng liên thông trực tiếp với mô hình tòa nhà 3D.</div>
         </div>
       </div>
     </header>
 
     <section>
-      <h2>1. Các giới hạn thực tế khi tích hợp <code>krpano</code> trên SkySOLIS và Đảo Kim Quy</h2>
+      <h2>1. Phân tích chuyên sâu 3 công nghệ được đưa vào nghiên cứu</h2>
       <p>
-        Qua thực tế vận hành <strong>5.460 files krpano</strong> trên dự án
-        <a href="https://360.skysolis.my/" target="_blank" rel="noopener">SkySOLIS</a> và
-        <a href="https://vr360.daokimquy.vn/" target="_blank" rel="noopener">Đảo Kim Quy</a>,
-        việc nhúng một engine đóng cấu hình bằng XML như <code>krpano</code> vào ứng dụng Next.js / React bộc lộ 9 vấn đề kỹ thuật rõ rệt:
+        Mỗi công nghệ dưới đây đại diện cho một hướng tiếp cận khác nhau khi xây dựng hệ thống tham quan ảo 360° trên nền tảng Web hiện đại (Next.js / React):
       </p>
 
-      <div class="pain-grid">
-        <div class="pain-card">
-          <h4>1. Bẫy hủy instance & rò rỉ vòng lặp WebGL</h4>
-          <p>Hàm hủy của krpano là chữ thường <code>window.removepano(id)</code>. Khi gọi nhầm <code>removePano()</code> hoặc khi React StrictMode chạy kép, instance cũ không bị hủy và tiếp tục bắn <code>onviewchange</code> làm lệch kim la bàn. Ở SkySOLIS phải thêm bộ đếm định danh <code>krpanoEmbedSeq</code> để xử lý.</p>
-          <div class="pain-meta">KrpanoViewer.jsx (dòng 23, 176, 246)</div>
+      <div class="tech-grid">
+        <div class="tech-card">
+          <h3>1. Photo Sphere Viewer (PSV v5)</h3>
+          <p style="font-size: 14px; color: var(--muted);">
+            Thư viện panorama mã nguồn mở hiện đại, được xây dựng trực tiếp bên trên <code>Three.js</code> với kiến trúc module hóa rõ ràng.
+          </p>
+          <h4>Cơ chế kỹ thuật nổi bật:</h4>
+          <ul>
+            <li>Hỗ trợ nhiều Adapter hiển thị: <code>EquirectangularAdapter</code>, <code>CubemapAdapter</code>, và đặc biệt là <code>EquirectangularTilesAdapter</code> / <code>CubemapTilesAdapter</code> cho ảnh đa phân giải 8K–16K.</li>
+            <li>Hệ thống Plugin chính thức phong phú: <code>MarkersPlugin</code> (hotspot HTML/SVG/Image), <code>VirtualTourPlugin</code> (chuyển cảnh giữa các node), <code>MapPlugin</code> &amp; <code>PlanPlugin</code> (minimap/radar), <code>GalleryPlugin</code>, <code>GyroscopePlugin</code>.</li>
+          </ul>
+          <h4>Ưu điểm:</h4>
+          <ul>
+            <li>Viết hoàn toàn bằng TypeScript, có sẵn các sự kiện chuẩn JS và hàm dọn dẹp bộ nhớ <code>viewer.destroy()</code>.</li>
+            <li>Thời gian tích hợp nhanh nhờ có sẵn đầy đủ tính năng của một tour 360° hoàn chỉnh.</li>
+          </ul>
+          <h4>Nhược điểm / Lưu ý:</h4>
+          <ul>
+            <li>Camera cố định tại tâm quả cầu panorama, chưa phù hợp nếu muốn bay camera tự do trong một mô hình kiến trúc 3D lớn bên ngoài.</li>
+          </ul>
         </div>
 
-        <div class="pain-card">
-          <h4>2. Xung đột <code>autorun="onstart"</code> khi nạp cảnh</h4>
-          <p><code>vtourskin.xml</code> tự chạy cảnh đầu tiên trong file XML trước khi nhận được tham số <code>startscene</code> từ URL của React Router, gây tải lặp cảnh và làm sai lệch query parameter (phải dùng <code>initialSceneLockRef</code> để chặn).</p>
-          <div class="pain-meta">src/app/amenities/[id]/client.jsx</div>
+        <div class="tech-card">
+          <h3>2. Marzipano</h3>
+          <p style="font-size: 14px; color: var(--muted);">
+            Thư viện WebGL 360° độc lập do Google phát triển, tập trung tối đa vào tốc độ tải tile và sự gọn nhẹ.
+          </p>
+          <h4>Cơ chế kỹ thuật nổi bật:</h4>
+          <ul>
+            <li>Sử dụng WebGL thuần (không phụ thuộc Three.js), dung lượng chỉ khoảng ~55KB gzipped.</li>
+            <li>Quản lý hình học đa cấp độ (<code>CubeGeometry</code>, <code>EquirectGeometry</code>, <code>FlatGeometry</code>) với thuật toán tính toán vùng nhìn (frustum culling) và bộ đệm kết cấu GPU rất chặt chẽ.</li>
+            <li>Cung cấp <code>hotspotContainer().createHotspot(domElement, { yaw, pitch })</code> tự động chiếu phần tử DOM 2D theo góc nhìn 3D.</li>
+          </ul>
+          <h4>Ưu điểm:</h4>
+          <ul>
+            <li>Hiệu năng hiển thị ảnh nhiều tầng phân giải (Multi-resolution tiles) rất mượt và tiết kiệm bộ nhớ trên thiết bị di động.</li>
+            <li>Gắn trực tiếp React Component vào hotspot thông qua <code>createPortal</code> rất tự nhiên.</li>
+          </ul>
+          <h4>Nhược điểm / Lưu ý:</h4>
+          <ul>
+            <li>Chỉ cung cấp nhân hiển thị cốt lõi; các tính năng như Minimap, Radar, Tour Node, Gallery hay hiệu ứng chuyển cảnh nâng cao đều phải tự viết thêm.</li>
+            <li>Kho mã nguồn chính thức ít được bổ sung tính năng mới trong những năm gần đây.</li>
+          </ul>
         </div>
 
-        <div class="pain-card">
-          <h4>3. Giới hạn truyền dữ liệu từ XML sang JS</h4>
-          <p>Trình phân tích cú pháp <code>js(...)</code> trong XML của krpano tách tham số theo dấu phẩy mà không hiểu cú pháp Object <code>{ a: 1, b: 2 }</code> của JavaScript, buộc phải đi vòng qua hàm toàn cục <code>window.krpanoPostMessage</code>.</p>
-          <div class="pain-meta">Pano360Frame.jsx (dòng 26–37)</div>
-        </div>
-
-        <div class="pain-card">
-          <h4>4. Phải polling 240 frames để dịch Hotspot</h4>
-          <p>Ở SkySOLIS, các hotspot XML tạo layer chữ con bất đồng bộ sau khi tải xong ảnh. Khi người dùng đổi ngôn ngữ <code>vi ↔ en</code>, React phải chạy vòng lặp <code>requestAnimationFrame</code> kiểm tra liên tục suốt 240 frames (~4 giây) mới ghi đè được chữ dịch.</p>
-          <div class="pain-meta">useKrpanoHotspotI18n.js (dòng 35–99)</div>
-        </div>
-
-        <div class="pain-card">
-          <h4>5. Chi phí tính toán <code>spheretoscreen</code> 60fps</h4>
-          <p>Ở Đảo Kim Quy, để vẽ hotspot bằng React component, hệ thống phải chạy vòng lặp 60fps gọi <code>krpano.call("spheretoscreen(ath, atv, sx, sy)")</code> trên từng điểm và dễ phát sinh xung đột <code>z-index</code> khi mở bảng thông tin dự án.</p>
-          <div class="pain-meta">ReactHotspotsOverlay.jsx (dòng 50–85)</div>
-        </div>
-
-        <div class="pain-card">
-          <h4>6. Mất hiệu ứng kính mờ <code>backdrop-filter</code></h4>
-          <p>Khi krpano thực hiện hiệu ứng chuyển cảnh <code>OPENBLEND</code>, trình duyệt mất lớp <code>backdrop-filter: blur(10px)</code> trên nhãn hotspot HTML, buộc phải viết action XML <code>reapply_backdrop_blur</code> dùng <code>delayedcall</code> để vẽ lại.</p>
-          <div class="pain-meta">public/file360/plugins/flaghotspot.xml</div>
-        </div>
-
-        <div class="pain-card">
-          <h4>7. Sự kiện <code>onviewchange</code> gây re-render liên tục</h4>
-          <p>Krpano bắn góc quay dạng số thực ở mỗi khung hình. Nếu đẩy thẳng vào React state sẽ làm bản đồ Minimap và La bàn re-render 60 lần/giây (phải làm tròn <code>Math.round(heading)</code> và tách nội suy rAF riêng).</p>
-          <div class="pain-meta">showroom/[type]/client.jsx & Compass360.jsx</div>
-        </div>
-
-        <div class="pain-card">
-          <h4>8. Plugin <code>FloorPlan</code> gốc không thể tái sử dụng</h4>
-          <p>Plugin bản đồ <code>FloorPlan</code> đi kèm krpano (dùng XML và jQuery cũ) không kết nối được với i18n và giao diện React của dự án, nên đều phải vô hiệu hóa và viết mới hoàn toàn bằng SVG React.</p>
-          <div class="pain-meta">UtilityFloorPlan.jsx & HouseFloorPlan.jsx</div>
-        </div>
-
-        <div class="pain-card">
-          <h4>9. Không thể mở đồng thời 2 <code>KrpanoViewer</code></h4>
-          <p>Do dùng chung <code>id="krpanoContainer"</code> và store đơn, ứng dụng không thể mở chồng 2 viewer trên cùng một trang DOM, khiến tính năng xem 360° Ban công từ trong Nhà mẫu phải nhúng qua thẻ <code>&lt;iframe&gt;</code>.</p>
-          <div class="pain-meta">BanconyOverlay.jsx (dòng 45–62)</div>
+        <div class="tech-card">
+          <h3>3. Three.js Custom Panorama Engine</h3>
+          <p style="font-size: 14px; color: var(--muted);">
+            Tự xây dựng engine panorama chuyên biệt trên nền <code>three</code> + <code>@react-three/fiber</code> + <code>@react-three/drei</code>.
+          </p>
+          <h4>Cơ chế kỹ thuật nổi bật:</h4>
+          <ul>
+            <li>Kết xuất quả cầu (<code>SphereGeometry</code> đảo mặt trong) hoặc khối lập phương (<code>BoxGeometry</code>) trực tiếp bên trong <code>&lt;Canvas&gt;</code> của React Three Fiber.</li>
+            <li>Hotspot được khai báo trực tiếp bằng <code>&lt;Html&gt;</code> component hoặc 3D Mesh trong cùng cây component của React, dùng chung trực tiếp với <code>Zustand</code> và <code>next-intl</code>.</li>
+            <li>Cho phép kết hợp mô hình 3D (<code>.glb</code>/<code>.gltf</code>) và quả cầu panorama 360° trong cùng một không gian WebGL.</li>
+          </ul>
+          <h4>Ưu điểm:</h4>
+          <ul>
+            <li>Khả năng tùy biến tuyệt đối: viết được Custom GLSL Shaders (hiệu ứng chuyển cảnh theo chiều sâu Depth Map, thanh trượt Ngày ↔ Đêm, hiệu ứng ánh sáng).</li>
+            <li>Đáp ứng trực tiếp mục tiêu dài hạn trong IDP: trải nghiệm xuyên suốt <strong>Dự án → Không gian → Tòa nhà → Tầng → Căn hộ → Nội thất</strong>.</li>
+          </ul>
+          <h4>Nhược điểm / Lưu ý:</h4>
+          <ul>
+            <li>Đòi hỏi thời gian R&amp;D nhiều hơn để tự xây dựng bộ nạp Multi-resolution Tile Pyramid và quản lý giải phóng bộ nhớ GPU trên iOS Safari.</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -463,104 +460,91 @@
     <section>
       <h2>2. Bảng đánh giá hiệu năng, tính khả thi và các yếu tố kỹ thuật (12 tiêu chí)</h2>
       <p>
-        Bảng dưới đây so sánh chi tiết <strong>krpano</strong> với 3 phương án công nghệ được đề xuất trong bản IDP dựa trên yêu cầu thực tế của các dự án Bất động sản tại Goku:
+        Bảng dưới đây chấm điểm và đánh giá khách quan 3 công nghệ nghiên cứu dựa trên 12 tiêu chí phục vụ trực tiếp cho định hướng sản phẩm Bất động sản của công ty:
       </p>
 
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th style="width: 22%;">Tiêu chí đánh giá (Trọng số)</th>
-              <th style="width: 19.5%;">1. krpano 1.23<br><span style="font-weight:400;color:var(--muted);">Giải pháp hiện tại</span></th>
-              <th style="width: 19.5%;">2. Photo Sphere Viewer v5<br><span style="font-weight:400;color:var(--muted);">Three.js-based (MIT)</span></th>
-              <th style="width: 19.5%;">3. Marzipano<br><span style="font-weight:400;color:var(--muted);">Google WebGL (Apache 2.0)</span></th>
-              <th style="width: 19.5%;">4. Three.js / R3F Custom<br><span style="font-weight:400;color:var(--muted);">Custom Spatial Engine</span></th>
+              <th style="width: 25%;">Tiêu chí đánh giá &amp; Trọng số</th>
+              <th style="width: 25%;">1. Photo Sphere Viewer (v5)<br><span style="font-weight:400;color:var(--muted);">Three.js-based Library</span></th>
+              <th style="width: 25%;">2. Marzipano<br><span style="font-weight:400;color:var(--muted);">Lightweight WebGL Engine</span></th>
+              <th style="width: 25%;">3. Three.js Custom Engine<br><span style="font-weight:400;color:var(--muted);">React Three Fiber + Drei</span></th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>1. Hiệu năng Multi-Res Tiles (8K–16K) & Bộ nhớ Mobile</strong> (15%)</td>
-              <td><strong>9.5 / 10</strong><br>Tối ưu rất sâu, chia nhỏ khối lập phương đa mức, tiết kiệm VRAM trên iOS.</td>
-              <td><strong>8.0 / 10</strong><br>Có sẵn <code>CubemapTilesAdapter</code> & <code>EquirectangularTilesAdapter</code>; tốn VRAM hơn ~15%.</td>
-              <td><strong>9.0 / 10</strong><br>Kiến trúc multi-res pyramid rất nhẹ, quản lý texture GPU chặt chẽ.</td>
-              <td><strong>7.5 / 10</strong><br>Cần tự xây dựng bộ nạp Frustum Multi-Res Tile hoặc nén KTX2 để tối ưu RAM iOS.</td>
+              <td><strong>1. Hiệu năng Multi-Res Tiles (8K–16K) &amp; Quản lý bộ nhớ Mobile</strong><br><span style="color:var(--muted);font-size:12.5px;">Trọng số: 15%</span></td>
+              <td><strong>8.0 / 10</strong><br>Hỗ trợ sẵn <code>CubemapTilesAdapter</code> &amp; <code>EquirectangularTilesAdapter</code> tải theo vùng nhìn; tiêu thụ VRAM ở mức khá.</td>
+              <td><strong>9.0 / 10</strong><br>Tối ưu rất tốt cho cấu trúc tháp ảnh đa phân giải, giải phóng texture GPU nhanh và rất nhẹ trên điện thoại.</td>
+              <td><strong>7.5 / 10</strong><br>Mặc định tải toàn bộ texture; cần tự phát triển thêm Frustum Tile Loader hoặc dùng định dạng nén GPU <code>KTX2</code> cho ảnh 8K–16K.</td>
             </tr>
             <tr>
-              <td><strong>2. Tích hợp React / Next.js & Đồng bộ State (Zustand)</strong> (15%)</td>
-              <td><strong>4.0 / 10</strong><br>Giao tiếp qua chuỗi lệnh XML, biến toàn cục <code>window</code>, xung đột StrictMode.</td>
-              <td><strong>8.5 / 10</strong><br>API TypeScript hướng sự kiện chuẩn, khởi tạo và hủy instance (<code>destroy()</code>) sạch sẽ.</td>
-              <td><strong>8.0 / 10</strong><br>API thuần JS rõ ràng, dễ bọc vào Custom Hook, hỗ trợ mở nhiều viewer cùng lúc.</td>
-              <td><strong>10 / 10</strong><br>Toàn bộ Scene, Camera, Hotspot là React Component, đọc/ghi trực tiếp <code>Zustand</code>.</td>
+              <td><strong>2. Mức độ tích hợp React / Next.js &amp; Đồng bộ State (Zustand)</strong><br><span style="color:var(--muted);font-size:12.5px;">Trọng số: 15%</span></td>
+              <td><strong>8.5 / 10</strong><br>API hướng sự kiện chuẩn TypeScript, dễ đóng gói vào React Hook, quản lý vòng đời mount/unmount an toàn.</td>
+              <td><strong>8.0 / 10</strong><br>API đối tượng thuần JavaScript rõ ràng, không dùng biến toàn cục, hỗ trợ khởi tạo nhiều viewer trên cùng một trang.</td>
+              <td><strong>10 / 10</strong><br>Đồng nhất 100% với React Component Tree; truy cập trực tiếp vào <code>Zustand</code> store và React context mà không cần lớp cầu nối.</td>
             </tr>
             <tr>
-              <td><strong>3. Tùy biến Hotspot UI, CSS & Đa ngôn ngữ (<code>next-intl</code>)</strong> (15%)</td>
-              <td><strong>4.5 / 10</strong><br>Phải polling 240 frames hoặc tính <code>spheretoscreen</code> 60fps; lỗi mất <code>backdrop-filter</code>.</td>
-              <td><strong>9.0 / 10</strong><br><code>MarkersPlugin</code> hỗ trợ gắn trực tiếp phần tử HTML/DOM chuẩn, đổi ngôn ngữ tức thì.</td>
-              <td><strong>9.0 / 10</strong><br><code>createHotspot(domNode)</code> cho phép render trực tiếp React Component qua Portal.</td>
-              <td><strong>10 / 10</strong><br>Dùng <code>&lt;Html&gt;</code> của <code>@react-three/drei</code>, render trực tiếp JSX + Tailwind + <code>next-intl</code>.</td>
+              <td><strong>3. Tùy biến Hotspot UI, CSS &amp; Đa ngôn ngữ (<code>next-intl</code>)</strong><br><span style="color:var(--muted);font-size:12.5px;">Trọng số: 15%</span></td>
+              <td><strong>9.0 / 10</strong><br><code>MarkersPlugin</code> cho phép truyền trực tiếp HTML/DOM element chuẩn, hỗ trợ đầy đủ CSS hiện đại và cập nhật ngôn ngữ tức thì.</td>
+              <td><strong>9.0 / 10</strong><br><code>createHotspot(domElement)</code> hỗ trợ gắn trực tiếp React Portal vào tọa độ cầu <code>(yaw, pitch)</code> với mọi hiệu ứng CSS.</td>
+              <td><strong>10 / 10</strong><br>Sử dụng component <code>&lt;Html&gt;</code> hoặc Mesh 3D tùy biến; viết trực tiếp JSX + Tailwind CSS + <code>useTranslations()</code>.</td>
             </tr>
             <tr>
-              <td><strong>4. Mở rộng sang trải nghiệm 3D liên hoàn (<em>Dự án → Tòa nhà → Tầng → Căn hộ → Nội thất</em>)</strong> (15%)</td>
-              <td><strong>3.5 / 10</strong><br>Chỉ là trình xem ảnh cầu 360°, không thể tải và bay camera xuyên qua khối tòa nhà <code>.glb</code>.</td>
-              <td><strong>6.5 / 10</strong><br>Xây trên Three.js nhưng camera bị cố định ở tâm quả cầu panorama.</td>
-              <td><strong>3.0 / 10</strong><br>Chỉ hỗ trợ hình học panorama, không có Scene Graph 3D cho mô hình <code>.glb</code>.</td>
-              <td><strong>10 / 10</strong><br>Cùng 1 WebGL Canvas duy nhất: bay camera mượt từ mô hình tòa nhà 3D vào thẳng tâm quả cầu 360°.</td>
+              <td><strong>4. Khả năng mở rộng sang Không gian 3D (<em>Dự án → Tòa nhà → Tầng → Căn hộ → Nội thất</em>)</strong><br><span style="color:var(--muted);font-size:12.5px;">Trọng số: 15%</span></td>
+              <td><strong>6.5 / 10</strong><br>Dựa trên Three.js nên có thể thêm đối tượng 3D đơn giản, nhưng kiến trúc xoay quanh 1 camera cố định ở tâm quả cầu.</td>
+              <td><strong>3.0 / 10</strong><br>Chỉ thiết kế chuyên biệt cho hình học panorama 360°, không hỗ trợ tải và hiển thị mô hình kiến trúc <code>.glb</code>.</td>
+              <td><strong>10 / 10</strong><br><strong>Ưu thế vượt trội:</strong> Cùng một WebGL Canvas vừa hiển thị sa bàn/tòa nhà 3D (<code>.glb</code>), vừa bay camera mượt vào không gian 360° nội thất.</td>
             </tr>
             <tr>
-              <td><strong>5. Tự động hóa Pipeline cắt ảnh (Node.js / <code>sharp</code>)</strong> (10%)</td>
-              <td><strong>5.0 / 10</strong><br>Phụ thuộc công cụ đóng <code>krpanotools</code> chạy thủ công ngoài luồng code dự án.</td>
-              <td><strong>9.0 / 10</strong><br>Định dạng lưới ảnh chuẩn, tích hợp ngay vào script <code>sharp</code> sẵn có của team.</td>
-              <td><strong>8.0 / 10</strong><br>Cấu trúc tile rõ ràng, cần thêm bước chuyển đổi Equirectangular sang Cubemap.</td>
-              <td><strong>9.0 / 10</strong><br>Chủ động hoàn toàn bằng pipeline <code>sharp</code> + <code>@gltf-transform</code> hiện có.</td>
+              <td><strong>5. Tự động hóa Pipeline cắt ảnh (Tích hợp Node.js / <code>sharp</code>)</strong><br><span style="color:var(--muted);font-size:12.5px;">Trọng số: 10%</span></td>
+              <td><strong>9.0 / 10</strong><br>Quy ước đặt tên ô ảnh đơn giản (<code>col_row.webp</code> hoặc <code>face_col_row.webp</code>), dễ dàng dùng chung với bộ script <code>sharp</code> hiện có.</td>
+              <td><strong>8.0 / 10</strong><br>Cấu trúc thư mục tile chuẩn (<code>{z}/{f}/{y}/{x}.webp</code>), cần bổ sung thêm script chuyển đổi ảnh Equirectangular sang 6 mặt Cube.</td>
+              <td><strong>9.0 / 10</strong><br>Toàn quyền định nghĩa cấu trúc manifest và lưới ảnh đầu vào ngay trên pipeline <code>sharp</code> + <code>@gltf-transform</code> sẵn có.</td>
             </tr>
             <tr>
-              <td><strong>6. Hiệu ứng chuyển cảnh (Transitions) & Custom Shaders</strong> (8%)</td>
-              <td><strong>7.0 / 10</strong><br>Có sẵn <code>BLEND</code> / <code>OPENBLEND</code> nhưng đóng cứng, không viết được shader riêng.</td>
-              <td><strong>7.5 / 10</strong><br>Hỗ trợ hiệu ứng fade + zoom hướng nhìn sẵn có trong <code>VirtualTourPlugin</code>.</td>
-              <td><strong>6.5 / 10</strong><br>Hỗ trợ chuyển cảnh cơ bản qua hàm <code>transitionUpdate</code>.</td>
-              <td><strong>10 / 10</strong><br>Toàn quyền viết Custom GLSL Shaders (trộn Ngày/Đêm theo thanh trượt, Depth-map transition).</td>
+              <td><strong>6. Hiệu ứng chuyển cảnh (Transitions) &amp; Custom Shaders</strong><br><span style="color:var(--muted);font-size:12.5px;">Trọng số: 8%</span></td>
+              <td><strong>7.5 / 10</strong><br>Có sẵn hiệu ứng cross-fade kết hợp xoay/phóng hướng nhìn mượt mà trong <code>VirtualTourPlugin</code>.</td>
+              <td><strong>6.5 / 10</strong><br>Hỗ trợ các hàm chuyển cảnh cơ bản qua tham số <code>transitionDuration</code> và <code>transitionUpdate</code>.</td>
+              <td><strong>10 / 10</strong><br>Toàn quyền lập trình Custom GLSL Vertex/Fragment Shaders (chuyển cảnh chiều sâu theo Depth Map, trộn Ngày/Đêm, hiệu ứng ánh sáng).</td>
             </tr>
             <tr>
-              <td><strong>7. Hỗ trợ WebXR / Kính VR & Cảm biến Gyroscope</strong> (5%)</td>
-              <td><strong>8.5 / 10</strong><br>Plugin <code>webvr.xml</code> và <code>gyro2.js</code> ổn định.</td>
-              <td><strong>8.0 / 10</strong><br>Có sẵn <code>GyroscopePlugin</code> và <code>StereoPlugin</code>.</td>
-              <td><strong>6.0 / 10</strong><br>Dựa trên chuẩn WebVR cũ, cần cập nhật sang WebXR Device API.</td>
-              <td><strong>9.5 / 10</strong><br>Hỗ trợ chuẩn WebXR mới nhất qua <code>@react-three/xr</code>.</td>
+              <td><strong>7. Hỗ trợ WebXR / Kính VR &amp; Cảm biến Gyroscope</strong><br><span style="color:var(--muted);font-size:12.5px;">Trọng số: 5%</span></td>
+              <td><strong>8.0 / 10</strong><br>Cung cấp sẵn <code>GyroscopePlugin</code> và <code>StereoPlugin</code> cho trải nghiệm trên thiết bị di động.</td>
+              <td><strong>6.0 / 10</strong><br>Có hỗ trợ DeviceOrientation cơ bản nhưng dựa trên chuẩn WebVR cũ, cần cập nhật thêm cho WebXR mới.</td>
+              <td><strong>9.5 / 10</strong><br>Tích hợp trực tiếp với thư viện chính thức <code>@react-three/xr</code> theo chuẩn WebXR Device API mới nhất.</td>
             </tr>
             <tr>
-              <td><strong>8. Kích thước Bundle (Bundle Size Impact)</strong> (5%)</td>
-              <td><strong>8.5 / 10</strong><br><code>krpano.js</code> ~135KB tải độc lập ngoài bundle Next.js.</td>
-              <td><strong>7.0 / 10</strong><br>Core + Plugins ~90KB (chạy trên nền <code>three</code> đã cài sẵn trong dự án).</td>
-              <td><strong>9.5 / 10</strong><br>Siêu nhẹ (~55KB gzipped), không phụ thuộc thư viện 3D ngoài.</td>
-              <td><strong>8.0 / 10</strong><br>Tận dụng trực tiếp <code>three</code> + <code>R3F</code> đã có sẵn trong <code>package.json</code>, code riêng ~20KB.</td>
+              <td><strong>8. Kích thước Bundle (Bundle Size Impact)</strong><br><span style="color:var(--muted);font-size:12.5px;">Trọng số: 5%</span></td>
+              <td><strong>7.0 / 10</strong><br>Core + Plugins khoảng ~90KB (kết hợp cùng thư viện <code>three</code> vốn đã có sẵn trong Base Template).</td>
+              <td><strong>9.5 / 10</strong><br>Rất nhẹ (~55KB gzipped), hoạt động độc lập không cần tải thêm thư viện 3D.</td>
+              <td><strong>8.0 / 10</strong><br>Tận dụng trực tiếp <code>three</code>, <code>@react-three/fiber</code>, <code>@react-three/drei</code> đã cài sẵn trong dự án; phần code riêng chỉ ~20KB.</td>
             </tr>
             <tr>
-              <td><strong>9. Chi phí bản quyền & Tính chủ động mã nguồn</strong> (5%)</td>
-              <td><strong>4.0 / 10</strong><br>Bản quyền thương mại đóng, mã nguồn bị làm rối (obfuscated), khó debug sâu.</td>
-              <td><strong>10 / 10</strong><br>Mã nguồn mở MIT 100%, miễn phí thương mại, tự chủ hoàn toàn.</td>
-              <td><strong>9.5 / 10</strong><br>Mã nguồn mở Apache 2.0 miễn phí.</td>
-              <td><strong>10 / 10</strong><br>Mã nguồn mở MIT 100%, công ty làm chủ hoàn toàn công nghệ lõi.</td>
+              <td><strong>9. Bản quyền, Chi phí &amp; Tính mở của Mã nguồn</strong><br><span style="color:var(--muted);font-size:12.5px;">Trọng số: 5%</span></td>
+              <td><strong>10 / 10</strong><br>Mã nguồn mở hoàn toàn (MIT License), miễn phí cho các dự án thương mại, dễ dàng đọc hiểu và tùy chỉnh.</td>
+              <td><strong>9.5 / 10</strong><br>Mã nguồn mở (Apache 2.0 License), miễn phí hoàn toàn cho mục đích thương mại.</td>
+              <td><strong>10 / 10</strong><br>Mã nguồn mở (MIT License), công ty hoàn toàn làm chủ mã nguồn và tài sản kỹ thuật tự phát triển.</td>
             </tr>
             <tr>
-              <td><strong>10. Cộng đồng, Tài liệu & Khả năng tiếp cận</strong> (5%)</td>
-              <td><strong>6.5 / 10</strong><br>Ngôn ngữ XML riêng biệt, nhân sự Frontend mới mất thời gian làm quen.</td>
-              <td><strong>9.0 / 10</strong><br>Tài liệu rõ ràng, chuẩn JS/TS hiện đại, lập trình viên React nắm bắt nhanh.</td>
-              <td><strong>5.5 / 10</strong><br>Rất ổn định nhưng Google ít cập nhật tính năng mới từ năm 2021.</td>
-              <td><strong>9.5 / 10</strong><br>Cộng đồng Three.js / R3F lớn nhất hiện nay, đồng bộ với định hướng học tập của team.</td>
+              <td><strong>10. Cộng đồng hỗ trợ, Tài liệu &amp; Khả năng bảo trì dài hạn</strong><br><span style="color:var(--muted);font-size:12.5px;">Trọng số: 5%</span></td>
+              <td><strong>9.0 / 10</strong><br>Dự án hoạt động tích cực, tài liệu chi tiết kèm nhiều ví dụ mẫu, lập trình viên Frontend nắm bắt rất nhanh.</td>
+              <td><strong>5.5 / 10</strong><br>Tài liệu rõ ràng nhưng dự án ở trạng thái duy trì, ít có bản cập nhật mới từ cộng đồng.</td>
+              <td><strong>9.5 / 10</strong><br>Cộng đồng Three.js và hệ sinh thái Poimandres (R3F) lớn mạnh nhất trong mảng Web 3D hiện nay.</td>
             </tr>
             <tr>
-              <td><strong>11. Thời gian triển khai ban đầu (Time-to-Market)</strong> (2%)</td>
-              <td><strong>9.0 / 10</strong><br>Đã có sẵn quy trình xuất file 360 hiện hành.</td>
-              <td><strong>8.5 / 10</strong><br>Nhanh (1–2 tuần) nhờ có sẵn hệ thống plugin tương đương.</td>
-              <td><strong>7.0 / 10</strong><br>Cần 2–3 tuần để xây dựng thêm lớp UI/Minimap bao quanh.</td>
-              <td><strong>5.5 / 10</strong><br>Cần 4–6 tuần R&D để hoàn thiện bộ tải multi-res tiles & công cụ đặt hotspot.</td>
+              <td><strong>11. Thời gian triển khai ban đầu (Time-to-Market)</strong><br><span style="color:var(--muted);font-size:12.5px;">Trọng số: 2%</span></td>
+              <td><strong>8.5 / 10</strong><br>Ngắn (1–2 tuần) vì các tính năng cốt lõi như Tour, Marker, Minimap, Gallery đều đã có sẵn plugin.</td>
+              <td><strong>7.0 / 10</strong><br>Trung bình (2–3 tuần) do cần xây dựng thêm hệ thống quản lý node tour và giao diện Minimap/Radar.</td>
+              <td><strong>5.5 / 10</strong><br>Dài hơn (4–6 tuần R&amp;D) để hoàn thiện hệ thống nạp tile đa cấp, điều khiển camera quán tính và công cụ lấy tọa độ hotspot.</td>
             </tr>
             <tr style="background: var(--surface);">
-              <td><strong>12. ĐIỂM TỔNG HỢP CÓ TRỌNG SỐ & TÍNH KHẢ THI</strong> (100%)</td>
-              <td><strong>6.32 / 10</strong><br>Duy trì cho các dự án ngắn hạn với wrapper <code>KrpanoViewer</code> đã fix lỗi.</td>
-              <td><strong>8.36 / 10</strong><br><strong>Phương án khả thi cao nhất</strong> để thay thế trực tiếp 1-1 trong ngắn & trung hạn.</td>
-              <td><strong>7.18 / 10</strong><br>Tham chiếu tốt về cấu trúc multi-res tile và phép chiếu DOM nhẹ.</td>
-              <td><strong>8.85 / 10</strong><br><strong>Đích đến chiến lược</strong> cho sản phẩm kết hợp Sa bàn 3D + Panorama 360°.</td>
+              <td><strong>12. ĐIỂM TỔNG HỢP CÓ TRỌNG SỐ &amp; ĐÁNH GIÁ KHẢ THI</strong><br><span style="color:var(--muted);font-size:12.5px;">Tổng trọng số: 100%</span></td>
+              <td><strong>8.36 / 10</strong><br><strong>Khả thi cao nhất trong ngắn &amp; trung hạn:</strong> Cân bằng tốt giữa hiệu năng, hệ thống plugin có sẵn và tốc độ triển khai.</td>
+              <td><strong>7.18 / 10</strong><br><strong>Phù hợp làm tham chiếu kỹ thuật:</strong> Rất mạnh về thuật toán quản lý multi-res tiles nhẹ và phép chiếu DOM hotspot.</td>
+              <td><strong>8.85 / 10</strong><br><strong>Giá trị chiến lược cao nhất về dài hạn:</strong> Nền tảng duy nhất giải quyết trọn vẹn bài toán liên thông Sa bàn 3D ↔ Nội thất 360°.</td>
             </tr>
           </tbody>
         </table>
@@ -568,52 +552,21 @@
     </section>
 
     <section>
-      <h2>3. Ví dụ đối sánh cách triển khai Hotspot đa ngôn ngữ (<code>next-intl</code>) giữa 4 công nghệ</h2>
-      <p>Chọn từng công nghệ bên dưới để so sánh mức độ gọn nhẹ khi gắn một điểm Hotspot có hỗ trợ đổi ngôn ngữ <code>vi ↔ en</code> và mở Modal React khi người dùng nhấn vào:</p>
+      <h2>3. Ví dụ triển khai kỹ thuật của 3 phương án nghiên cứu</h2>
+      <p>Chọn từng phương án bên dưới để xem cấu trúc code khi khởi tạo cảnh Panorama và gắn điểm Hotspot đa ngôn ngữ (<code>next-intl</code>) trong React:</p>
 
       <div class="tab-bar">
-        <button class="tab-btn active" onclick="showTab('tab-krpano', this)">1. krpano hiện tại (XML + 240-frame rAF Polling)</button>
-        <button class="tab-btn" onclick="showTab('tab-psv', this)">2. Photo Sphere Viewer v5 (MarkersPlugin)</button>
-        <button class="tab-btn" onclick="showTab('tab-marzipano', this)">3. Marzipano (DOM Hotspot + React Portal)</button>
-        <button class="tab-btn" onclick="showTab('tab-r3f', this)">4. Three.js / React Three Fiber (&lt;Html&gt; Component)</button>
+        <button class="tab-btn active" onclick="showTab('tab-psv', this)">1. Photo Sphere Viewer v5 (CubemapTiles + MarkersPlugin)</button>
+        <button class="tab-btn" onclick="showTab('tab-marzipano', this)">2. Marzipano (Multi-Res Cube + React Portal Hotspot)</button>
+        <button class="tab-btn" onclick="showTab('tab-r3f', this)">3. Three.js / React Three Fiber (Declarative 3D + 360° Scene)</button>
       </div>
 
-      <div id="tab-krpano" class="tab-panel active">
-        <pre><code>// 1. Khai báo cứng trong public/file360/overview/tour.xml:
-// &lt;hotspot name="hs_lobby" style="flag_icon" ath="42.5" atv="-8.2" text="Sảnh Đón"
-//          onclick="js(window.krpanoPostMessage('open-utility', { id: 'lobby' }))" /&gt;
-
-// 2. Trong src/hooks/useKrpanoHotspotI18n.js (Phải chạy vòng lặp chờ XML tạo xong layer chữ con):
-useEffect(() => {
-  let frame = 0;
-  let rafId;
-  const syncLabels = () => {
-    const krpano = krpanoRef?.current;
-    if (!krpano) {
-      if (frame++ < 240) rafId = requestAnimationFrame(syncLabels);
-      return;
-    }
-    let allApplied = true;
-    for (const [hsName, i18nKey] of Object.entries(hotspotMap)) {
-      const txtLayerName = `${hsName}txt`;
-      if (!krpano.get(`layer[${txtLayerName}]`)) {
-        allApplied = false;
-        continue;
-      }
-      krpano.set(`layer[${txtLayerName}].html`, t(i18nKey));
-    }
-    if (!allApplied && frame++ < 240) rafId = requestAnimationFrame(syncLabels);
-  };
-  rafId = requestAnimationFrame(syncLabels);
-  return () => cancelAnimationFrame(rafId);
-}, [locale, activeScene]);</code></pre>
-      </div>
-
-      <div id="tab-psv" class="tab-panel">
+      <div id="tab-psv" class="tab-panel active">
         <pre><code>import { Viewer } from '@photo-sphere-viewer/core';
 import { CubemapTilesAdapter } from '@photo-sphere-viewer/cubemap-tiles-adapter';
 import { MarkersPlugin } from '@photo-sphere-viewer/markers-plugin';
 
+// Khởi tạo Viewer với Multi-resolution Cubemap Tiles
 const viewer = new Viewer({
   container: containerRef.current,
   adapter: CubemapTilesAdapter,
@@ -625,7 +578,7 @@ const viewer = new Viewer({
   plugins: [[MarkersPlugin, { markers: [] }]],
 });
 
-// Khi đổi ngôn ngữ (vi <-> en), cập nhật trực tiếp DOM/HTML chuẩn mà không cần polling:
+// Cập nhật danh sách Hotspot theo ngôn ngữ hiện tại (vi / en):
 const markersPlugin = viewer.getPlugin(MarkersPlugin);
 markersPlugin.setMarkers(
   hotspots.map((hs) => ({
@@ -645,6 +598,7 @@ markersPlugin.addEventListener('select-marker', ({ marker }) => {
         <pre><code>import Marzipano from 'marzipano';
 import { createPortal } from 'react-dom';
 
+// Khởi tạo hình học Multi-resolution Cube Pyramid
 const geometry = new Marzipano.CubeGeometry([
   { tileSize: 512, size: 512 },
   { tileSize: 512, size: 2048 },
@@ -654,7 +608,7 @@ const source = Marzipano.ImageUrlSource.fromString('/tiles/{z}/{f}/{y}/{x}.webp'
 const view = new Marzipano.RectilinearView({ yaw: 0, pitch: 0, fov: Math.PI / 2 });
 const scene = viewer.createScene({ source, geometry, view });
 
-// Gắn phần tử DOM trực tiếp vào tọa độ cầu và dùng React Portal:
+// Gắn phần tử DOM trực tiếp vào tọa độ cầu và kết xuất React Component qua Portal:
 const domNode = document.createElement('div');
 scene.hotspotContainer().createHotspot(domNode, {
   yaw: (hs.ath * Math.PI) / 180,
@@ -669,7 +623,7 @@ return createPortal(
 
       <div id="tab-r3f" class="tab-panel">
         <pre><code>import { Canvas } from '@react-three/fiber';
-import { Html, useTexture } from '@react-three/drei';
+import { Html, OrbitControls, useTexture } from '@react-three/drei';
 import { useTranslations } from 'next-intl';
 
 function PanoramaSphere({ textureUrl, hotspots, onSelect }) {
@@ -697,34 +651,34 @@ function PanoramaSphere({ textureUrl, hotspots, onSelect }) {
     </section>
 
     <section>
-      <h2>4. Kết luận và kế hoạch thử nghiệm trong thời gian tới</h2>
+      <h2>4. Kết luận và định hướng tiếp tục thử nghiệm trong thời gian tới</h2>
 
       <div class="highlight-box">
         <p style="margin-bottom: 8px;">
-          <strong>Kết luận chung:</strong> Mục tiêu của giai đoạn này không phải là thay thế <code>krpano</code> ngay lập tức trên các dự án đang chạy gấp, mà là nắm vững ưu/nhược điểm của từng công nghệ để có sẵn <strong>Plan B</strong> khi dự án yêu cầu tùy biến giao diện React sâu hơn hoặc kết hợp không gian 3D.
+          <strong>Kết luận đánh giá:</strong> Cả 3 công nghệ được đưa ra đều giải quyết tốt bài toán làm chủ mã nguồn bằng JavaScript/TypeScript và tích hợp trực tiếp với giao diện React. Trong đó, <strong>Photo Sphere Viewer v5 (8.36/10)</strong> nổi bật về tính sẵn sàng để triển khai nhanh nhờ hệ sinh thái plugin hoàn chỉnh, còn <strong>Three.js Custom Panorama Engine (8.85/10)</strong> mang lại khả năng mở rộng lớn nhất cho định hướng kết hợp Web 3D và Web360.
         </p>
         <p style="margin-bottom: 0;">
-          <strong>Định hướng sắp tới:</strong> <strong>Sẽ tiếp tục thực hiện thử nghiệm thực tế (Build POC) trong thời gian tới</strong> theo 3 bước cụ thể dưới đây.
+          <strong>Định hướng hành động:</strong> <strong>Sẽ tiếp tục thực hiện thử nghiệm thực tế (Build POC) trong thời gian tới</strong> để đo đạc số liệu vận hành trực tiếp trên tài sản dữ liệu của dự án.
         </p>
       </div>
 
       <div class="roadmap-grid">
         <div class="roadmap-card">
-          <h4>Bước 1: Chuẩn hóa ngắn hạn</h4>
+          <h4>Bước 1: Thử nghiệm POC với Photo Sphere Viewer v5</h4>
           <p style="font-size: 14px; color: var(--muted); margin: 0;">
-            Tiếp tục sử dụng bản <code>KrpanoViewer.jsx</code> đã khắc phục lỗi hủy instance (<code>removepano(id)</code> + <code>krpanoEmbedSeq</code>) và khóa <code>initialSceneLockRef</code> của dự án SkySOLIS làm chuẩn chung cho các dự án hiện hành.
+            Dựng bản thử nghiệm sử dụng <code>CubemapTilesAdapter</code>, <code>VirtualTourPlugin</code> và <code>MarkersPlugin</code> để đánh giá tốc độ tải lưới ảnh đa phân giải, mức tiêu thụ bộ nhớ trên thiết bị di động và khả năng tùy biến giao diện Hotspot.
           </p>
         </div>
         <div class="roadmap-card">
-          <h4>Bước 2: Thử nghiệm POC với Photo Sphere Viewer v5</h4>
+          <h4>Bước 2: Nghiên cứu thuật toán Tile Loading từ Marzipano</h4>
           <p style="font-size: 14px; color: var(--muted); margin: 0;">
-            Dựng bản POC thử nghiệm bằng <strong>Photo Sphere Viewer v5</strong> (sử dụng <code>CubemapTilesAdapter</code> + <code>MarkersPlugin</code>) trên dữ liệu ảnh thực tế của dự án để đo đạc FPS, bộ nhớ Safari iOS và khả năng cập nhật đa ngôn ngữ tức thì.
+            Tham khảo cách tổ chức cấu trúc tháp ảnh (tile pyramid) và cơ chế tính toán vùng nhìn (frustum culling) của Marzipano để áp dụng vào việc tối ưu hóa bộ nạp ảnh đa cấp.
           </p>
         </div>
         <div class="roadmap-card">
-          <h4>Bước 3: Thử nghiệm POC liên thông 3D ↔ 360° với Three.js</h4>
+          <h4>Bước 3: Xây dựng POC liên thông 3D ↔ 360° với Three.js</h4>
           <p style="font-size: 14px; color: var(--muted); margin: 0;">
-            Tận dụng bộ thư viện <code>three</code> + <code>@react-three/fiber</code> sẵn có trong dự án để thử nghiệm luồng trải nghiệm liên hoàn: <strong>Khám phá dự án → Tòa nhà 3D → Tầng → Căn hộ → Nội thất 360°</strong>.
+            Tận dụng bộ thư viện <code>three</code> + <code>@react-three/fiber</code> sẵn có trong Base Template để thử nghiệm trải nghiệm xuyên suốt: <strong>Khám phá dự án → Không gian → Tòa nhà → Tầng → Căn hộ → Nội thất</strong>.
           </p>
         </div>
       </div>

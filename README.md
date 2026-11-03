@@ -10,4 +10,4 @@
   - Bản báo cáo tổng hợp (Markdown): [BAO_CAO_IDP_GIAI_DOAN_1_10_2026.md](./BAO_CAO_IDP_GIAI_DOAN_1_10_2026.md)
   - Trang tổng quan báo cáo Tháng 10/2026 (HTML): [https://anhtuan03-goku.github.io/anhtuan03-goku/bao-cao-idp-thang-10-2026.html](https://anhtuan03-goku.github.io/anhtuan03-goku/bao-cao-idp-thang-10-2026.html)
   - Báo cáo chi tiết Mục tiêu ngắn hạn – Chuẩn hóa Tech Stack (HTML): [https://anhtuan03-goku.github.io/anhtuan03-goku/short-term-tech-stack-report.html](https://anhtuan03-goku.github.io/anhtuan03-goku/short-term-tech-stack-report.html)
-  - Báo cáo chi tiết Mục tiêu dài hạn – Đối sánh Công nghệ Web360 & krpano (HTML): [https://anhtuan03-goku.github.io/anhtuan03-goku/long-term-web360-krpano-comparison.html](https://anhtuan03-goku.github.io/anhtuan03-goku/long-term-web360-krpano-comparison.html)
+  - Báo cáo chi tiết Mục tiêu dài hạn – Nghiên cứu Công nghệ Web360 thay thế (HTML): [https://anhtuan03-goku.github.io/anhtuan03-goku/long-term-web360-krpano-comparison.html](https://anhtuan03-goku.github.io/anhtuan03-goku/long-term-web360-krpano-comparison.html)
